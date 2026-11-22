@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第21章 固定收益分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,12 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第21章 固定收益分析</h1>
 
-        <h2>第21章 固定收益分析</h2>
+        <p class="article-dek">债券定价与到期收益率、收益率曲线的三种形态、久期与凸性、信用利差与 Altman Z-Score。</p>
 
         <p>大家好，我是你们的讲师。上一章我们讨论了衍生品——那些让风险可以被独立定价和交易的金融工具。但这又引出一个问题：衍生品的定价基础（无风险利率、折现因子）是从哪里来的？答案来自本章要讲的内容——<strong>固定收益分析</strong>（Fixed Income Analysis）。</p>
 
@@ -68,13 +71,35 @@
 
         <h3>债券定价公式</h3>
 
-        <p>债券价格等于未来所有现金流（票息+本金）按YTM折现的现值之和：</p>
+        <p>债券价格等于未来所有现金流（票息+本金）按 YTM 折现的现值之和：</p>
 
-        <p><strong>P = Σ [C / (1 + r)ᵗ] + F / (1 + r)ⁿ</strong></p>
+        <div class="math-equation" role="group" aria-label="债券定价公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="债券定价公式，可横向滚动">
+                <math display="block" aria-label="债券价格等于每期票息按到期收益率折现的求和，加上面值折现到到期">
+                    <mrow>
+                        <mi>P</mi><mo>=</mo>
+                        <munderover><mo>Σ</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover>
+                        <mfrac><mi>C</mi><msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo>)</mo></mrow><mi>t</mi></msup></mfrac>
+                        <mo>+</mo>
+                        <mfrac><mi>F</mi><msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo>)</mo></mrow><mi>n</mi></msup></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
-        <p>其中，P是价格，C是每期票息，r是YTM，F是面值，t是期数，n是总期数。</p>
+        <p>其中，P 是价格，C 是每期票息，r 是 YTM，F 是面值，t 是期数，n 是总期数。</p>
 
         <p>从这个公式可以看出一个关键关系：<strong>债券价格与YTM呈反向关系</strong>——收益率上升，价格下跌；收益率下降，价格上涨。这个关系是固定收益分析的"牛顿定律"。</p>
+
+        <div class="widget">
+            <p><strong>动手试试：</strong>面值 100 元、票息 3.5%、5 年期的债券，切换市场到期收益率，看价格怎么动。</p>
+            <div class="controls" id="bond-controls" role="group" aria-label="选择到期收益率">
+                <button type="button" data-y="0.02" aria-pressed="false">YTM = 2%</button>
+                <button type="button" data-y="0.032" aria-pressed="true">YTM = 3.2%</button>
+                <button type="button" data-y="0.05" aria-pressed="false">YTM = 5%</button>
+            </div>
+            <output id="bond-out" aria-live="polite">YTM = 3.2% 时，债券价格约为 101.37 元，高于面值（溢价）。</output>
+        </div>
 
         <div class="tip">
             <strong>中国市场实务：</strong>在中国债券市场，YTM的计算通常采用"实际/365"的计息基准（银行间市场）或"实际/360"（交易所市场）。如果你做跨市场分析，一定要注意计息基准的差异——在一个市场算出来的YTM，可能在另一个市场被算错。
@@ -91,6 +116,24 @@
             <li><strong>平坦曲线</strong>（Flat）——长短端收益率差异很小。通常出现在货币政策紧缩周期末期或经济转型期。</li>
             <li><strong>倒挂曲线</strong>（Inverted / Downward Sloping）——短期收益率高于长期收益率。这是最引人关注的形态——在历史上，美国国债收益率曲线倒挂几乎总是领先于经济衰退（recession），是市场公认的"衰退预警信号"。</li>
         </ul>
+
+        <figure>
+            <svg role="img" width="760" height="320" style="max-width:100%;height:auto" aria-labelledby="yc-title yc-desc" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+                <title id="yc-title">收益率曲线的三种形态</title>
+                <desc id="yc-desc">横轴为剩余期限，纵轴为收益率。正常曲线自左向右上升，平坦曲线几乎水平，倒挂曲线自左向右下降且短端高于长端。</desc>
+                <line x1="80" y1="270" x2="720" y2="270" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="80" y1="270" x2="80" y2="30" stroke="#94a3b8" stroke-width="2"/>
+                <text x="400" y="300" text-anchor="middle" font-size="14" fill="#475569" font-family="system-ui, sans-serif">剩余期限</text>
+                <text x="34" y="150" text-anchor="middle" font-size="14" fill="#475569" font-family="system-ui, sans-serif" transform="rotate(-90 34 150)">收益率</text>
+                <path d="M80 250 Q300 180 720 70" fill="none" stroke="#7c3aed" stroke-width="3"/>
+                <path d="M80 200 Q400 192 720 186" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                <path d="M80 90 Q400 150 720 240" fill="none" stroke="#f97316" stroke-width="3"/>
+                <text x="250" y="180" font-size="13" fill="#6d28d9" font-family="system-ui, sans-serif">正常（上斜）</text>
+                <text x="260" y="212" font-size="13" fill="#0369a1" font-family="system-ui, sans-serif">平坦</text>
+                <text x="250" y="120" font-size="13" fill="#c2410c" font-family="system-ui, sans-serif">倒挂（下斜）</text>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>收益率曲线的三种形态。正常曲线短端低、长端高；平坦曲线长短端差异很小；倒挂曲线短端高于长端，历史上常被视为衰退预警信号。</figcaption>
+        </figure>
 
         <h3>骑乘策略</h3>
 
@@ -121,7 +164,20 @@
 
         <h3>修正久期</h3>
 
-        <p>修正久期（Modified Duration）是麦考利久期除以（1+YTM）。它的直接含义是：<strong>YTM每变动1个百分点，债券价格变动的百分比</strong>。修正久期为5的债券，如果收益率上升1%，理论上价格下跌约5%。</p>
+        <p>修正久期（Modified Duration）是麦考利久期除以（1+YTM）。它的直接含义是：<strong>YTM 每变动 1 个百分点，债券价格变动的百分比</strong>。修正久期为 5 的债券，如果收益率上升 1%，理论上价格下跌约 5%。</p>
+
+        <div class="math-equation" role="group" aria-label="修正久期近似关系">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="修正久期近似关系，可横向滚动">
+                <math display="block" aria-label="债券价格的变化率约等于负的修正久期乘以收益率变化">
+                    <mrow>
+                        <mfrac><mrow><mi>Δ</mi><mi>P</mi></mrow><mi>P</mi></mfrac>
+                        <mo>≈</mo><mo>−</mo>
+                        <msub><mi>D</mi><mtext>mod</mtext></msub>
+                        <mo>×</mo><mi>Δ</mi><mi>y</mi>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <h3>有效久期</h3>
 
@@ -130,6 +186,24 @@
         <h3>凸性：久期的"非线性"修正</h3>
 
         <p>久期假设债券价格与收益率的变化呈线性关系，但实际上这种关系是凸性的（convex）——即收益率下降时价格上升的幅度，大于收益率上升时价格下跌的幅度。这就是<strong>凸性效应</strong>（Convexity）。</p>
+
+        <figure>
+            <svg role="img" width="760" height="320" style="max-width:100%;height:auto" aria-labelledby="cv-title cv-desc" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+                <title id="cv-title">价格-收益率曲线与久期近似</title>
+                <desc id="cv-desc">横轴为收益率，纵轴为债券价格。实际价格曲线向下且向上凸；久期近似是一条在基准点相切的直线，收益率偏离基准越大，直线与曲线的差距越大。</desc>
+                <line x1="80" y1="280" x2="720" y2="280" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="80" y1="280" x2="80" y2="30" stroke="#94a3b8" stroke-width="2"/>
+                <text x="400" y="310" text-anchor="middle" font-size="14" fill="#475569" font-family="system-ui, sans-serif">收益率 y</text>
+                <text x="40" y="155" text-anchor="middle" font-size="14" fill="#475569" font-family="system-ui, sans-serif" transform="rotate(-90 40 155)">债券价格 P</text>
+                <path d="M100 60 Q360 150 700 268" fill="none" stroke="#7c3aed" stroke-width="3"/>
+                <line x1="150" y1="70" x2="650" y2="244" stroke="#0ea5e9" stroke-width="2.5" stroke-dasharray="8 5"/>
+                <circle cx="400" cy="157" r="6" fill="#6d28d9"/>
+                <text x="412" y="150" font-size="13" fill="#4c1d95" font-family="system-ui, sans-serif">基准点</text>
+                <text x="180" y="105" font-size="13" fill="#6d28d9" font-family="system-ui, sans-serif">实际价格（凸性）</text>
+                <text x="470" y="250" font-size="13" fill="#0369a1" font-family="system-ui, sans-serif">久期近似（切线）</text>
+            </svg>
+            <figcaption><span class="fig-num">图 2</span>价格-收益率曲线与久期近似。久期是曲线在基准点处的切线；实际曲线向上凸（凸性），因此收益率上升时价格跌得比线性近似少，收益率下降时价格涨得比线性近似多。</figcaption>
+        </figure>
 
         <div class="highlight">
             <strong>重要理解：</strong>凸性是债券持有人喜欢的性质——它意味着"跌得少，涨得多"。但天下没有免费的午餐：高凸性的债券通常收益率更低（价格更高），因为市场已经在为这种"不对称保护"定价了。所以，你的选择是：要么接受低收益率换取凸性保护，要么放弃凸性追求更高收益——这是一场权衡。
@@ -256,8 +330,20 @@ print(f"收益率上升1%时价格近似变化: -{mod_dur:.2f}%")</code></pre>
 
         <p>Altman Z-Score是纽约大学教授爱德华·奥特曼（Edward Altman）在1968年提出的破产预测模型。它利用五个财务比率加权计算出一个综合得分，用于判断企业是否接近破产边缘：</p>
 
-        <p><strong>Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 0.999X₅</strong></p>
-
+        <div class="math-equation" role="group" aria-label="Altman Z-Score 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="Altman Z-Score 公式，可横向滚动">
+                <math display="block" aria-label="Z 值等于 1.2 倍 X1 加 1.4 倍 X2 加 3.3 倍 X3 加 0.6 倍 X4 加 0.999 倍 X5">
+                    <mrow>
+                        <mi>Z</mi><mo>=</mo>
+                        <mn>1.2</mn><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo>
+                        <mn>1.4</mn><msub><mi>X</mi><mn>2</mn></msub><mo>+</mo>
+                        <mn>3.3</mn><msub><mi>X</mi><mn>3</mn></msub><mo>+</mo>
+                        <mn>0.6</mn><msub><mi>X</mi><mn>4</mn></msub><mo>+</mo>
+                        <mn>0.999</mn><msub><mi>X</mi><mn>5</mn></msub>
+                    </mrow>
+                </math>
+            </div>
+        </div>
         <p>其中：</p>
         <ul>
             <li>X₁ = 营运资本 / 总资产（流动性）</li>
@@ -285,13 +371,49 @@ print(f"收益率上升1%时价格近似变化: -{mod_dur:.2f}%")</code></pre>
 
         <p>固定收益分析为我们提供了评估"确定性"和"风险溢价"的精确工具。但在现代金融分析中，越来越多决策者开始将目光投向传统财务数据之外的"另类数据"——下一章我们将探讨卫星图像、舆情数据、供应链网络等另类数据如何为投资决策提供全新的信号。</p>
 
-        <div class="footer-nav">
-            <a href="20.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h21">
+            <h2 id="refs-h21">参考资料与数据说明</h2>
+            <p class="note">本页债券市场存量、全球债市规模等为公开报道的概数量级；“动手试试”中的债券参数为教学假设，代码示例为教学示意。</p>
+            <ol>
+                <li>Fabozzi, F. J. <em>Bond Markets, Analysis, and Strategies</em>。债券定价、久期与凸性的标准教材。</li>
+                <li>Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy”, <em>The Journal of Finance</em>。Z-Score 原始论文。</li>
+                <li>中国债券信息网（chinabond.com.cn），国债收益率曲线的公开数据来源。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="20.html">← 第 20 章 衍生品定价</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="22.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="22.html">第 22 章 另类数据分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var F = 100, C = 3.5, N = 5;
+    var out = document.getElementById('bond-out');
+    var btns = document.querySelectorAll('#bond-controls button');
+    function price(y) {
+        var p = 0, t;
+        for (t = 1; t <= N; t++) { p += C / Math.pow(1 + y, t); }
+        return p + F / Math.pow(1 + y, N);
+    }
+    function show(y) {
+        var p = price(y);
+        var label = (y * 100).toFixed(1).replace(/\.0$/, '');
+        var cls = p > 100.01 ? '高于面值（溢价）' : (p < 99.99 ? '低于面值（折价）' : '接近面值（平价）');
+        out.textContent = 'YTM = ' + label + '% 时，债券价格约为 ' + p.toFixed(2) + ' 元，' + cls + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(parseFloat(b.getAttribute('data-y')));
+        });
+    });
+    show(0.032);
+})();
+</script>
 </body>
 </html>
