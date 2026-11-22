@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第20章 衍生品定价</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,12 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第20章 衍生品定价</h1>
 
-        <h2>第20章 衍生品定价</h2>
+        <p class="article-dek">期货与期权的收益结构、Black-Scholes 定价与 d₁/d₂ 的含义、隐含波动率，以及希腊字母与波动率曲面。</p>
 
         <p>大家好，我是你们的讲师。上一章我们聊了多因子模型——用一组系统性的风险因子来解释股票收益的差异。但金融世界的版图远不止股票这一种资产。如果我说有一种金融产品，它的价格不是由"公司好不好"决定的，而是由"大家觉得未来会怎样"决定的——你会不会觉得这很神奇？这就是<strong>衍生品</strong>（Derivatives）的世界。</p>
 
@@ -110,12 +113,41 @@
 
         <p>BS模型的核心公式如下：</p>
 
-        <p><strong>C = S₀·N(d₁) - K·e⁻ʳᵀ·N(d₂)</strong></p>
+        <div class="math-equation" role="group" aria-label="Black-Scholes 看涨期权定价公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="Black-Scholes 看涨期权定价公式，可横向滚动">
+                <math display="block" aria-label="看涨期权价格等于标的价格乘以 N(d1)，减去行权价按无风险利率折现后乘以 N(d2)">
+                    <mrow>
+                        <mi>C</mi><mo>=</mo>
+                        <msub><mi>S</mi><mn>0</mn></msub>
+                        <mi mathvariant="normal">N</mi><mo>(</mo><msub><mi>d</mi><mn>1</mn></msub><mo>)</mo>
+                        <mo>−</mo>
+                        <mi>K</mi><msup><mi>e</mi><mrow><mo>−</mo><mi>r</mi><mi>T</mi></mrow></msup>
+                        <mi mathvariant="normal">N</mi><mo>(</mo><msub><mi>d</mi><mn>2</mn></msub><mo>)</mo>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
-        <p>其中：</p>
+        <p>其中 d₁ 与 d₂ 的定义为：</p>
+
+        <div class="math-equation" role="group" aria-label="d1 与 d2 的定义">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="d1 与 d2 的定义，可横向滚动">
+                <math display="block" aria-label="d1 等于 ln(S0 除以 K) 加上 r 加 sigma 平方一半再乘 T，除以 sigma 乘根号 T；d2 等于 d1 减 sigma 乘根号 T">
+                    <mrow>
+                        <msub><mi>d</mi><mn>1</mn></msub><mo>=</mo>
+                        <mfrac>
+                            <mrow><mi mathvariant="normal">ln</mi><mo>(</mo><msub><mi>S</mi><mn>0</mn></msub><mo>/</mo><mi>K</mi><mo>)</mo><mo>+</mo><mo>(</mo><mi>r</mi><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>/</mo><mn>2</mn><mo>)</mo><mi>T</mi></mrow>
+                            <mrow><mi>σ</mi><msqrt><mi>T</mi></msqrt></mrow>
+                        </mfrac>
+                        <mo>,</mo>
+                        <msub><mi>d</mi><mn>2</mn></msub><mo>=</mo>
+                        <msub><mi>d</mi><mn>1</mn></msub><mo>−</mo><mi>σ</mi><msqrt><mi>T</mi></msqrt>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <ul>
-            <li><strong>d₁</strong> = [ln(S₀/K) + (r + σ²/2)T] / (σ√T)</li>
-            <li><strong>d₂</strong> = d₁ - σ√T</li>
             <li><strong>C</strong> ——看涨期权价格</li>
             <li><strong>S₀</strong> ——当前标的价格</li>
             <li><strong>K</strong> ——行权价</li>
@@ -138,9 +170,40 @@
 
         <h3>隐含波动率（Implied Volatility）</h3>
 
+        <figure>
+            <svg role="img" width="760" height="320" style="max-width:100%;height:auto" aria-labelledby="pay-title pay-desc" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+                <title id="pay-title">看涨期权到期盈亏图</title>
+                <desc id="pay-desc">横轴为到期时标的价格，纵轴为盈亏。买入看涨期权的亏损被权利金封顶、盈利随价格上涨放大；卖出看涨期权恰好相反，收益有限、亏损随价格下跌放大。</desc>
+                <line x1="60" y1="170" x2="730" y2="170" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+                <line x1="390" y1="40" x2="390" y2="300" stroke="#c4b5fd" stroke-width="1.5" stroke-dasharray="6 5"/>
+                <line x1="60" y1="300" x2="60" y2="40" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="60" y1="300" x2="730" y2="300" stroke="#94a3b8" stroke-width="2"/>
+                <path d="M60 200 H390 L720 50" fill="none" stroke="#7c3aed" stroke-width="3"/>
+                <path d="M60 140 H390 L720 290" fill="none" stroke="#f97316" stroke-width="3"/>
+                <g font-family="system-ui, sans-serif" font-size="13">
+                    <text x="610" y="44" fill="#6d28d9">买入看涨</text>
+                    <text x="610" y="296" fill="#c2410c">卖出看涨</text>
+                    <text x="396" y="34" fill="#7c3aed">行权价 K = 100</text>
+                    <text x="66" y="166" fill="#475569">盈亏 = 0</text>
+                    <text x="66" y="214" fill="#5b21b6">最大亏损 = 权利金 20</text>
+                </g>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>看涨期权买卖双方的到期盈亏（教学假设：行权价 K = 100、权利金 20）。买入方亏损被权利金封顶、盈利随价格上涨放大；卖出方恰好相反——收益封顶、亏损随价格下跌放大。这种不对称正是期权与期货（线性收益）的根本区别。</figcaption>
+        </figure>
+
         <p>BS公式中有五个输入参数（S, K, r, T, σ），其中前四个都可以从市场上直接观察到，唯独波动率σ是未知的。但有趣的是，我们可以反过来用——将市场价格代入BS公式，反解出σ。这个反解出来的波动率就是<strong>隐含波动率</strong>（IV）。</p>
 
         <p>隐含波动率可以理解为<strong>市场对"未来波动"的一致预期</strong>。如果某支股票的IV突然飙升，说明市场普遍认为该股票未来将有大波动——无论向上还是向下。所以IV有时被称为市场的"恐惧指数"。</p>
+
+        <div class="widget">
+            <p><strong>动手试试：</strong>S = 100、K = 105、T = 30 天、r = 3%，切换波动率 σ，看看涨期权价格与 Delta 怎么变。</p>
+            <div class="controls" id="bs-controls" role="group" aria-label="选择波动率">
+                <button type="button" data-sigma="0.15" aria-pressed="false">σ = 15%</button>
+                <button type="button" data-sigma="0.25" aria-pressed="true">σ = 25%</button>
+                <button type="button" data-sigma="0.40" aria-pressed="false">σ = 40%</button>
+            </div>
+            <output id="bs-out" aria-live="polite">σ = 25% 时，看涨期权价格约 1.15 元，Delta 约 0.27。</output>
+        </div>
 
         <div class="highlight">
             <strong>关键洞见：</strong>BS模型最重要的贡献不是用一个公式计算出了期权的"正确价格"，而是提供了一个<strong>统一的语言框架</strong>来讨论期权的价格——将价格分解为标的价格、时间和波动率三个维度。在这个框架下，交易员可以清晰地表达他们的观点："我认为隐含波动率被高估了"或者"我赌波动率会上升"。
@@ -150,6 +213,7 @@
 
         <p>希腊字母（Greeks）是期权交易员最重要的风险管理工具。它们衡量的是期权价格对不同输入因素的敏感度。下表总结了五个核心希腊字母：</p>
 
+        <div class="table-scroll" style="overflow-x:auto">
         <table>
             <tr>
                 <th>希腊字母</th>
@@ -194,6 +258,7 @@
                 <td>利率敏感型头寸管理</td>
             </tr>
         </table>
+        </div>
 
         <p>希腊字母可以组合使用，构建出各种复杂的风险管理策略。例如：</p>
         <ul>
@@ -282,13 +347,57 @@ for g, v in greeks.items():
 
         <p>衍生品为金融世界增添了"维度"——它让投资者可以独立地对方向、时间、波动率分别下注。在下一章中，我们将进入固定收益分析的世界。如果说衍生品是金融工具箱里的"手术刀"，那么固定收益分析就是"听诊器"——它帮你诊断一家公司、一个国家的"财务健康状况"。从债券定价到收益率曲线，从久期到信用利差，你会发现固定收益的分析体系同样是精妙而严谨的。</p>
 
-        <div class="footer-nav">
-            <a href="19.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h20">
+            <h2 id="refs-h20">参考资料与数据说明</h2>
+            <p class="note">本页“全球场外衍生品名义本金规模”为国际清算银行公开统计的概数量级；期权价格、波动率与盈亏图均为教学假设。</p>
+            <ol>
+                <li>Black, F. &amp; Scholes, M. (1973). “The Pricing of Options and Corporate Liabilities”, <em>Journal of Political Economy</em>, 81(3)。</li>
+                <li>Merton, R. C. (1973). “Theory of Rational Option Pricing”, <em>Bell Journal of Economics and Management Science</em>。</li>
+                <li>国际清算银行（BIS）场外衍生品市场统计（名义本金规模）。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="19.html">← 第 19 章 多因子模型</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="21.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="21.html">第 21 章 固定收益分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var S = 100, K = 105, T = 30 / 365, r = 0.03;
+    var out = document.getElementById('bs-out');
+    var btns = document.querySelectorAll('#bs-controls button');
+    function erf(x) {
+        var s = x < 0 ? -1 : 1; x = Math.abs(x);
+        var a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741,
+            a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+        var t = 1 / (1 + p * x);
+        var y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+        return s * y;
+    }
+    function ncdf(x) { return 0.5 * (1 + erf(x / Math.SQRT2)); }
+    function bs(sigma) {
+        var d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * T) / (sigma * Math.sqrt(T));
+        var d2 = d1 - sigma * Math.sqrt(T);
+        return { price: S * ncdf(d1) - K * Math.exp(-r * T) * ncdf(d2), delta: ncdf(d1) };
+    }
+    function show(sigma) {
+        var v = bs(sigma);
+        out.textContent = 'σ = ' + Math.round(sigma * 100) + '% 时，看涨期权价格约 ' + v.price.toFixed(2) +
+            ' 元，Delta 约 ' + v.delta.toFixed(2) + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(parseFloat(b.getAttribute('data-sigma')));
+        });
+    });
+    show(0.25);
+})();
+</script>
 </body>
 </html>
