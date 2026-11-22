@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第3章 财务报表基础</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,12 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第3章 财务报表基础</h1>
 
-        <h2>第3章 财务报表基础</h2>
+        <p class="article-dek">会计恒等式与三张报表的勾稽关系、资产负债表的资产/负债/权益结构、利润表的层次、现金流量表的三大活动，以及 CAS 与 IFRS 的关键差异。</p>
 
         <p>大家好，我是你们的讲师。上一章我们认识了金融市场这个大舞台，知道了资金在哪里流动、谁在参与交易。但如果你要分析一家具体的公司——比如茅台、宁德时代或者一家你关注的中小企业——你从哪里开始？答案是：<strong>从财务报表开始</strong>。</p>
 
@@ -55,7 +58,16 @@
         <p>整个现代会计体系的基石只有一个极其简单的等式：</p>
 
         <div class="highlight">
-            <strong>资产 = 负债 + 所有者权益</strong>
+            <strong>会计恒等式</strong>
+            <div class="math-equation" role="group" aria-label="会计恒等式">
+                <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="会计恒等式，可横向滚动">
+                    <math display="block" aria-label="资产等于负债加所有者权益">
+                        <mrow>
+                            <mtext>资产</mtext><mo>=</mo><mtext>负债</mtext><mo>+</mo><mtext>所有者权益</mtext>
+                        </mrow>
+                    </math>
+                </div>
+            </div>
         </div>
 
         <p>这个公式被称为<strong>会计恒等式</strong>（Accounting Equation）。它的含义非常直观：企业所拥有的一切（资产），要么来自债权人（负债，即借来的钱），要么来自股东（所有者权益，即投入的钱加上赚到的钱）。这个恒等式永远成立——任何一笔交易都会在两边同时产生相等的影响，就像物理中的能量守恒定律一样不可违背。</p>
@@ -96,6 +108,44 @@
                 <td>现金 → 资产负债表现金</td>
             </tr>
         </table>
+
+        <figure>
+            <svg role="img" width="760" height="300" style="max-width:100%;height:auto" aria-labelledby="art-title art-desc" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                <title id="art-title">三张财务报表的勾稽关系</title>
+                <desc id="art-desc">利润表的净利润流入资产负债表的留存收益，并作为现金流量表经营现金流的起点；现金流量表的期末现金对应资产负债表的货币资金。</desc>
+                <g font-family="system-ui, sans-serif" text-anchor="middle" font-size="14">
+                    <rect x="60" y="30" width="210" height="56" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                    <text x="165" y="63" fill="#4c1d95">利润表</text>
+                    <rect x="490" y="30" width="210" height="56" rx="12" fill="#e0f2fe" stroke="#0ea5e9"/>
+                    <text x="595" y="63" fill="#075985">现金流量表</text>
+                    <rect x="270" y="190" width="220" height="64" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+                    <text x="380" y="228" fill="#4c1d95" font-weight="600">资产负债表</text>
+                </g>
+                <path d="M165 86 V140 H345 V186" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+                <polygon points="345,188 339,176 351,176" fill="#8b5cf6"/>
+                <path d="M595 86 V140 H415 V186" fill="none" stroke="#0ea5e9" stroke-width="2"/>
+                <polygon points="415,188 409,176 421,176" fill="#0ea5e9"/>
+                <path d="M270 72 H486" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+                <polygon points="488,72 476,66 476,78" fill="#94a3b8"/>
+                <g font-family="system-ui, sans-serif" font-size="13" fill="#475569">
+                    <text x="60" y="162">净利润 → 留存收益</text>
+                    <text x="470" y="162">期末现金 → 货币资金</text>
+                    <text x="380" y="60" text-anchor="middle">净利润是经营现金流的起点</text>
+                </g>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>三张报表的勾稽关系。利润表的净利润一路进入资产负债表的留存收益；现金流量表的期末现金对应资产负债表上的货币资金；而利润表的净利润又是现金流量表间接法下经营现金流的起点。</figcaption>
+        </figure>
+
+        <div class="widget">
+            <p><strong>动手试试：</strong>期初现金 100、无负债、所有者权益 100。选择一笔交易，看会计恒等式如何始终成立。</p>
+            <div class="controls" id="acct-controls" role="group" aria-label="选择一笔交易">
+                <button type="button" data-tx="base" aria-pressed="true">期初状态</button>
+                <button type="button" data-tx="inv" aria-pressed="false">现金 20 买入存货</button>
+                <button type="button" data-tx="payable" aria-pressed="false">赊购原材料 30</button>
+                <button type="button" data-tx="loan" aria-pressed="false">银行借款 50</button>
+            </div>
+            <output id="acct-out" aria-live="polite">期初状态：资产 100 = 负债 0 + 所有者权益 100 ✓</output>
+        </div>
 
         <h2>3.2 资产负债表入门</h2>
 
@@ -232,13 +282,49 @@ print(bs.head(10))</code></pre>
 
         <p>三张表各自揭示了企业财务状况的不同侧面，但单独看任何一张表都会"盲人摸象"。只有将三张表结合起来解读，才能形成完整的分析判断。在下一章中，我们将从资产负债表入手，深入分析企业的资产质量和负债结构。</p>
 
-        <div class="footer-nav">
-            <a href="02.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页乐视网案例数据为公开报道的概数；会计交易示例与会计恒等式演示均为教学示意。</p>
+            <ol>
+                <li>中华人民共和国财政部《企业会计准则》（CAS）。</li>
+                <li>国际会计准则理事会（IASB）《国际财务报告准则》（IFRS）。</li>
+                <li>乐视网历年年度报告与公开报道，用于说明“利润表盈利但经营现金流持续为负”的典型风险。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="02.html">← 第 2 章 金融市场基础</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="04.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="04.html">第 4 章 资产负债表分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var tx = {
+        base:    { label: '期初状态',         cash: 100, inv: 0,  ap: 0,  loan: 0 },
+        inv:     { label: '现金 20 买入存货', cash: 80,  inv: 20, ap: 0,  loan: 0 },
+        payable: { label: '赊购原材料 30',     cash: 100, inv: 30, ap: 30, loan: 0 },
+        loan:    { label: '银行借款 50',       cash: 150, inv: 0,  ap: 0,  loan: 50 }
+    };
+    var out = document.getElementById('acct-out');
+    var btns = document.querySelectorAll('#acct-controls button');
+    function show(key) {
+        var d = tx[key];
+        var assets = d.cash + d.inv;
+        var liab = d.ap + d.loan;
+        var equity = 100;
+        out.textContent = d.label + '：资产 ' + assets + ' = 负债 ' + liab + ' + 所有者权益 ' + equity + ' ✓';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-tx'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
