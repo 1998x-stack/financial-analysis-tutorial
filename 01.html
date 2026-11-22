@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第1章 金融分析概述</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html" class="active">第1章 金融分析概述</a></li>
@@ -41,10 +42,12 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第1章 金融分析概述</h1>
 
-        <h2>第1章 金融分析概述</h2>
+        <p class="article-dek">金融分析是什么、三大流派如何分工、CFA 六步框架怎么用，以及 2026 年的分析师工具栈。</p>
 
         <p>大家好，我是你们的讲师。想象这样一个场景：你手里有一笔闲钱，是存银行吃利息，还是买入茅台股票，抑或定投沪深300指数基金？如果你是一家上市公司的CEO，面对一个并购机会，如何判断对方开出的价格是否合理？如果你是银行信贷经理，又该如何评估一家企业的偿债能力？这些问题的背后，都指向同一项核心能力——<strong>金融分析</strong>。</p>
 
@@ -145,6 +148,30 @@
             <li><strong>动态更新</strong>（Update / Revise）——分析不是一次性的。随着新信息的出现（季报发布、管理层变更、政策变化），及时修正和更新分析结论。</li>
         </ol>
 
+        <figure>
+            <svg role="img" width="760" height="230" style="max-width:100%;height:auto" aria-labelledby="cfa-title cfa-desc" viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg">
+                <title id="cfa-title">CFA 六步分析框架</title>
+                <desc id="cfa-desc">六个步骤从左到右：明确目标、收集数据、处理数据、分析解释、沟通报告、动态更新；新信息出现时沿下方虚线回退到前序步骤。</desc>
+                <g font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+                    <rect x="25" y="40" width="100" height="56" rx="12" fill="#7c3aed"/><text x="75" y="73" fill="#fff">明确目标</text>
+                    <rect x="147" y="40" width="100" height="56" rx="12" fill="#6d28d9"/><text x="197" y="73" fill="#fff">收集数据</text>
+                    <rect x="269" y="40" width="100" height="56" rx="12" fill="#8b5cf6"/><text x="319" y="73" fill="#fff">处理数据</text>
+                    <rect x="391" y="40" width="100" height="56" rx="12" fill="#a78bfa"/><text x="441" y="73" fill="#312e81">分析解释</text>
+                    <rect x="513" y="40" width="100" height="56" rx="12" fill="#c4b5fd"/><text x="563" y="73" fill="#312e81">沟通报告</text>
+                    <rect x="635" y="40" width="100" height="56" rx="12" fill="#ddd6fe"/><text x="685" y="73" fill="#312e81">动态更新</text>
+                    <text x="136" y="75" fill="#8b5cf6" font-size="16">→</text>
+                    <text x="258" y="75" fill="#8b5cf6" font-size="16">→</text>
+                    <text x="380" y="75" fill="#8b5cf6" font-size="16">→</text>
+                    <text x="502" y="75" fill="#8b5cf6" font-size="16">→</text>
+                    <text x="624" y="75" fill="#8b5cf6" font-size="16">→</text>
+                    <text x="380" y="158" fill="#6d28d9">新信息出现时回退前序步骤</text>
+                </g>
+                <path d="M685 96 V176 H75 V102" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 5"/>
+                <polygon points="75,96 69,108 81,108" fill="#8b5cf6"/>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>CFA 六步分析框架。前五步是一次完整的分析流程，第六步“动态更新”会在季报、管理层变更或政策变化后把流程送回前序步骤，所以它不是单向流水线而是一个回路。框架表述见参考资料。</figcaption>
+        </figure>
+
         <p>这个框架看起来简单，但执行起来非常考验功力。很多分析报告的常见问题是"只有描述没有解释"——花了大量篇幅描述利润表各项目的变动幅度，却没有深挖变动背后的业务原因。更常见的问题是在"收集数据"环节就直接跳过"明确目标"——连要分析什么都没想清楚，就把财报下载下来开始算比率，算出什么算什么。</p>
 
         <div class="tip">
@@ -234,12 +261,23 @@ print(df.tail(5))</code></pre>
 
         <p>了解了金融分析的全貌，接下来我们从最基础的概念开始——金融市场是如何运作的？在下一章中，我们将深入了解一级市场与二级市场、各类交易品种以及市场参与者的角色。</p>
 
-        <div class="footer-nav">
-            <a href="javascript:void(0)">← 上一章</a>
-            <a href="index.html">📖 返回目录</a>
-            <a href="02.html">下一章 →</a>
-        </div>
-    </div>
+        <section class="references" aria-labelledby="refs-h1">
+            <h2 id="refs-h1">参考资料</h2>
+            <p class="note">本页涉及的历史与行业数据（如大奖章基金年化回报、量化交易占比、终端年费）均为公开报道的概数量级，用于说明趋势，并非精确统计；“教学示意”指日常分析的定性示例。</p>
+            <ol>
+                <li>CFA Institute，《CFA Program Curriculum》投资分析与财务报告分析部分中提出的分析流程。</li>
+                <li>Graham, B. &amp; Dodd, D. (1934). <em>Security Analysis</em>。基本面分析的价值回归思想源头。</li>
+                <li>Salmon, F. (2009). “Recipe for Disaster: The Formula That Killed Wall Street”, <em>Wired</em>。高斯连接函数在 2008 年危机中的讨论。</li>
+                <li>Zuckerman, G. (2019). <em>The Man Who Solved the Market</em>。文艺复兴科技与大奖章基金的公开记录。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="index.html">← 返回目录</a>
+            <a href="02.html">第 2 章 金融市场基础 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
 </body>
