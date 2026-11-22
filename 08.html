@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第8章 DuPont分析与ROE</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,12 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第8章 DuPont分析与ROE</h1>
 
-        <h2>第8章 DuPont分析与ROE</h2>
+        <p class="article-dek">ROE 为何被称为“指标之王”，三因子与五因子 DuPont 分解如何拆出盈利质量，以及贵州茅台与宁德时代两种截然不同的驱动路径。</p>
 
         <p>大家好，我是你们的讲师。在上一章中，我们学习了各种财务比率——流动比率、速动比率、毛利率、净利率、资产周转率……这些比率各有各的用途，但一个问题也随之而来：<strong>这么多比率，到底哪个才是"终极指标"？</strong>有没有一个指标能"一锤定音"，告诉你一家公司到底赚不赚钱？</p>
 
@@ -56,7 +59,13 @@
 
         <p>在开始拆解之前，我们先确认一下ROE为什么如此重要。ROE的计算公式非常简洁：</p>
 
-        <p style="text-align:center;font-size:1.2rem;font-weight:bold;margin:16px 0;">ROE = 净利润 / 股东权益</p>
+        <div class="math-equation" role="group" aria-label="ROE 定义公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="ROE 定义公式，可横向滚动">
+                <math display="block" aria-label="ROE 等于净利润除以股东权益">
+                    <mrow><mi>ROE</mi><mo>=</mo><mfrac><mtext>净利润</mtext><mtext>股东权益</mtext></mfrac></mrow>
+                </math>
+            </div>
+        </div>
 
         <p>它衡量的是<strong>股东每投入一元的自有资本，企业能为其创造多少净利润</strong>。一个简单粗暴的理解方式：如果你开了一家店，自己投了100万，一年赚了20万，那么你的ROE就是20%。这意味着你的自有资本回报率是20%——远远超过存银行、买理财的收益。</p>
 
@@ -72,7 +81,18 @@
 
         <p>DuPont分析的核心思想可以用一句话概括：<strong>把ROE一层层地拆开，看每一层是怎么贡献的</strong>。最经典的"三因子模型"将ROE分解为三个部分：</p>
 
-        <p style="text-align:center;font-size:1.1rem;font-weight:bold;margin:16px 0;">ROE = 净利率 × 资产周转率 × 权益乘数</p>
+        <div class="math-equation" role="group" aria-label="三因子 DuPont 分解">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="三因子 DuPont 分解公式，可横向滚动">
+                <math display="block" aria-label="ROE 等于净利率乘资产周转率乘权益乘数，每一项写成两个会计科目的比值">
+                    <mrow>
+                        <mi>ROE</mi><mo>=</mo>
+                        <mfrac><mtext>净利润</mtext><mtext>营业收入</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>营业收入</mtext><mtext>总资产</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>总资产</mtext><mtext>股东权益</mtext></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>三个因子的具体含义和计算方式如下：</p>
 
@@ -136,7 +156,42 @@
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="760" height="230" style="max-width:100%;height:auto" aria-labelledby="dup-title dup-desc" viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg">
+                <title id="dup-title">三因子 DuPont 分解</title>
+                <desc id="dup-desc">ROE 拆成三条路径：净利率等于净利润除以营业收入，代表盈利能力；资产周转率等于营业收入除以总资产，代表运营效率；权益乘数等于总资产除以股东权益，代表财务杠杆。</desc>
+                <g font-family="system-ui, sans-serif" text-anchor="middle">
+                    <rect x="310" y="14" width="140" height="44" rx="10" fill="#6d28d9"/>
+                    <text x="380" y="42" font-size="16" fill="#ffffff">ROE</text>
+                    <path d="M380 58 V86 M140 86 H620 M140 86 V118 M380 86 V118 M620 86 V118" fill="none" stroke="#a78bfa" stroke-width="2"/>
+                    <rect x="55" y="118" width="170" height="52" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                    <text x="140" y="140" font-size="14" fill="#4c1d95">净利率</text>
+                    <text x="140" y="159" font-size="11" fill="#5b21b6">净利润 ÷ 营业收入</text>
+                    <rect x="295" y="118" width="170" height="52" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                    <text x="380" y="140" font-size="14" fill="#4c1d95">资产周转率</text>
+                    <text x="380" y="159" font-size="11" fill="#5b21b6">营业收入 ÷ 总资产</text>
+                    <rect x="535" y="118" width="170" height="52" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                    <text x="620" y="140" font-size="14" fill="#4c1d95">权益乘数</text>
+                    <text x="620" y="159" font-size="11" fill="#5b21b6">总资产 ÷ 股东权益</text>
+                    <text x="140" y="198" font-size="13" fill="#6d28d9">盈利能力</text>
+                    <text x="380" y="198" font-size="13" fill="#6d28d9">运营效率</text>
+                    <text x="620" y="198" font-size="13" fill="#6d28d9">财务杠杆</text>
+                </g>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>三因子 DuPont 分解：ROE 同时受盈利能力、运营效率与财务杠杆三条路径影响。三个因子相乘等于 ROE，但同一条 ROE 可以来自三种风险特征完全不同的生意（见表中的三家公司对比）。</figcaption>
+        </figure>
+
         <p>这三家公司ROE一样，但"含金量"天差地别。茅台的15%是"真本事"——高净利率+低杠杆；沃尔玛是靠"周转快"——薄利多销，资产效率极高；而房地产开发商则完全依赖高杠杆——净利率也不算高，资产周转率很低（一个开发周期动辄两三年），全靠借钱把ROE撑起来。</p>
+
+        <div class="widget">
+            <p><strong>动手试试：</strong>切换三家公司，ROE 都是 15%，但驱动因子完全不同。数值为上表示意。</p>
+            <div class="controls" id="dupont-controls" role="group" aria-label="选择公司类型">
+                <button type="button" data-company="luxury" aria-pressed="true">奢侈品品牌</button>
+                <button type="button" data-company="retail" aria-pressed="false">零售商</button>
+                <button type="button" data-company="property" aria-pressed="false">房地产开发商</button>
+            </div>
+            <output id="dupont-out" aria-live="polite">奢侈品品牌：净利率 30% × 资产周转率 0.5 × 权益乘数 1.0 = ROE 15%。高净利率 + 低杠杆：靠定价权赚钱，风险相对低。</output>
+        </div>
 
         <div class="warning">
             <strong>踩坑警示：</strong>这就引出了我们这一章最重要的一课——<strong>不要只看ROE的数值大小，一定要看它的构成</strong>。我在2019年分析某家房企时，看到它的ROE连续5年超过20%，一度觉得是家好公司。但用DuPont一拆，发现净利率只有6%，资产周转率0.25，权益乘数高达13.3——极度依赖杠杆。当2021年"三道红线"政策一出，融资渠道收紧，公司立刻陷入现金流危机，股价从高点暴跌超过80%。这个教训让我深刻体会到：<strong>高杠杆驱动的ROE，本质上是在刀尖上跳舞</strong>。
@@ -146,7 +201,20 @@
 
         <p>三因子模型已经很有用，但它对利润端的拆解还不够细。比如，净利率受到两方面的挤压：<strong>一是税负</strong>（所得税吃掉多少利润），<strong>二是利息负担</strong>（债务融资的成本）。为了更精细地分析，实务中常用五因子扩展模型：</p>
 
-        <p style="text-align:center;font-size:1rem;font-weight:bold;margin:16px 0;">ROE = 税负因子 × 利息负担因子 × 营业利润率 × 资产周转率 × 权益乘数</p>
+        <div class="math-equation" role="group" aria-label="五因子 DuPont 分解">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="五因子 DuPont 分解公式，可横向滚动">
+                <math display="block" aria-label="ROE 等于税负因子乘利息负担因子乘营业利润率乘资产周转率乘权益乘数">
+                    <mrow>
+                        <mi>ROE</mi><mo>=</mo>
+                        <mfrac><mtext>净利润</mtext><mtext>税前利润</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>税前利润</mtext><mtext>营业利润</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>营业利润</mtext><mtext>营业收入</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>营业收入</mtext><mtext>总资产</mtext></mfrac><mo>×</mo>
+                        <mfrac><mtext>总资产</mtext><mtext>股东权益</mtext></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>五个因子的分解链条如下：</p>
 
@@ -278,13 +346,45 @@ print(result.round(2))</code></pre>
 
         <p>现在你已经掌握了"指标之王"ROE的拆解框架。ROE回答的是<strong>"这家公司赚钱的质量如何"</strong>。但下一个关键问题是：<strong>既然它能赚钱，它的股票到底值多少钱？</strong>这就进入了估值的领域。在下一章中，我们将从哲学层面开始，系统性地学习估值方法——从绝对估值到相对估值，从理论到实战。</p>
 
-        <div class="footer-nav">
-            <a href="07.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h8">
+            <h2 id="refs-h8">参考资料与数据说明</h2>
+            <p class="note">本节“茅台 / 宁德时代”与上方“三家公司”的财务数值均为教学示意（按公开年报的数量级做了简化），用于对比驱动结构，不是精确财报数据，也不构成投资建议。</p>
+            <ol>
+                <li>杜邦公司（E. I. du Pont de Nemours）20 世纪初提出的 ROE 分解方法，后被财务分析教材广泛采用。</li>
+                <li>Berkshire Hathaway 历年致股东信件与股东大会问答中关于 ROE 与负债的表述（berkshirehathaway.com）。</li>
+                <li>贵州茅台（600519.SH）2024 年度报告；宁德时代（300750.SZ）2024 年度报告，用于核对数量级。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="07.html">← 第 7 章 财务比率分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="09.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="09.html">第 9 章 估值方法概述 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var data = {
+        luxury:   { name: '奢侈品品牌', m: '30%', t: '0.5', e: '1.0',  note: '高净利率 + 低杠杆：靠定价权赚钱，风险相对低。' },
+        retail:   { name: '零售商',     m: '3%',  t: '2.5', e: '2.0',  note: '薄利多销：靠资产周转赚钱，对销量波动敏感。' },
+        property: { name: '房地产开发商', m: '8%', t: '0.3', e: '6.25', note: '高杠杆驱动：融资收紧或销售下滑时最先受损。' }
+    };
+    var out = document.getElementById('dupont-out');
+    var btns = document.querySelectorAll('#dupont-controls button');
+    function show(key) {
+        var d = data[key];
+        out.textContent = d.name + '：净利率 ' + d.m + ' × 资产周转率 ' + d.t + ' × 权益乘数 ' + d.e + ' = ROE 15%。' + d.note;
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-company'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
