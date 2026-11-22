@@ -156,3 +156,73 @@ th {
     body { padding: 10px; }
     .main-content { padding: 20px; }
 }
+
+/* === Document title === */
+h1 {
+    color: #3b0764;
+    font-size: clamp(1.6rem, 1.2rem + 2vw, 2.3rem);
+    line-height: 1.3;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+}
+.article-dek { color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 8px; }
+main, article { min-width: 0; }
+section { scroll-margin-top: 20px; }
+
+/* === Figures and diagrams === */
+figure { margin: 26px 0; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption {
+    margin-top: 10px; font-size: 0.88rem; line-height: 1.75;
+    color: #475569; border-left: 4px solid #c4b5fd; padding-left: 12px;
+}
+figcaption .fig-num { font-weight: 700; color: #6d28d9; }
+
+/* === MathML === */
+.math-inline { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", serif; }
+.math-equation { max-width: 100%; min-width: 0; margin: 20px 0; }
+.math-scroll {
+    max-width: 100%; min-width: 0; overflow-x: auto; overflow-y: hidden;
+    padding: 8px 2px; border-radius: 12px;
+}
+.math-scroll:focus-visible { outline: 3px solid #7c3aed; outline-offset: 2px; }
+.math-scroll math[display="block"] { width: max-content; min-width: 100%; font-size: 1.2rem; }
+
+/* === Interactive widgets === */
+.widget {
+    margin: 22px 0; padding: 16px 18px; border-radius: 18px;
+    background: #faf8ff; border: 1px solid #ddd6fe;
+}
+.widget .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.widget button {
+    font: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer;
+    padding: 7px 16px; border-radius: 40px; border: 1px solid #c4b5fd;
+    background: #fff; color: #5b21b6; transition: background 0.15s, color 0.15s;
+}
+.widget button:hover { background: #ede9fe; }
+.widget button[aria-pressed="true"] { background: #7c3aed; color: #fff; border-color: #6d28d9; }
+.widget button:focus-visible { outline: 3px solid #7c3aed; outline-offset: 2px; }
+.widget output { display: block; line-height: 1.75; color: #1e293b; }
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* === References === */
+.references { margin-top: 34px; padding-top: 18px; border-top: 2px dashed #c4b5fd; }
+.references ol { margin-left: 20px; }
+.references li { font-size: 0.92rem; line-height: 1.75; margin-bottom: 6px; color: #334155; }
+.note { font-size: 0.86rem; color: #6d28d9; background: #f5f3ff; padding: 6px 12px; border-radius: 10px; display: inline-block; }
+
+/* === Print / reduced motion === */
+@media print {
+    body { background: #fff; padding: 0; }
+    .sidebar, .widget .controls, .footer-nav { display: none; }
+    .double-border { border: none; box-shadow: none; }
+    .math-scroll { overflow: visible; }
+    .math-scroll math[display="block"] { font-size: 1rem; }
+    figure, table, .widget { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
