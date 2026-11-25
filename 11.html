@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第11章 相对估值法</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第11章 相对估值法</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第11章 相对估值法</h1>
+        <p class="article-dek">PE 的三种口径与适用边界、PB / PS / EV 乘数的选择、可比公司（Comps）的挑选标准，以及用 PEG 对增长进行估值修正的方法与局限。</p>
 
         <p>大家好，我是你们的讲师。上一章我们深入研究了DCF——估值理论中最严谨的"重型武器"。但坦率地说，在真实的研究工作中，DCF的使用频率远不如另一种方法：<strong>相对估值法</strong>（Relative Valuation）。</p>
 
@@ -56,7 +58,18 @@
 
         <p>PE（Price to Earnings Ratio，市盈率）是使用最广泛、也最容易被误解的估值指标。它的公式简单得不能再简单：</p>
 
-        <p style="text-align:center;font-size:1.1rem;font-weight:bold;margin:16px 0;">PE = 股价 / 每股收益（或市值 / 净利润）</p>
+        <div class="math-equation" role="group" aria-label="市盈率公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="市盈率公式，可横向滚动">
+                <math display="block" aria-label="市盈率等于股价除以每股收益，也等于总市值除以净利润">
+                    <mrow>
+                        <mtext>PE</mtext><mo>=</mo>
+                        <mfrac><mtext>股价</mtext><mtext>每股收益</mtext></mfrac>
+                        <mo>=</mo>
+                        <mfrac><mtext>总市值</mtext><mtext>净利润</mtext></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>PE的含义直观来说是"回本年限"——如果一家公司每年赚1块钱，你以15块的股价买入，需要15年回本（假设利润不变）。当然现实中利润会变化，所以PE只是一个估值参考。</p>
 
@@ -109,6 +122,26 @@
 
         <p>除了PE之外，相对估值法中还有几个重要的乘数，各自对应不同的适用场景。</p>
 
+        <figure>
+            <svg role="img" width="760" height="300" style="max-width:100%;height:auto" aria-labelledby="mul-title mul-desc" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                <title id="mul-title">不同企业特征下估值乘数的选择地图</title>
+                <desc id="mul-desc">亏损或极早期企业适合用 PS 或 EV/Sales；高成长企业适合用 PEG 修正的 PE；盈利稳定的成熟企业适合用 PE；银行保险等金融企业适合用 PB；重资产、高折旧行业适合用 EV/EBITDA。</desc>
+                <rect x="30" y="45" width="200" height="42" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+                <text x="130" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">亏损 / 早期企业</text>
+                <text x="250" y="72" font-size="14" fill="#0f172a">→ 用 PS、EV/Sales（没有正盈利可做分母）</text>
+                <rect x="30" y="99" width="200" height="42" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="130" y="126" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">高成长企业</text>
+                <text x="250" y="126" font-size="14" fill="#0f172a">→ 用 PE + PEG 修正（把增长考虑进去）</text>
+                <rect x="30" y="153" width="200" height="42" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="130" y="180" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">成熟稳定企业</text>
+                <text x="250" y="180" font-size="14" fill="#0f172a">→ 用 PE、EV/EBIT（盈利可预测）</text>
+                <rect x="30" y="207" width="200" height="42" rx="10" fill="#fef9c3" stroke="#facc15"/>
+                <text x="130" y="234" text-anchor="middle" font-size="14" font-weight="700" fill="#713f12">金融 / 重资产</text>
+                <text x="250" y="234" font-size="14" fill="#0f172a">→ 金融用 PB；重资产高折旧用 EV/EBITDA</text>
+            </svg>
+            <figcaption><span class="fig-num">图 11-1</span> 乘数不是随便挑的：分母必须是对这家公司“有意义且可比较”的指标。选错乘数会把不可比的数字直接对比，得出看似精确、实则误导的结论。</figcaption>
+        </figure>
+
         <table>
             <tr>
                 <th>乘数</th>
@@ -156,7 +189,16 @@
 
         <p>关于PB有一个非常重要的关系——<strong>ROE-PB框架</strong>。理论上，一家公司的合理PB应该由它的ROE和股权成本决定：</p>
 
-        <p style="text-align:center;font-size:1rem;font-weight:bold;margin:16px 0;">合理PB = (ROE - g) / (Ke - g)</p>
+        <div class="math-equation" role="group" aria-label="合理 PB 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="合理市净率公式，可横向滚动">
+                <math display="block" aria-label="合理市净率等于净资产收益率减永续增长率，再除以股权成本减永续增长率">
+                    <mrow>
+                        <mtext>合理PB</mtext><mo>=</mo>
+                        <mfrac><mrow><mtext>ROE</mtext><mo>−</mo><mtext>g</mtext></mrow><mrow><mtext>Ke</mtext><mo>−</mo><mtext>g</mtext></mrow></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>这个公式告诉我们一个关键逻辑：<strong>ROE越高，PB应该越高；股权成本越低，PB越高</strong>。如果你发现一家公司ROE很高但PB很低——那可能就是被低估的信号。</p>
 
@@ -181,7 +223,16 @@
 
         <p>为了解决这个问题，彼得·林奇（传奇基金经理，麦哲伦基金13年29%年化回报）推广了<strong>PEG</strong>指标：</p>
 
-        <p style="text-align:center;font-size:1.1rem;font-weight:bold;margin:16px 0;">PEG = PE / 增长率</p>
+        <div class="math-equation" role="group" aria-label="PEG 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="PEG 公式，可横向滚动">
+                <math display="block" aria-label="PEG 等于市盈率除以盈利增长率">
+                    <mrow>
+                        <mtext>PEG</mtext><mo>=</mo>
+                        <mfrac><mtext>PE</mtext><mtext>增长率</mtext></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>其中增长率通常用未来3-5年的盈利增长率预测（取整数百分比，如20%增长用20）。林奇的规则是：</p>
         <ul>
@@ -190,7 +241,16 @@
             <li><strong>PEG > 1.5</strong> —— 高估，谨慎</li>
         </ul>
 
-        <p>例如：某科技公司PE=40倍，分析师预计未来3年利润年增长30%，则PEG=40/30=1.33——略高于1，可能略微高估但不算离谱。而一家零售公司PE=12倍，增长率5%，PEG=12/5=2.4——看起来PE很低，但相对于增长其实很"贵"。</p>
+        <p>例如：某科技公司PE=40倍，分析师预计未来3年利润年增长30%，则PEG=40/30=1.33——略高于1，可能略微高估但不算离谱。而一家零售公司PE=12倍，增长率5%，PEG=12/5=2.4——看起来PE很低，但相对于增长其实很“贵”。</p>
+
+        <div class="widget">
+            <div class="controls" id="peg-controls" role="group" aria-label="选择估值情景">
+                <button type="button" data-case="tech" aria-pressed="true">科技公司 PE 40 / g 30%</button>
+                <button type="button" data-case="retail" aria-pressed="false">零售公司 PE 12 / g 5%</button>
+                <button type="button" data-case="stop" aria-pressed="false">稳定消费 PE 20 / g 20%</button>
+            </div>
+            <output id="peg-out" aria-live="polite">科技公司：PE 40，盈利增长率 30% → PEG = 40 / 30 = 1.33（估值合理或略偏高）。</output>
+        </div>
 
         <div class="highlight">
             <strong>核心洞见：</strong>PEG是一个非常实用的"快捷"指标，但它有一个暗含的假设——<strong>增长率是可持续的</strong>。如果一家公司的高增长是靠补贴用户、烧钱换规模实现的，未来增长随时可能断崖式下跌，那么当前的PEG再低也不应该买入。永远记住：<strong>任何估值指标的价值，都不会超过你所依赖的假设的准确度</strong>。
@@ -240,13 +300,52 @@ print(df)</code></pre>
 
         <p>掌握了相对估值法，你就掌握了市场上最常用的定价语言。但估值终究是"基本面"的范畴——它回答的是"这家公司值多少钱"的问题。从下一章开始，我们将转向一个完全不同的分析维度：<strong>技术分析</strong>。技术分析不关心"价值"，只关心"价格和趋势"——它是在战场上短兵相接时的武器。</p>
 
-        <div class="footer-nav">
-            <a href="10.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页茅台 2021 年 2 月 TTM PE 约 70 倍、恒瑞约 100 倍、海天超 100 倍及后续最大回撤幅度均为公开行情的概数；PEG 判断区间与情景数值为教学示意。</p>
+            <ol>
+                <li>Peter Lynch《One Up on Wall Street》中关于 PEG 指标的论述。</li>
+                <li>上市公司公开行情数据（A 股核心资产 2021 年高点与后续回撒）。</li>
+                <li>券商行业研究报告中的可比公司估值表（PE/PB/PS/EV 乘数）。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="10.html">← 第 10 章 DCF绝对估值法</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="12.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="12.html">第 12 章 技术分析基础 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        tech:   { label: '科技公司',   pe: 40, g: 30 },
+        retail: { label: '零售公司',   pe: 12, g: 5 },
+        stop:   { label: '稳定消费',   pe: 20, g: 20 }
+    };
+    var out = document.getElementById('peg-out');
+    var btns = document.querySelectorAll('#peg-controls button');
+    function judge(peg) {
+        if (peg < 1) return '（低估，买入信号）';
+        if (peg <= 1.5) return '（估值合理或略偏高）';
+        return '（高估，谨慎）';
+    }
+    function show(key) {
+        var c = cases[key];
+        var peg = c.pe / c.g;
+        out.textContent = c.label + '：PE ' + c.pe + '，盈利增长率 ' + c.g + '% → PEG = ' +
+            c.pe + ' / ' + c.g + ' = ' + peg.toFixed(2) + judge(peg) + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
