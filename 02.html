@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第2章 金融市场基础</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第2章 金融市场基础</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第2章 金融市场基础</h1>
+        <p class="article-dek">金融市场的分类维度（一级/二级、场内/场外）、五类主要交易品种的风险收益特征、市场参与者结构，以及A股 T+1、涨跌停、融资融券与注册制等核心交易规则。</p>
 
         <p>大家好，我是你们的讲师。在上一章中我们讨论了金融分析的定义和框架，今天我们把目光投向分析对象所处的"舞台"——<strong>金融市场</strong>。想象一个场景：你是一家初创公司的CEO，公司经过三年研发，终于拿出了一款有竞争力的产品，现在需要资金扩大生产。你的选择有哪些？是找银行借钱，还是引入风险投资？抑或是筹备IPO上市？每一个选择的背后，都对应着金融市场的不同板块和不同规则。</p>
 
@@ -52,7 +54,40 @@
 
         <h2>2.1 金融市场的分类</h2>
 
-        <p>金融市场按照不同的维度可以有多种分类方式，但最核心、最具有实用价值的是按"发行与流通"和按"组织形式"两个维度划分。</p>
+        <p>金融市场按照不同的维度可以有多种分类方式，但最核心、最具有实用价值的是按“发行与流通”和按“组织形式”两个维度划分。</p>
+
+        <figure>
+            <svg role="img" width="760" height="330" style="max-width:100%;height:auto" aria-labelledby="mkt-title mkt-desc" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+                <title id="mkt-title">金融市场的资金流向与一级/二级市场关系</title>
+                <desc id="mkt-desc">资金盈余方（家庭、机构）通过一级市场把资金交给资金需求方（企业、政府），获得新发行的股票或债券；资金需求方支付分红与利息。二级市场让投资者之间可以互相买卖已发行的证券，为一级市场提供定价与流动性。</desc>
+                <defs>
+                    <marker id="mkt-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                        <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+                    </marker>
+                </defs>
+                <rect x="30" y="55" width="170" height="80" rx="14" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+                <text x="115" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#4c1d95">资金盈余方</text>
+                <text x="115" y="112" text-anchor="middle" font-size="13" fill="#5b21b6">家庭 · 机构</text>
+                <rect x="295" y="55" width="170" height="80" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="380" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#1e3a8a">一级市场</text>
+                <text x="380" y="112" text-anchor="middle" font-size="13" fill="#1e40af">IPO · 增发 · 债券发行</text>
+                <rect x="560" y="55" width="170" height="80" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                <text x="645" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">资金需求方</text>
+                <text x="645" y="112" text-anchor="middle" font-size="13" fill="#166534">企业 · 政府</text>
+                <line x1="200" y1="80" x2="290" y2="80" stroke="#7c3aed" stroke-width="2" marker-end="url(#mkt-arrow)"/>
+                <text x="245" y="70" text-anchor="middle" font-size="12" fill="#6d28d9">资金</text>
+                <line x1="555" y1="80" x2="465" y2="80" stroke="#7c3aed" stroke-width="2" marker-end="url(#mkt-arrow)"/>
+                <text x="510" y="70" text-anchor="middle" font-size="12" fill="#6d28d9">证券</text>
+                <line x1="290" y1="115" x2="205" y2="115" stroke="#7c3aed" stroke-width="2" marker-end="url(#mkt-arrow)"/>
+                <text x="247" y="132" text-anchor="middle" font-size="12" fill="#6d28d9">分红/利息</text>
+                <rect x="295" y="210" width="170" height="80" rx="14" fill="#fef9c3" stroke="#facc15" stroke-width="2"/>
+                <text x="380" y="243" text-anchor="middle" font-size="16" font-weight="700" fill="#713f12">二级市场</text>
+                <text x="380" y="267" text-anchor="middle" font-size="13" fill="#854d0e">投资者之间交易</text>
+                <line x1="380" y1="135" x2="380" y2="205" stroke="#a16207" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#mkt-arrow)"/>
+                <text x="470" y="176" font-size="12" fill="#854d0e">提供定价与流动性</text>
+            </svg>
+            <figcaption><span class="fig-num">图 2-1</span> 金融市场把储蓄转化为投资的循环。一级市场是资金首次从盈余方流向需求方的“造血”环节；二级市场不改变企业现金，但通过撮合交易为证券定价并提供流动性，反过来支撑一级市场的融资功能。</figcaption>
+        </figure>
 
         <h3>一级市场与二级市场</h3>
 
@@ -253,7 +288,27 @@
         <p>A股实行T+1结算——当天买入的股票，下一个交易日才能卖出。这与美股的T+0（当天可卖）和港股的T+2（两个工作日后交收）都不同。T+1意味着如果你在上午追高买入，下午股价跳水，你无法止损出局——只能等到第二天。这一规则降低了日内投机频率，但也增加了隔夜风险。对于分析师来说，T+1意味着<strong>收盘前30分钟是全天最重要的交易时段</strong>，因为想要当天离场的资金必须在此时段内完成卖出。</p>
 
         <h3>涨跌停板制度</h3>
-        <p>A股主板股票的单日涨跌幅限制为±10%，创业板和科创板为±20%，北交所为±30%。涨跌停板在正常市场条件下可以防止过度波动，但在极端行情下会引发严重的<strong>流动性危机</strong>——当大量卖盘涌出而买盘不足时，股票直接跌停，持有者无法卖出，恐慌情绪在无法宣泄的情况下进一步加剧，形成"跌停-恐慌-更猛烈的跌停"的恶性循环。</p>
+        <p>A股主板股票的单日涨跌幅限制为±10%，创业板和科创板为±20%，北交所为±30%。涨跌停板在正常市场条件下可以防止过度波动，但在极端行情下会引发严重的<strong>流动性危机</strong>——当大量卖盘涌出而买盘不足时，股票直接跌停，持有者无法卖出，恐慌情绪在无法宣泄的情况下进一步加剧，形成“跌停-恐慌-更猛烈的跌停”的恶性循环。</p>
+
+        <div class="math-equation" role="group" aria-label="涨跌停价计算">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="涨跌停价公式，可横向滚动">
+                <math display="block" aria-label="涨停价等于前收盘价乘以一加涨跌幅比例，跌停价等于前收盘价乘以一减涨跌幅比例">
+                    <mtable>
+                        <mtr><mtd><mtext>涨停价</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mtext>前收盘价</mtext><mo>×</mo><mo>(</mo><mn>1</mn><mo>+</mo><mtext>涨跌幅比例</mtext><mo>)</mo></mtd></mtr>
+                        <mtr><mtd><mtext>跌停价</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mtext>前收盘价</mtext><mo>×</mo><mo>(</mo><mn>1</mn><mo>−</mo><mtext>涨跌幅比例</mtext><mo>)</mo></mtd></mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="limit-controls" role="group" aria-label="选择上市板块">
+                <button type="button" data-board="main" aria-pressed="true">主板 ±10%</button>
+                <button type="button" data-board="star" aria-pressed="false">创业板/科创板 ±20%</button>
+                <button type="button" data-board="bse" aria-pressed="false">北交所 ±30%</button>
+            </div>
+            <output id="limit-out" aria-live="polite">前收盘价 10.00 元：涨停价 11.00 元，跌停价 9.00 元，单日最大振幅 2.00 元。</output>
+        </div>
 
         <div class="warning">
             <strong>踩坑警示：</strong>2015年A股股灾是涨跌停板制度下流动性危机的典型案例。2015年6月15日至7月8日，上证指数从5178点暴跌至3421点，跌幅超过34%。期间多次出现"千股跌停"的极端局面——6月26日超过2000只股票跌停，7月7日更是超过1700只股票跌停，同时有超过1400只股票申请停牌（"千股停牌"）。停牌意味着彻底失去了流动性——想卖都卖不掉。这个教训告诉我们：<strong>流动性风险是金融市场中最容易被低估的风险</strong>，尤其是当你看到别人都在"逃命"而自己却被关在里面的时候。
@@ -306,13 +361,50 @@ print(top_vol)</code></pre>
 
         <p>了解了金融市场的结构、品种、参与者和运行规则，下一步我们将视角从"市场"转向"企业"——如何通过财务报表来理解一家公司的经营状况。在下一章中，我们将从会计恒等式出发，系统学习三大财务报表的解读方法。</p>
 
-        <div class="footer-nav">
-            <a href="01.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页 A 股散户交易量占比、机构持股市值占比、2026 年融资余额约为融券余额 50 倍以上等数据为公开报道的概数；涨跌停价与仓位示例均为教学示意。</p>
+            <ol>
+                <li>中国证券监督管理委员会（CSRC）关于证券期货市场的公开规则与公告。</li>
+                <li>上海证券交易所、深圳证券交易所、北京证券交易所交易规则（T+1、涨跌幅限制、融资融券）。</li>
+                <li>2024 年新“国九条”及 2026 年注册制全面落地相关公开政策表述。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="01.html">← 第 1 章 金融分析概述</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="03.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="03.html">第 3 章 财务报表基础 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var boards = {
+        main: { label: '主板',   pct: 0.10 },
+        star: { label: '创业板/科创板', pct: 0.20 },
+        bse:  { label: '北交所', pct: 0.30 }
+    };
+    var base = 10;
+    var out = document.getElementById('limit-out');
+    var btns = document.querySelectorAll('#limit-controls button');
+    function show(key) {
+        var b = boards[key];
+        var up = base * (1 + b.pct);
+        var down = base * (1 - b.pct);
+        out.textContent = '前收盘价 ' + base.toFixed(2) + ' 元（' + b.label + '）：涨停价 ' +
+            up.toFixed(2) + ' 元，跌停价 ' + down.toFixed(2) + ' 元，单日最大振幅 ' +
+            (up - down).toFixed(2) + ' 元。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-board'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
