@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第9章 估值方法概述</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第9章 估值方法概述</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第9章 估值方法概述</h1>
+        <p class="article-dek">估值的哲学基础（内在价值、市场先生、安全边际）、绝对估值与相对估值的对比、估值方法的选择框架，以及常见的估值误区。</p>
 
         <p>大家好，我是你们的讲师。上一章我们通过DuPont分析深挖了ROE——理解了"这家公司赚钱的能力和来源"。但一个更棘手的问题紧接着就来了：<strong>既然这家公司能赚钱，它值多少钱？</strong></p>
 
@@ -85,6 +87,34 @@
         </ul>
 
         <p>实践中，安全边际的设定取决于你对公司确定性的判断：对确定性高的公司（如茅台这样的品牌消费品），安全边际可以小一些（如10-15%）；对成长早期的公司或周期股，安全边际需要足够大（如30-50%甚至更高）。</p>
+
+        <div class="math-equation" role="group" aria-label="内在价值与安全边际公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="内在价值DCF 与安全边际公式，可横向滚动">
+                <math display="block" aria-label="内在价值等于未来各期现金流按折现率贴现之和；安全边际等于内在价值减买入价再除以内在价值">
+                    <mtable>
+                        <mtr>
+                            <mtd><msub><mtext>V</mtext><mn>0</mn></msub></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><munderover><mo>∑</mo><mrow><mtext>t</mtext><mo>=</mo><mn>1</mn></mrow><mtext>n</mtext></munderover><mfrac><msub><mtext>CF</mtext><mtext>t</mtext></msub><msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mtext>r</mtext><mo>)</mo></mrow><mtext>t</mtext></msup></mfrac></mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd><mtext>安全边际</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mrow><mtext>内在价值</mtext><mo>−</mo><mtext>买入价</mtext></mrow><mtext>内在价值</mtext></mfrac></mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="mos-controls" role="group" aria-label="选择公司类型">
+                <button type="button" data-case="steady" aria-pressed="true">高确定性（茅台类）</button>
+                <button type="button" data-case="normal" aria-pressed="false">一般公司</button>
+                <button type="button" data-case="cyclical" aria-pressed="false">周期 / 早期公司</button>
+            </div>
+            <output id="mos-out" aria-live="polite">内在价值 100 元，安全边际 15% → 买入价 85 元；即使估值高估 20%（真实价值 80 元），仍接近盈亏平衡。</output>
+        </div>
 
         <h2>9.2 绝对估值法 vs 相对估值法</h2>
 
@@ -132,7 +162,33 @@
 
         <h2>9.3 估值方法选择框架</h2>
 
-        <p>面对五花八门的估值方法，一个常见的困惑是：<strong>"我该用哪个？"</strong>方法选错了，结果可能完全失真。下面提供一个实用的选择框架，帮你根据行业特征、公司生命周期和数据可得性来做决策。</p>
+        <p>面对五花八门的估值方法，一个常见的困惑是：<strong>“我该用哪个？”</strong>方法选错了，结果可能完全失真。下面提供一个实用的选择框架，帮你根据行业特征、公司生命周期和数据可得性来做决策。</p>
+
+        <figure>
+            <svg role="img" width="760" height="340" style="max-width:100%;height:auto" aria-labelledby="val-title val-desc" viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+                <title id="val-title">按现金流可预测性与可比公司数量选择估值方法</title>
+                <desc id="val-desc">横轴是可比公司数量（少到多），纵轴是现金流可预测性（低到高）。四个象限分别推荐：高可预测且可比公司少用 DCF/DDM；高可预测且可比公司多用 DCF 与 PE 交叉验证；低可预测且可比公司多用 PS/PB/EV 乘数；低可预测且可比公司少用情景估值/NAV/重置成本。</desc>
+                <line x1="150" y1="175" x2="730" y2="175" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="445" y1="55" x2="445" y2="300" stroke="#94a3b8" stroke-width="2"/>
+                <text x="445" y="40" text-anchor="middle" font-size="13" fill="#475569">现金流可预测性 高</text>
+                <text x="445" y="322" text-anchor="middle" font-size="13" fill="#475569">现金流可预测性 低</text>
+                <text x="155" y="195" font-size="13" fill="#475569">可比公司少</text>
+                <text x="720" y="195" text-anchor="end" font-size="13" fill="#475569">可比公司多</text>
+                <rect x="160" y="60" width="270" height="100" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="295" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#4c1d95">DCF / DDM</text>
+                <text x="295" y="126" text-anchor="middle" font-size="12" fill="#5b21b6">绝对估值为主</text>
+                <rect x="460" y="60" width="270" height="100" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="595" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">DCF + PE 交叉验证</text>
+                <text x="595" y="126" text-anchor="middle" font-size="12" fill="#166534">两种方法互相印证</text>
+                <rect x="160" y="195" width="270" height="100" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="295" y="235" text-anchor="middle" font-size="15" font-weight="700" fill="#713f12">情景估值 / NAV</text>
+                <text x="295" y="261" text-anchor="middle" font-size="12" fill="#854d0e">重置成本 · 分部估值</text>
+                <rect x="460" y="195" width="270" height="100" rx="12" fill="#e0f2fe" stroke="#0ea5e9"/>
+                <text x="595" y="235" text-anchor="middle" font-size="15" font-weight="700" fill="#075985">PS / PB / EV 乘数</text>
+                <text x="595" y="261" text-anchor="middle" font-size="12" fill="#0369a1">相对估值为王</text>
+            </svg>
+            <figcaption><span class="fig-num">图 9-1</span> 估值方法的选择由两个变量决定：未来现金能否预测、市场上有没有足够的可比公司。两者都具备时两种方法互相验证；只具备一个时以对应的那一种为主；两者都欠缺时，就要回到情景分析和资产重置价值。</figcaption>
+        </figure>
 
         <table>
             <tr>
@@ -239,13 +295,51 @@ for code, name in zip(codes, names):
 
         <p>这一章我们建立了估值的"世界观"——理解了价值与价格的区别、绝对与相对方法的差异、方法选择的原则和常见的误区。从下一章开始，我们将深入第一种具体方法——<strong>DCF绝对估值法</strong>，也是估值理论中逻辑最严谨、应用最广泛的核心模型。</p>
 
-        <div class="footer-nav">
-            <a href="08.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页茅台 2021 年 PE 约 70 倍、市值从约 3 万亿跌至约 1.6 万亿为公开行情的概数；安全边际与估值方法选择示例均为教学示意。</p>
+            <ol>
+                <li>Benjamin Graham《The Intelligent Investor》中“市场先生”与“安全边际”的论述。</li>
+                <li>Benjamin Graham & David Dodd《Security Analysis》。</li>
+                <li>上市公司公开行情数据与券商研报中的分类估值方法。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="08.html">← 第 8 章 DuPont分析与ROE</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="10.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="10.html">第 10 章 DCF绝对估值法 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var intrinsic = 100;
+    var cases = {
+        steady:   { label: '高确定性（茅台类）', margin: 0.15 },
+        normal:   { label: '一般公司',           margin: 0.25 },
+        cyclical: { label: '周期 / 早期公司',     margin: 0.40 }
+    };
+    var out = document.getElementById('mos-out');
+    var btns = document.querySelectorAll('#mos-controls button');
+    function show(key) {
+        var c = cases[key];
+        var buy = intrinsic * (1 - c.margin);
+        var over = intrinsic * 0.8;
+        var verdict = buy < over ? '仍有盈利空间' : '接近盈亏平衡';
+        out.textContent = c.label + '：内在价值 ' + intrinsic + ' 元，安全边际 ' +
+            (c.margin * 100) + '% → 买入价 ' + buy.toFixed(0) + ' 元；即使估值高估 20%（真实价值 ' +
+            over.toFixed(0) + ' 元），买入后' + verdict + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
