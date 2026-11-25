@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第5章 利润表分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第5章 利润表分析</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第5章 利润表分析</h1>
+        <p class="article-dek">收入质量与确认方法、成本费用结构（固定/变动、三费、研发资本化）、从毛利润到净利润的利润层次，以及 EPS 与稀释风险的分析方法。</p>
 
         <p>大家好，我是你们的讲师。上一章我们深入分析了资产负债表——企业的"家底"到底有多厚。但家底厚不等于会赚钱，好比一个人名下有几套房产，但每月工资入不敷出——这种情况长期看一定会出问题。今天我们把目光转向<strong>利润表</strong>，回答一个最直观的问题：<strong>这家公司到底能不能赚钱？赚的钱是怎么赚的？</strong></p>
 
@@ -126,6 +128,33 @@ if non_recurring_ratio > 0.3:
 
         <p>从这个简单的分析中可以看出：虽然净利润看起来很不错（17亿），但如果营业外收入（政府补贴）占比过高，一旦补贴取消，利润将会大幅缩水。我们真正应该关注的是<strong>营业利润</strong>——它反映的是企业核心业务的持续盈利能力。</p>
 
+        <figure>
+            <svg role="img" width="760" height="360" style="max-width:100%;height:auto" aria-labelledby="is-title is-desc" viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+                <title id="is-title">利润表的层次结构：从营业收入逐层扣减到净利润</title>
+                <desc id="is-desc">营业收入100亿元为最长的条，向下逐层扣减：减去营业成本60亿得到毛利润40亿，再减去三费20亿得到营业利润20亿，加上营业外净额2亿得到利润总额22亿，最后减去所得税5亿得到净利润17亿。条的长度与金额成正比。</desc>
+                <rect x="200" y="70" width="520" height="32" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="190" y="91" text-anchor="end" font-size="14" font-weight="700" fill="#1e3a8a">营业收入</text>
+                <text x="712" y="91" text-anchor="end" font-size="14" font-weight="700" fill="#1e3a8a">100 亿</text>
+                <text x="20" y="115" font-size="12" fill="#b91c1c">− 营业成本 60（成本率 60%）</text>
+                <rect x="200" y="120" width="208" height="32" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="190" y="141" text-anchor="end" font-size="14" font-weight="700" fill="#14532d">毛利润</text>
+                <text x="400" y="141" text-anchor="end" font-size="14" font-weight="700" fill="#14532d">40 亿</text>
+                <text x="20" y="165" font-size="12" fill="#b91c1c">− 三费（销售/管理/研发）20</text>
+                <rect x="200" y="170" width="104" height="32" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="190" y="191" text-anchor="end" font-size="14" font-weight="700" fill="#14532d">营业利润</text>
+                <text x="296" y="191" text-anchor="end" font-size="14" font-weight="700" fill="#14532d">20 亿</text>
+                <text x="20" y="215" font-size="12" fill="#0369a1">+ 营业外净额（如政府补贴）2</text>
+                <rect x="200" y="220" width="114" height="32" rx="6" fill="#fef9c3" stroke="#facc15"/>
+                <text x="190" y="241" text-anchor="end" font-size="14" font-weight="700" fill="#713f12">利润总额</text>
+                <text x="306" y="241" text-anchor="end" font-size="14" font-weight="700" fill="#713f12">22 亿</text>
+                <text x="20" y="265" font-size="12" fill="#b91c1c">− 所得税 5</text>
+                <rect x="200" y="270" width="88" height="32" rx="6" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="190" y="291" text-anchor="end" font-size="14" font-weight="700" fill="#4c1d95">净利润</text>
+                <text x="280" y="291" text-anchor="end" font-size="14" font-weight="700" fill="#4c1d95">17 亿</text>
+            </svg>
+            <figcaption><span class="fig-num">图 5-1</span> 利润表的逐层减法结构（数值为教学示例）。毛利润看产品的定价权，营业利润看核心业务的效率，利润总额与净利润则需要剔除非经常性损益后才能与营业利润对比，判断利润的可持续性。</figcaption>
+        </figure>
+
         <table>
             <tr>
                 <th>利润层次</th>
@@ -173,6 +202,34 @@ if non_recurring_ratio > 0.3:
         <h3>稀释EPS</h3>
         <p>稀释EPS考虑了可能增加股份数量的因素——如可转换债券、股票期权、认股权证等。稀释后的EPS通常会低于基本EPS，因为它假设所有潜在普通股都已经转换为普通股，分母变大了。</p>
 
+        <div class="math-equation" role="group" aria-label="EPS 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="基本 EPS 与稀释 EPS 公式，可横向滚动">
+                <math display="block" aria-label="基本每股收益等于归属于普通股股东的净利润除以发行在外普通股加权平均数；稀释每股收益等于归母净利润加稀释调整后除以加权平均股数加潜在普通股">
+                    <mtable>
+                        <mtr>
+                            <mtd><mtext>基本EPS</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mtext>归母净利润</mtext><mtext>加权平均股数</mtext></mfrac></mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd><mtext>稀释EPS</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mrow><mtext>归母净利润</mtext><mo>+</mo><mtext>稀释调整</mtext></mrow><mrow><mtext>加权平均股数</mtext><mo>+</mo><mtext>潜在普通股</mtext></mrow></mfrac></mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="eps-controls" role="group" aria-label="选择潜在股份情景">
+                <button type="button" data-pot="0" aria-pressed="true">无潜在股份</button>
+                <button type="button" data-pot="0.5" aria-pressed="false">股票期权 0.5 亿股</button>
+                <button type="button" data-pot="2" aria-pressed="false">可转债 2 亿股</button>
+            </div>
+            <output id="eps-out" aria-live="polite">归母净利润 17 亿元，加权平均股数 10 亿股：基本 EPS 1.70 元，稀释 EPS 1.70 元。</output>
+        </div>
+
         <p>两种EPS之间的差距，可以反映公司<strong>潜在股权稀释风险</strong>的大小。如果稀释EPS比基本EPS低20%以上，说明公司存在大量的潜在股份增加因素——一旦这些因素被触发，现有股东的权益将被大幅稀释。</p>
 
         <h2>5.5 一个真实的教训</h2>
@@ -185,13 +242,47 @@ if non_recurring_ratio > 0.3:
 
         <p>利润表是我们理解企业盈利能力最重要的工具，但它有一个致命的缺陷——它并不是按照"现金收付"来编制的。一家公司可以在利润表上显示巨额盈利，但银行账户里却没钱。这是怎么回事？下一章中，我们将用现金流量表来回答这个问题，并学会如何判断一家公司的"真实盈利质量"。</p>
 
-        <div class="footer-nav">
-            <a href="04.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页瑞幸咖啡造假案例中浑水报告页数、调查员人数与虚增幅度均为公开报道的概数；利润层次与 EPS 稀释的数值为教学示例。</p>
+            <ol>
+                <li>中华人民共和国财政部《企业会计准则第 14 号——收入》与相关应用指南。</li>
+                <li>国际会计准则理事会《国际财务报告准则第 15 号——客户合同收入》。</li>
+                <li>浑水（Muddy Waters）2020 年针对瑞幸咖啡的做空报告及瑞幸咖啡后续公开披露。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="04.html">← 第 4 章 资产负债表分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="06.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="06.html">第 6 章 现金流量表分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var netProfit = 17, shares = 10;
+    var cases = { '0': 0, '0.5': 0.5, '2': 2 };
+    var out = document.getElementById('eps-out');
+    var btns = document.querySelectorAll('#eps-controls button');
+    function show(key) {
+        var pot = cases[key];
+        var basic = netProfit / shares;
+        var diluted = netProfit / (shares + pot);
+        var pct = pot === 0 ? 0 : (basic - diluted) / basic * 100;
+        out.textContent = '归母净利润 ' + netProfit + ' 亿元，加权平均股数 ' + shares +
+            ' 亿股（潜在普通股 ' + pot + ' 亿股）：基本 EPS ' + basic.toFixed(2) +
+            ' 元，稀释 EPS ' + diluted.toFixed(2) + ' 元，稀释幅度 ' + pct.toFixed(1) + '%。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-pot'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
