@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第4章 资产负债表分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第4章 资产负债表分析</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第4章 资产负债表分析</h1>
+        <p class="article-dek">资产质量（应收账款、存货、商誉减值）、负债结构（有息 vs 无息、短债长投）、所有者权益的三层来源，以及营运资本效率指标的解读方法。</p>
 
         <p>大家好，我是你们的讲师。在上一章中，我们了解了三大财务报表的基本框架——资产负债表是"快照"，利润表是"电影"，现金流量表是"资金流水账"。今天我们从最基础也是最厚重的报表——<strong>资产负债表</strong>开始，深入解读每个科目背后的分析逻辑。</p>
 
@@ -52,7 +54,36 @@
 
         <h2>4.1 资产质量分析</h2>
 
-        <p>分析资产端，我们关心的不是"有多少资产"，而是"资产的质量如何"。账面价值1亿元的应收账款，能不能收回9500万还是只能收回5000万？账面价值5亿元的商誉，背后是否有对应的真实盈利能力？这些问题的答案，就在对资产质量的深入分析中。</p>
+        <p>分析资产端，我们关心的不是“有多少资产”，而是“资产的质量如何”。账面价值1亿元的应收账款，能不能收回9500万还是只能收回5000万？账面价值5亿元的商誉，背后是否有对应的真实盈利能力？这些问题的答案，就在对资产质量的深入分析中。</p>
+
+        <figure>
+            <svg role="img" width="760" height="380" style="max-width:100%;height:auto" aria-labelledby="bs-title bs-desc" viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+                <title id="bs-title">资产负债表的左右结构：资产与负债加所有者权益</title>
+                <desc id="bs-desc">左侧资产按流动性自上而下排列：上方是流动资产（货币资金、应收账款、存货），下方是非流动资产（固定资产、无形资产、商誉）。右侧上方是负债（流动负债与非流动负债），下方是所有者权益（股本、资本公积、留存收益）。资产总额恒等于负债加所有者权益。</desc>
+                <rect x="30" y="55" width="320" height="290" rx="14" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2"/>
+                <text x="190" y="82" text-anchor="middle" font-size="16" font-weight="700" fill="#4c1d95">资产（按流动性排列）</text>
+                <rect x="48" y="98" width="284" height="86" rx="10" fill="#e0f2fe" stroke="#0ea5e9"/>
+                <text x="190" y="124" text-anchor="middle" font-size="13" font-weight="700" fill="#075985">流动资产</text>
+                <text x="190" y="148" text-anchor="middle" font-size="12" fill="#0369a1">货币资金 · 应收账款 · 存货</text>
+                <text x="190" y="170" text-anchor="middle" font-size="12" fill="#0369a1">一年内可变现</text>
+                <rect x="48" y="196" width="284" height="130" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="190" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">非流动资产</text>
+                <text x="190" y="246" text-anchor="middle" font-size="12" fill="#166534">固定资产 · 厂房设备</text>
+                <text x="190" y="268" text-anchor="middle" font-size="12" fill="#166534">无形资产 · 商誉（减值风险）</text>
+                <text x="190" y="300" text-anchor="middle" font-size="12" fill="#166534">长期使用 · 变现慢</text>
+                <text x="380" y="215" text-anchor="middle" font-size="30" font-weight="700" fill="#7c3aed">=</text>
+                <rect x="410" y="55" width="320" height="150" rx="14" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+                <text x="570" y="82" text-anchor="middle" font-size="16" font-weight="700" fill="#7f1d1d">负债（按到期日排列）</text>
+                <text x="570" y="118" text-anchor="middle" font-size="13" fill="#991b1b">流动负债：应付账款 · 短期借款</text>
+                <text x="570" y="148" text-anchor="middle" font-size="13" fill="#991b1b">非流动负债：长期借款 · 应付债券</text>
+                <text x="570" y="178" text-anchor="middle" font-size="12" fill="#b91c1c">有息负债需付利息，无息负债占用供应商资金</text>
+                <rect x="410" y="223" width="320" height="122" rx="14" fill="#fef9c3" stroke="#facc15" stroke-width="2"/>
+                <text x="570" y="250" text-anchor="middle" font-size="16" font-weight="700" fill="#713f12">所有者权益</text>
+                <text x="570" y="280" text-anchor="middle" font-size="13" fill="#854d0e">股本 · 资本公积 · 留存收益</text>
+                <text x="570" y="310" text-anchor="middle" font-size="12" fill="#854d0e">股东投入 + 历史累积利润</text>
+            </svg>
+            <figcaption><span class="fig-num">图 4-1</span> 一张资产负债表的两端。左端资产按“变现速度”从上到下排列，右端按“索偿优先顺序”排列：债权人（负债）先于股东（所有者权益）。当占资产比重很大的商誉发生减值时，资产总额直接缩水，而负债不变，杠杆率会被动升高。</figcaption>
+        </figure>
 
         <h3>应收账款质量</h3>
         <p>应收账款是公司已经发货但尚未收到客户付款的金额。分析应收账款时，需要关注以下几点：</p>
@@ -88,6 +119,39 @@
 
         <h3>资产负债率</h3>
         <p>资产负债率 = 总负债 / 总资产，是最常用的杠杆指标。但对于不同行业，合理的资产负债率差异很大：银行和房地产公司的资产负债率通常在80-90%以上（这是行业特性），而轻资产科技公司通常只有20-40%。更精确的指标是<strong>有息资产负债率</strong>和<strong>净负债率</strong>（有息负债减去现金后除以净资产）。</p>
+
+        <div class="math-equation" role="group" aria-label="杠杆指标公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="三个杠杆指标公式，可横向滚动">
+                <math display="block" aria-label="资产负债率等于总负债除以总资产，有息负债率等于有息负债除以总资产，净负债率等于有息负债减现金再除以净资产">
+                    <mtable>
+                        <mtr>
+                            <mtd><mtext>资产负债率</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mtext>总负债</mtext><mtext>总资产</mtext></mfrac></mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd><mtext>有息负债率</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mrow><mtext>有息负债</mtext></mrow><mtext>总资产</mtext></mfrac></mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd><mtext>净负债率</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mfrac><mrow><mtext>有息负债</mtext><mo>−</mo><mtext>现金</mtext></mrow><mtext>净资产</mtext></mfrac></mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="goodwill-controls" role="group" aria-label="选择商誉减值金额">
+                <button type="button" data-imp="0" aria-pressed="true">商誉减值 0 亿</button>
+                <button type="button" data-imp="30" aria-pressed="false">减值 30 亿</button>
+                <button type="button" data-imp="60" aria-pressed="false">减值 60 亿</button>
+            </div>
+            <output id="goodwill-out" aria-live="polite">商誉 100 亿，总资产 300 亿，有息负债 100 亿，现金 30 亿：资产负债率 46.7%，净负债率 43.8%。</output>
+        </div>
 
         <h2>4.3 所有者权益分析</h2>
 
@@ -180,13 +244,54 @@ print(f"速动比率: {quick_ratio:.2f}")</code></pre>
 
         <p>资产负债表分析了企业的"底子"——净资产有多少、资产质量如何、负债结构是否合理。接下来，我们将把目光转向企业的"面子"——利润表。家底厚不厚是一回事，能不能持续赚钱又是另一回事。下一章中，我们将深入分析利润表的各项利润层次和收入质量。</p>
 
-        <div class="footer-nav">
-            <a href="03.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页 2018-2019 年商誉减值超 800 家、合计超 1500 亿元为公开报道的概数；商誉减值与杠杆互动的数值示例为教学示意。</p>
+            <ol>
+                <li>中华人民共和国财政部《企业会计准则第 8 号——资产减值》与《企业会计准则第 20 号——企业合并》。</li>
+                <li>A 股上市公司年度报告中商誉、应收账款账龄与有息负债披露。</li>
+                <li>证监会与交易所关于商誉减值风险提示的公开公告及媒体报道。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="03.html">← 第 3 章 财务报表基础</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="05.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="05.html">第 5 章 利润表分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        '0':  { imp: 0,  gw: 100 },
+        '30': { imp: 30, gw: 70 },
+        '60': { imp: 60, gw: 40 }
+    };
+    var otherAssets = 200;
+    var intDebt = 100, noIntDebt = 40, cash = 30;
+    var out = document.getElementById('goodwill-out');
+    var btns = document.querySelectorAll('#goodwill-controls button');
+    function show(key) {
+        var c = cases[key];
+        var assets = otherAssets + c.gw;
+        var liab = intDebt + noIntDebt;
+        var equity = assets - liab;
+        var dr = liab / assets * 100;
+        var ndr = (intDebt - cash) / equity * 100;
+        out.textContent = '商誉减值 ' + c.imp + ' 亿：商誉 ' + c.gw + ' 亿，总资产 ' + assets +
+            ' 亿，负债 ' + liab + ' 亿，净资产 ' + equity + ' 亿 → 资产负债率 ' + dr.toFixed(1) +
+            '%，净负债率 ' + ndr.toFixed(1) + '%。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-imp'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
