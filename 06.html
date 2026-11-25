@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第6章 现金流量表分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第6章 现金流量表分析</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第6章 现金流量表分析</h1>
+        <p class="article-dek">经营/投资/筹资三大现金流的解读与组合含义、FCFF 与 FCFE 的推导、现金转换周期（CCC）以及用 CFO 对比净利润来验证盈利质量。</p>
 
         <p>大家好，我是你们的讲师。上一章我们分析了利润表——企业"赚了多少钱"。但你可能已经发现了一个令人不安的问题：利润表上的"赚了"和银行账户里的"收到了"完全是两回事。有些公司利润表上显示盈利数亿，但银行账户里的钱却越来越少——这到底是怎么回事？</p>
 
@@ -113,12 +115,29 @@
         <p>自由现金流（Free Cash Flow, FCF）是衡量企业"可自由支配的现金"的指标——在满足维持性资本支出之后，剩余的可以用于分红、还债、回购或扩张的现金。自由现金流是估值模型（尤其是DCF）中最重要的输入参数。</p>
 
         <h3>FCFF（公司自由现金流）</h3>
-        <p>FCFF = CFO + 利息费用 x (1 - 税率) - 资本支出</p>
         <p>FCFF是向所有资本提供者（债权人和股东）支付之前的现金流，适用于评估企业整体价值。</p>
 
         <h3>FCFE（权益自由现金流）</h3>
-        <p>FCFE = CFO - 资本支出 + 净借款（新增借款 - 偿还债务）</p>
         <p>FCFE是扣除债权人权益之后归属于股东的现金流，直接用于股权估值。</p>
+
+        <div class="math-equation" role="group" aria-label="自由现金流公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="FCFF 与 FCFE 公式，可横向滚动">
+                <math display="block" aria-label="公司自由现金流等于经营现金流加利息费用乘以一减税率再减资本支出；权益自由现金流等于经营现金流减资本支出加净借款">
+                    <mtable>
+                        <mtr>
+                            <mtd><mtext>FCFF</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mtext>CFO</mtext><mo>+</mo><mtext>利息费用</mtext><mo>×</mo><mo>(</mo><mn>1</mn><mo>−</mo><mtext>税率</mtext><mo>)</mo><mo>−</mo><mtext>资本支出</mtext></mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd><mtext>FCFE</mtext></mtd>
+                            <mtd><mo>=</mo></mtd>
+                            <mtd><mtext>CFO</mtext><mo>−</mo><mtext>资本支出</mtext><mo>+</mo><mtext>净借款</mtext></mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
 
         <p>下面是一个计算自由现金流的Python示例：</p>
 
@@ -165,7 +184,18 @@ else:
 
         <p><strong>现金转换周期</strong>（Cash Conversion Cycle, CCC）是衡量企业营运资本管理效率的综合性指标，它回答了这样一个问题：从支付原材料货款到收回产品销售款，中间需要多少天？</p>
 
-        <p>CCC = DSO + DIO - DPO</p>
+        <div class="math-equation" role="group" aria-label="现金转换周期公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="现金转换周期及其分项公式，可横向滚动">
+                <math display="block" aria-label="现金转换周期等于应收账款周转天数加存货周转天数减应付账款周转天数">
+                    <mtable>
+                        <mtr><mtd><mtext>CCC</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mtext>DSO</mtext><mo>+</mo><mtext>DIO</mtext><mo>−</mo><mtext>DPO</mtext></mtd></mtr>
+                        <mtr><mtd><mtext>DSO</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mtext>平均应收账款</mtext><mrow><mtext>营业收入</mtext><mo>/</mo><mn>365</mn></mrow></mfrac></mtd></mtr>
+                        <mtr><mtd><mtext>DIO</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mtext>平均存货</mtext><mrow><mtext>营业成本</mtext><mo>/</mo><mn>365</mn></mrow></mfrac></mtd></mtr>
+                        <mtr><mtd><mtext>DPO</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mtext>平均应付账款</mtext><mrow><mtext>营业成本</mtext><mo>/</mo><mn>365</mn></mrow></mfrac></mtd></mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
 
         <ul>
             <li><strong>DSO</strong>（Days Sales Outstanding，应收账款周转天数）= 平均应收账款 / (营业收入 / 365)。DSO越短，说明回款速度越快。</li>
@@ -173,9 +203,39 @@ else:
             <li><strong>DPO</strong>（Days Payable Outstanding，应付账款周转天数）= 平均应付账款 / (营业成本 / 365)。DPO越长，说明公司越能占用供应商的资金。</li>
         </ul>
 
-        <p>CCC越短越好（甚至可以为负）。世界级的零售企业（如沃尔玛、Costco）的CCC通常为负数——它们从供应商那里拿货后很快就能卖给消费者，但付款给供应商的账期长达30-60天，相当于在"用供应商的钱做生意"。这种商业模式非常有竞争力。</p>
+        <p>CCC越短越好（甚至可以为负）。世界级的零售企业（如沃尔玛、Costco）的CCC通常为负数——它们从供应商那里拿货后很快就能卖给消费者，但付款给供应商的账期长达30-60天，相当于在“用供应商的钱做生意”。这种商业模式非常有竞争力。</p>
+
+        <figure>
+            <svg role="img" width="760" height="300" style="max-width:100%;height:auto" aria-labelledby="ccc-title ccc-desc" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                <title id="ccc-title">现金转换周期的构成与计算</title>
+                <desc id="ccc-desc">以教学示例数据展示：应收账款周转天数 DSO 为 45 天，存货周转天数 DIO 为 60 天，两者相加是 105 天；应付账款周转天数 DPO 为 70 天，可以抵消 70 天；现金转换周期 CCC 等于 105 减 70，为 35 天。条的长度与天数成正比。</desc>
+                <rect x="150" y="50" width="270" height="26" rx="5" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="140" y="68" text-anchor="end" font-size="13" font-weight="700" fill="#1e3a8a">DSO 应收 45 天</text>
+                <rect x="150" y="86" width="360" height="26" rx="5" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="140" y="104" text-anchor="end" font-size="13" font-weight="700" fill="#14532d">DIO 存货 60 天</text>
+                <text x="520" y="104" font-size="12" fill="#166534">投入现金到卖出商品</text>
+                <rect x="150" y="122" width="420" height="26" rx="5" fill="#fee2e2" stroke="#ef4444"/>
+                <text x="140" y="140" text-anchor="end" font-size="13" font-weight="700" fill="#7f1d1d">DPO 应付 70 天</text>
+                <text x="580" y="140" font-size="12" fill="#b91c1c">占用供应商资金，可抵消</text>
+                <text x="150" y="180" font-size="13" fill="#4c1d95">CCC = 45（DSO）+ 60（DIO）− 70（DPO）= 35 天</text>
+                <rect x="150" y="196" width="210" height="30" rx="5" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+                <text x="140" y="216" text-anchor="end" font-size="13" font-weight="700" fill="#4c1d95">CCC 35 天</text>
+                <text x="370" y="216" font-size="12" fill="#5b21b6">从付钱到收到钱的净占用天数</text>
+                <text x="150" y="258" font-size="12" fill="#64748b">天数越短（甚至为负）说明营运资本效率越高。数值为教学示例。</text>
+            </svg>
+            <figcaption><span class="fig-num">图 6-1</span> 现金转换周期的“两加一减”。DSO 与 DIO 拉长资金占用，DPO 缩短净占用；当 DPO 超过 DSO 加 DIO 时，CCC 变为负数，企业等于在用供应商的钱做生意。</figcaption>
+        </figure>
 
         <p>相反，如果CCC长期在上升（天数逐年变长），说明企业从投入现金到回收现金的周期在拉长——消耗同样多的营运资金只能产生更少的收入，资本使用效率在下降。</p>
+
+        <div class="widget">
+            <div class="controls" id="ccc-controls" role="group" aria-label="选择行业情景">
+                <button type="button" data-case="retail" aria-pressed="true">强势零售</button>
+                <button type="button" data-case="mfg" aria-pressed="false">普通制造</button>
+                <button type="button" data-case="pharma" aria-pressed="false">医药流通</button>
+            </div>
+            <output id="ccc-out" aria-live="polite">强势零售：DSO 3 天，DIO 35 天，DPO 40 天 → CCC = 3 + 35 − 40 = −2 天（用供应商的钱做生意）。</output>
+        </div>
 
         <h2>6.4 盈利质量验证</h2>
 
@@ -228,13 +288,48 @@ else:
 
         <p>现金流量表让我们看清了企业"真金白银"的流向和健康状况。结合上一章的利润表和再之前的资产负债表，我们已经掌握了分析企业财务健康状况的三大核心工具。在下一章中，我们将基于这三张表的知识，系统学习财务比率分析——用一系列量化的"指标"来快速定位一家公司的优点和风险。</p>
 
-        <div class="footer-nav">
-            <a href="05.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页沃尔玛/Costco 的 CCC 特征为公开商业常识性描述；FCFF/FCFE 计算与 CCC 情景数值均为教学示例（非特定公司实际数据）。</p>
+            <ol>
+                <li>中华人民共和国财政部《企业会计准则第 31 号——现金流量表》。</li>
+                <li>Aswath Damodaran《Investment Valuation》中关于 FCFF/FCFE 自由现金流推导的通行处理。</li>
+                <li>A 股上市公司年度报告“合并现金流量表”及其附注。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="05.html">← 第 5 章 利润表分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="07.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="07.html">第 7 章 财务比率分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        retail: { label: '强势零售', dso: 3,  dio: 35,  dpo: 40 },
+        mfg:    { label: '普通制造', dso: 60, dio: 80,  dpo: 50 },
+        pharma: { label: '医药流通', dso: 90, dio: 120, dpo: 45 }
+    };
+    var out = document.getElementById('ccc-out');
+    var btns = document.querySelectorAll('#ccc-controls button');
+    function show(key) {
+        var c = cases[key];
+        var ccc = c.dso + c.dio - c.dpo;
+        var note = ccc <= 0 ? '（用供应商的钱做生意）' : '（净占用 ' + ccc + ' 天营运资金）';
+        out.textContent = c.label + '：DSO ' + c.dso + ' 天，DIO ' + c.dio + ' 天，DPO ' + c.dpo +
+            ' 天 → CCC = ' + c.dso + ' + ' + c.dio + ' − ' + c.dpo + ' = ' + ccc + ' 天' + note + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
