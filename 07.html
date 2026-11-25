@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第7章 财务比率分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第7章 财务比率分析</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第7章 财务比率分析</h1>
+        <p class="article-dek">活动效率、流动性、偿债能力、盈利能力与估值五大比率体系，关键比率的计算公式，以及行业对标与横向分析的方法。</p>
 
         <p>大家好，我是你们的讲师。经过前面几章的学习，我们已经学会了如何解读三大财务报表的每一项内容。但这里有一个现实问题：当你面对一家公司连续5年、每年数十页的财务报告时，怎么快速抓住重点？怎么在一堆数字中找出最有价值的信息？</p>
 
@@ -91,6 +93,36 @@
 
         <p>这五大类比率分别从不同角度刻画企业的财务状况，结合起来才能形成完整的画像。单独看某一类指标容易得出片面的结论——比如只看盈利能力（ROE很高），可能忽略了偿债风险（杠杆过高）；只看流动性（现金很多），可能忽略了效率（资金闲置）。</p>
 
+        <figure>
+            <svg role="img" width="760" height="330" style="max-width:100%;height:auto" aria-labelledby="rat-title rat-desc" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+                <title id="rat-title">五大财务比率体系及其回答的核心问题</title>
+                <desc id="rat-desc">五类比率围绕企业财务画像：活动效率比率回答资产使用效率，流动性比率回答短期偿债能力，偿债能力比率回答长期财务风险，盈利能力比率回答赚不赚钱与赚钱效率，估值比率回答价格是否合理。</desc>
+                <rect x="40" y="28" width="200" height="62" rx="12" fill="#e0f2fe" stroke="#0ea5e9"/>
+                <text x="140" y="55" text-anchor="middle" font-size="14" font-weight="700" fill="#075985">活动效率比率</text>
+                <text x="140" y="76" text-anchor="middle" font-size="12" fill="#0369a1">资产使用效率如何？</text>
+                <rect x="280" y="28" width="200" height="62" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="380" y="55" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">流动性比率</text>
+                <text x="380" y="76" text-anchor="middle" font-size="12" fill="#166534">短期偿债能力够不够？</text>
+                <rect x="520" y="28" width="200" height="62" rx="12" fill="#fee2e2" stroke="#ef4444"/>
+                <text x="620" y="55" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d">偿债能力比率</text>
+                <text x="620" y="76" text-anchor="middle" font-size="12" fill="#991b1b">长期财务风险高不高？</text>
+                <rect x="290" y="140" width="180" height="52" rx="26" fill="#7c3aed"/>
+                <text x="380" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">企业财务画像</text>
+                <rect x="170" y="240" width="200" height="62" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="270" y="267" text-anchor="middle" font-size="14" font-weight="700" fill="#713f12">盈利能力比率</text>
+                <text x="270" y="288" text-anchor="middle" font-size="12" fill="#854d0e">赚不赚钱、效率如何？</text>
+                <rect x="420" y="240" width="200" height="62" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="520" y="267" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">估值比率</text>
+                <text x="520" y="288" text-anchor="middle" font-size="12" fill="#5b21b6">价格合理吗？</text>
+                <line x1="200" y1="120" x2="300" y2="140" stroke="#a78bfa" stroke-width="2"/>
+                <line x1="380" y1="92" x2="380" y2="138" stroke="#a78bfa" stroke-width="2"/>
+                <line x1="560" y1="120" x2="460" y2="140" stroke="#a78bfa" stroke-width="2"/>
+                <line x1="300" y1="194" x2="270" y2="238" stroke="#a78bfa" stroke-width="2"/>
+                <line x1="460" y1="194" x2="520" y2="238" stroke="#a78bfa" stroke-width="2"/>
+            </svg>
+            <figcaption><span class="fig-num">图 7-1</span> 五大比率体系的分工。任何单一类别的比率都只回答一个问题，只有把效率、流动性、偿债、盈利与估值放在一起，并配合行业与历史趋势比较，才能形成对企业的完整判断。</figcaption>
+        </figure>
+
         <h2>7.2 效率与流动性比率</h2>
 
         <h3>效率比率（活动比率）</h3>
@@ -112,6 +144,27 @@
             <li><strong>速动比率</strong> = (流动资产 - 存货) / 流动负债——剔除了流动性较差的存货。低于1.0可能意味着短期偿债压力较大。</li>
             <li><strong>现金比率</strong> = (货币资金 + 交易性金融资产) / 流动负债——最保守的流动性指标。现金比率过高意味着资金利用效率低，过低则可能有短期偿债风险。</li>
         </ul>
+
+        <div class="math-equation" role="group" aria-label="流动性比率公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="流动比率、速动比率与现金比率公式，可横向滚动">
+                <math display="block" aria-label="流动比率等于流动资产除以流动负债，速动比率等于流动资产减存货再除以流动负债，现金比率等于货币资金加交易性金融资产再除以流动负债">
+                    <mtable>
+                        <mtr><mtd><mtext>流动比率</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mtext>流动资产</mtext><mtext>流动负债</mtext></mfrac></mtd></mtr>
+                        <mtr><mtd><mtext>速动比率</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mrow><mtext>流动资产</mtext><mo>−</mo><mtext>存货</mtext></mrow><mtext>流动负债</mtext></mfrac></mtd></mtr>
+                        <mtr><mtd><mtext>现金比率</mtext></mtd><mtd><mo>=</mo></mtd><mtd><mfrac><mrow><mtext>货币资金</mtext><mo>+</mo><mtext>交易性金融资产</mtext></mrow><mtext>流动负债</mtext></mfrac></mtd></mtr>
+                    </mtable>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="liq-controls" role="group" aria-label="选择企业流动性情景">
+                <button type="button" data-case="safe" aria-pressed="true">保守型</button>
+                <button type="button" data-case="mid" aria-pressed="false">中性型</button>
+                <button type="button" data-case="agg" aria-pressed="false">激进型</button>
+            </div>
+            <output id="liq-out" aria-live="polite">保守型：流动资产 200，存货 60，现金类 100，流动负债 100 → 流动比率 2.00，速动比率 1.40，现金比率 1.00。</output>
+        </div>
 
         <div class="tip">
             <strong>分析师提示：</strong>在分析流动比率时，有一个常见的"数字陷阱"：兼并收购会导致短期借款增加（流动负债增加），同时商誉增加（非流动资产增加，流动资产不变），从而压低了流动比率——但这并不代表公司的经营状况恶化了。一定要理解比率背后的业务变动，而不是机械地套用阈值。
@@ -283,13 +336,50 @@ calc_profitability_ratios("000858", "五粮液")</code></pre>
 
         <p>有了财务比率分析的基础，我们就可以进入一个更深层次的框架——<strong>DuPont分析</strong>。它将ROE（净资产收益率）拆解为多个驱动因素的乘积，让我们能够精确地定位一家公司盈利能力的来源——是靠高利润率、高周转率、还是高杠杆？下一章我们将深入探讨这一强大的分析工具。</p>
 
-        <div class="footer-nav">
-            <a href="06.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页茅台毛利率 90%+、沃尔玛约 25% 等数值为公开财报的概数；流动比率合理区间与三类流动性情景均为教学示意。</p>
+            <ol>
+                <li>中华人民共和国财政部《企业会计准则》中关于流动资产、流动负债分类的规定。</li>
+                <li>上市公司年度报告中披露的毛利率、ROE 与周转率等财务指标。</li>
+                <li>中国证监会行业分类与可比公司对标方法（申万行业分类）。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="06.html">← 第 6 章 现金流量表分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="08.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="08.html">第 8 章 DuPont分析与ROE →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        safe: { label: '保守型', ca: 200, inv: 60,  cash: 100, cl: 100 },
+        mid:  { label: '中性型', ca: 150, inv: 75,  cash: 40,  cl: 100 },
+        agg:  { label: '激进型', ca: 100, inv: 60,  cash: 15,  cl: 100 }
+    };
+    var out = document.getElementById('liq-out');
+    var btns = document.querySelectorAll('#liq-controls button');
+    function show(key) {
+        var c = cases[key];
+        var cur = c.ca / c.cl;
+        var quick = (c.ca - c.inv) / c.cl;
+        var cash = c.cash / c.cl;
+        out.textContent = c.label + '：流动资产 ' + c.ca + '，存货 ' + c.inv + '，现金类 ' + c.cash +
+            '，流动负债 ' + c.cl + ' → 流动比率 ' + cur.toFixed(2) + '，速动比率 ' + quick.toFixed(2) +
+            '，现金比率 ' + cash.toFixed(2) + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
