@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第28章 职业路径与资源</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html" class="active">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第28章 职业路径与资源</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第28章 职业路径与资源</h1>
+        <p class="article-dek">金融分析的职业图谱（买方 / 卖方 / 量化及新兴交叉方向）、CFA / FRM / CQF / CPA 证书对比与选型、经典书籍与开源生态资源清单，以及“金融 + 编程 + 数理”三角与 T 型人才的持续进化路径。</p>
 
         <p>大家好，我是你们的讲师。欢迎来到本书的最后一章。如果你是从第一章一路读到这里的，我要先真诚地恭喜你——你投入了相当可观的时间和精力，系统地学习了金融分析的完整知识体系。从三张财务报表的解读，到DCF估值模型的构建，从多因子模型的设计到AI量化策略的实现，你走过的这条路，正是从"金融小白"到"具备系统性分析能力的从业者预备役"的蜕变之路。</p>
 
@@ -64,6 +66,44 @@
         <p>量化分析师（Quant）是近年来增长最快的金融职业之一。量化分析师的工作是用数学和编程工具构建交易策略和风险模型。典型路径：量化研究员（Quant Researcher）→ 高级量化研究员 → 量化PM（Quant Portfolio Manager）→ 量化投资总监。量化岗对编程和数学能力要求最高，同时对金融知识的深度要求相对灵活——很多顶尖量化研究员是物理学或计算机科学背景出身。</p>
 
         <p>除了这三条传统路径，2026年还出现了几个新兴的交叉方向：<strong>金融AI工程师</strong>（专注LLM在投研中的应用开发）、<strong>另类数据科学家</strong>（处理卫星图像、供应链数据等非结构化数据）、<strong>金融科技产品经理</strong>（设计面向投资分析师的数据产品）。</p>
+
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="career-title career-desc">
+                <title id="career-title">金融分析的职业路径图谱</title>
+                <desc id="career-desc">根节点为金融分析，分为买方、卖方与量化三条主线，各自列出典型锤子型晋升阶梯；底部另列 2026 年新兴交叉方向：金融 AI 工程师、另类数据科学家与金融科技产品经理。</desc>
+                <defs><marker id="cr-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#a855f7"/></marker></defs>
+                <rect x="290" y="14" width="140" height="40" rx="10" fill="#f3e8ff" stroke="#a855f7"/>
+                <text x="360" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#6b21a8">金融分析</text>
+                <line x1="320" y1="54" x2="120" y2="80" stroke="#cbd5e1" marker-end="url(#cr-arrow)"/>
+                <line x1="360" y1="54" x2="360" y2="80" stroke="#cbd5e1" marker-end="url(#cr-arrow)"/>
+                <line x1="400" y1="54" x2="600" y2="80" stroke="#cbd5e1" marker-end="url(#cr-arrow)"/>
+                <g text-anchor="middle">
+                    <rect x="40" y="84" width="160" height="90" rx="10" fill="#dbeafe" stroke="#3b82f6"/>
+                    <text x="120" y="108" font-size="13" font-weight="700" fill="#1e40af">卖方研究</text>
+                    <text x="120" y="130" font-size="11" fill="#1d4ed8">助理→分析师</text>
+                    <text x="120" y="148" font-size="11" fill="#1d4ed8">→高级→首席</text>
+                    <text x="120" y="166" font-size="10" fill="#64748b">券商研究所</text>
+                    <rect x="280" y="84" width="160" height="90" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+                    <text x="360" y="108" font-size="13" font-weight="700" fill="#14532d">买方研究</text>
+                    <text x="360" y="130" font-size="11" fill="#166534">研究员→资深</text>
+                    <text x="360" y="148" font-size="11" fill="#166534">→基金经理</text>
+                    <text x="360" y="166" font-size="10" fill="#64748b">公募/私募/保险</text>
+                    <rect x="520" y="84" width="160" height="90" rx="10" fill="#fef9c3" stroke="#facc15"/>
+                    <text x="600" y="108" font-size="13" font-weight="700" fill="#713f12">量化分析</text>
+                    <text x="600" y="130" font-size="11" fill="#854d0e">研究员→高级</text>
+                    <text x="600" y="148" font-size="11" fill="#854d0e">→量化 PM</text>
+                    <text x="600" y="166" font-size="10" fill="#64748b">量化私募/自营</text>
+                </g>
+                <line x1="60" y1="205" x2="660" y2="205" stroke="#e2e8f0"/>
+                <text x="60" y="228" font-size="12" font-weight="700" fill="#6d28d9">2026 新兴交叉方向</text>
+                <g text-anchor="middle" font-size="11" fill="#4c1d95">
+                    <rect x="60" y="240" width="180" height="42" rx="8" fill="#ede9fe" stroke="#8b5cf6"/><text x="150" y="266">金融 AI 工程师</text>
+                    <rect x="270" y="240" width="180" height="42" rx="8" fill="#ede9fe" stroke="#8b5cf6"/><text x="360" y="266">另类数据科学家</text>
+                    <rect x="480" y="240" width="180" height="42" rx="8" fill="#ede9fe" stroke="#8b5cf6"/><text x="570" y="266">金融科技产品经理</text>
+                </g>
+            </svg>
+            <figcaption><span class="fig-num">图 28-1</span> 金融分析的职业路径图谱：卖方、买方与量化三条主线各有不同的晋升阶梯与能力侧重，底部的新兴交叉方向则在传统能力之上叠加了 AI、非结构化数据处理或产品能力。路径没有高低之分，只有是否匹配个人性格与生活方式之分。</figcaption>
+        </figure>
 
         <table>
             <tr>
@@ -261,12 +301,58 @@ print(f"Data range: {df['日期'].iloc[0]} to {df['日期'].iloc[-1]}")
 print(f"Annualized volatility: {df['volatility'].iloc[-1]:.2%}")
 print("开源工具让机构级数据分析触手可及！")</code></pre>
 
+        <p>代码中最后一步把日频波动率年化，用的是下面这个近似——把日收益标准差乘以一年交易日数的平方根：</p>
+
+        <div class="math-equation" role="group" aria-label="年化波动率公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="年化波动率公式，可横向滚动">
+                <math display="block" aria-label="年化波动率等于日收益率的样本标准差乘以根号 252，其中标准差以 20 日为窗口滚动计算">
+                    <mrow>
+                        <msub><mi>σ</mi><mtext>年</mtext></msub><mo>=</mo>
+                        <msub><mi>σ</mi><mtext>日</mtext></msub>
+                        <msqrt><mn>252</mn></msqrt>
+                        <mo>,</mo><mspace width="1.4em"/>
+                        <msub><mi>σ</mi><mtext>日</mtext></msub><mo>=</mo>
+                        <msqrt>
+                            <mfrac>
+                                <mn>1</mn>
+                                <mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow>
+                            </mfrac>
+                            <munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover>
+                            <msup><mrow><mo>(</mo><msub><mi>r</mi><mi>i</mi></msub><mo>−</mo><mover><mi>r</mi><mo>¯</mo></mover><mo>)</mo></mrow><mn>2</mn></msup>
+                        </msqrt>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <p class="note">这是业界常用的近似公式，隐含“日收益独立同分布且方差可加”的假设；真实市场中波动率存在聚集与长记忆效应，因此年化结果仅作为风险量级的粗估。</p>
+
         <h3>阅读建议</h3>
         <p>对于经典书籍，建议先读《证券分析》建立基本面分析的底层逻辑，再根据自己的兴趣方向选择量化或行为金融的书籍深入。对于论文，不需要追求全部读懂细节——先理解核心思想和方法论创新就足够了。对于开源项目，最好的学习方式是"跑起来"——把项目的示例代码下载到本地运行，然后逐步修改和扩展。</p>
 
         <h2>28.4 持续进化之路</h2>
 
         <p>金融分析领域有一个著名的"三角模型"：<strong>金融知识 + 编程能力 + 数学统计 = 核心竞争力</strong>。这三条腿缺一条，分析能力就会大打折扣。如果你的财报分析能力很强但不会编程，你就无法处理大规模数据和构建量化策略；如果你的编程能力很强但不懂金融逻辑，你写的交易代码可能包含致命的业务错误；如果你的数学很好但不懂市场机制，你的模型可能建立在错误的假设之上。</p>
+
+        <figure>
+            <svg role="img" width="720" height="270" style="max-width:100%;height:auto" viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" aria-labelledby="tri-title tri-desc">
+                <title id="tri-title">金融分析核心竞争力的三角模型</title>
+                <desc id="tri-desc">一个三角形，三个顶点分别为金融知识、编程能力与数学统计，中心标为核心竞争力；三条边代表三者必须均衡，缺一边则整体不稳。</desc>
+                <polygon points="360,40 150,220 570,220" fill="#faf8ff" stroke="#8b5cf6" stroke-width="2"/>
+                <circle cx="360" cy="40" r="46" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="360" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">金融知识</text>
+                <circle cx="150" cy="220" r="52" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="150" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">编程</text>
+                <text x="150" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">能力</text>
+                <circle cx="570" cy="220" r="52" fill="#fef9c3" stroke="#facc15"/>
+                <text x="570" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#713f12">数学</text>
+                <text x="570" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#713f12">统计</text>
+                <text x="360" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#6d28d9">核心竞争力</text>
+                <text x="360" y="172" text-anchor="middle" font-size="11" fill="#7e22ce">三者交集，而非单点最优</text>
+                <text x="360" y="256" text-anchor="middle" font-size="11" fill="#64748b">任一边缺失：懂金融不会编程→无法规模化；会编程不懂金融→业务逻辑错误；懂数学不懂市场→假设错误</text>
+            </svg>
+            <figcaption><span class="fig-num">图 28-2</span> “金融知识 + 编程能力 + 数学统计”的三角模型：竞争力来自三者的交集而非任何一角的绝对深度。这也是为什么跨领域背景在量化岗位上有天然优势，而纯金融背景的候选人需要主动补上编程与数理这一角。</figcaption>
+        </figure>
 
         <h3>T型人才发展策略</h3>
         <p>"T型人才"的概念在金融分析领域特别适用：</p>
@@ -282,6 +368,18 @@ print("开源工具让机构级数据分析触手可及！")</code></pre>
             <li><strong>AI素养成为基本要求</strong>——65%以上的量化岗位在2026年的招聘JD中明确提到了LLM/AI相关技能要求。如果能熟练使用AI工具辅助分析——无论是代码生成、数据分析还是报告撰写——都会显著提升竞争力。</li>
             <li><strong>实操经验胜过学历</strong>——越来越多的面试官会关注"你做过什么项目"而不是"你学过什么课程"。这也是为什么上一章的综合实战项目如此重要——它能成为你简历上最有力的佐证。</li>
         </ul>
+
+        <div class="widget">
+            <div class="controls" id="career-ctr" role="group" aria-label="选择你想了解的职业方向">
+                <button type="button" data-case="sell" aria-pressed="false">卖方研究</button>
+                <button type="button" data-case="buy" aria-pressed="false">买方研究</button>
+                <button type="button" data-case="quant" aria-pressed="true">量化分析</button>
+                <button type="button" data-case="ai" aria-pressed="false">金融 AI</button>
+            </div>
+            <output id="career-out" aria-live="polite">量化分析：编程、统计、机器学习与策略研发是硬门槛，金融知识的深度要求相对灵活；证书选 FRM/CQF 相关性更高，竞争力来自“数理 + 编程”两角。</output>
+        </div>
+
+        <p class="note">以上薪酬区间与证书成本为行业公开信息的概数，会随机构、城市与年份波动，仅供参考。</p>
 
         <div class="warning">
             <strong>踩坑警示：</strong>我见过不少年轻分析师犯的一个共同错误是：在职业早期过于频繁地换方向——今天觉得基本面分析更"正统"，明天觉得量化更"高大上"，后天又觉得AI更"有前途"。结果每一条路都只走了一小段，没有在任何方向上形成积累。建议在前三年内选定一个方向深耕，积累足够的深度后再扩展广度。
@@ -299,13 +397,43 @@ print("开源工具让机构级数据分析触手可及！")</code></pre>
             <strong>最后的鼓励：</strong>金融分析是一门实践科学。阅读可以让你"知道"，但只有动手做才能真正"掌握"。打开你的Python编辑器，去获取一些真实数据，计算一些指标，写一个简单的策略回测——哪怕你的第一个策略亏损了，这个过程中你学到的东西远比任何教材都多。金融市场永远在变化，但分析思维的价值永远不会过时。祝你在金融分析的职业道路上行稳致远！
         </div>
 
-        <div class="footer-nav">
-            <a href="27.html">← 上一章</a>
-            <a href="index.html">📖 返回目录</a>
-            <a href="javascript:void(0)">下一章 →</a>
-        </div>
-    </div>
+        <section class="references" aria-labelledby="refs-h8">
+            <h2 id="refs-h8">参考资料与数据说明</h2>
+            <p class="note">本页的薪酬区间、证书成本、AI 岗位占比（如“超过 65% 的量化岗位 JD 提到 LLM/AI”）均为行业公开信息的概数，会随机构、城市、年份波动，不作为承诺；书籍、论文与开源项目名称为公开的真实资源，但具体版本与链接请以官方发布为准。</p>
+            <ol>
+                <li>CFA Institute（CFA）、GARP（FRM）、Fitch Learning（CQF）与中注协（CPA）官方考试与费用说明。</li>
+                <li>Fama, E. F. &amp; French, K. R. (1993). <em>Common Risk Factors in the Returns on Stocks and Bonds</em>, Journal of Financial Economics.</li>
+                <li>Jegadeesh, N. &amp; Titman, S. (1993). <em>Returns to Buying Winners and Selling Losers</em>, Journal of Finance.</li>
+                <li>López de Prado, M. (2018). <em>Advances in Financial Machine Learning</em>, Wiley。</li>
+                <li>公开开源项目：akshare、vnpy / VeighNa、backtrader、vectorbt、OpenBB 官方仓库。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="27.html">← 第 27 章 综合实战项目</a>
+            <a href="index.html">📖 返回全课程目录</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        sell:  '卖方研究：核心是财报分析、行业洞察与沟通路演（路演密集）；优势是接触面广，一年可深入调研数十家公司，适合享受高压与表达的人。',
+        buy:   '买方研究：核心是投资判断、组合管理与风险控制，需要对投资结果直接负责；薪资上限更高，但要承受直接的业绩压力。',
+        quant: '量化分析：编程、统计、机器学习与策略研发是硬门槛，金融知识的深度要求相对灵活；证书选 FRM/CQF 相关性更高，竞争力来自“数理 + 编程”两角。',
+        ai:    '金融 AI：需要 LLM、Agent 开发与 NLP 能力，叠加金融业务理解；面试常问实战项目，建议用 AI 代码审查与回测复现证明工程能力。'
+    };
+    var out = document.getElementById('career-out');
+    var btns = document.querySelectorAll('#career-ctr button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
