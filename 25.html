@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第25章 可视化与仪表盘</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第25章 可视化与仪表盘</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第25章 可视化与仪表盘</h1>
+        <p class="article-dek">从金融图表选型到交付工具：K线图与相关性热力图的适用场景、Plotly 交互图与自定义 Hover、Power BI 仪表盘的 DAX 与刷新机制、Streamlit 轻量 Web 应用，以及五类工具在交互性与部署难度上的定位。</p>
 
         <p>大家好，我是你们的讲师。先说一个真实场景：你花了两周时间构建了一个复杂的量化因子模型，回测夏普比率1.8，最大回撤15%，各项指标都很漂亮。你信心满满地走进会议室，打开你的Jupyter Notebook，准备向投资委员会展示——结果对方看了一眼说："这堆彩色格子到底是什么？你做的东西能不能让我三秒钟看懂？"</p>
 
@@ -105,6 +107,31 @@
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="720" height="340" style="max-width:100%;height:auto" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" aria-labelledby="pick-title pick-desc">
+                <title id="pick-title">从分析问题到图表类型的选型路径</title>
+                <desc id="pick-desc">根节点为“你想回答什么”，向右分为五个分支：价格随时间变化选 K 线或折线，单资产收益分布选直方图或箱线图，多资产关系选相关性热力图，从峰值回撤选回撤曲线，构成拆解选瀑布图或横向条形图。</desc>
+                <defs><marker id="pick-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+                <rect x="20" y="140" width="150" height="56" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="95" y="165" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">你想回答什么？</text>
+                <text x="95" y="184" text-anchor="middle" font-size="11" fill="#6d28d9">先定问题，再选图</text>
+                <line x1="170" y1="168" x2="250" y2="40" stroke="#cbd5e1" marker-end="url(#pick-arrow)"/>
+                <line x1="170" y1="168" x2="250" y2="104" stroke="#cbd5e1" marker-end="url(#pick-arrow)"/>
+                <line x1="170" y1="168" x2="250" y2="168" stroke="#cbd5e1" marker-end="url(#pick-arrow)"/>
+                <line x1="170" y1="168" x2="250" y2="232" stroke="#cbd5e1" marker-end="url(#pick-arrow)"/>
+                <line x1="170" y1="168" x2="250" y2="296" stroke="#cbd5e1" marker-end="url(#pick-arrow)"/>
+                <g font-size="12" fill="#1e293b">
+                    <rect x="255" y="22" width="200" height="36" rx="8" fill="#dbeafe" stroke="#3b82f6"/><text x="355" y="45" text-anchor="middle">价格随时间 → K 线 / 折线</text>
+                    <rect x="255" y="86" width="200" height="36" rx="8" fill="#dcfce7" stroke="#16a34a"/><text x="355" y="109" text-anchor="middle">单资产分布 → 直方图 / 箱线</text>
+                    <rect x="255" y="150" width="200" height="36" rx="8" fill="#fef9c3" stroke="#facc15"/><text x="355" y="173" text-anchor="middle">多资产关系 → 相关性热力图</text>
+                    <rect x="255" y="214" width="200" height="36" rx="8" fill="#fee2e2" stroke="#f87171"/><text x="355" y="237" text-anchor="middle">从峰值回撤 → 回撤曲线</text>
+                    <rect x="255" y="278" width="240" height="36" rx="8" fill="#f3e8ff" stroke="#a855f7"/><text x="375" y="301" text-anchor="middle">构成拆解 → 瀑布图 / 横向条形</text>
+                </g>
+                <text x="360" y="18" text-anchor="middle" font-size="11" fill="#64748b">占比类问题优先横向条形图；饼图因难比较扇区面积而不推荐</text>
+            </svg>
+            <figcaption><span class="fig-num">图 25-1</span> 选型应先定“要回答的问题”，再定图表：价格随时间用 K 线/折线，分布用直方图/箱线，多资产关系用相关性热力图，回撤用回撤曲线，构成拆解用瀑布图或横向条形。同一份数据往往可以用多种图，差别在于读者看图的速度。</figcaption>
+        </figure>
+
         <p>选择图表的黄金法则是：<strong>不要让读者花力气去理解你的图</strong>。如果你需要加一大段文字来解释这个图在说什么，那不是读者的问题，是你的图表选错了。</p>
 
         <div class="highlight">
@@ -141,6 +168,35 @@ fig.show()</code></pre>
         <h3>交互式K线 + 成交量联动</h3>
 
         <p>专业的K线图需要同时显示价格和成交量，并且两者是联动的——缩放到某个时间段时，成交量的时间范围自动跟随：</p>
+
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="kline-title kline-desc">
+                <title id="kline-title">K 线结构与其下方成交量柱的联动</title>
+                <desc id="kline-desc">上方画三根K线：阳线实体绿色、阴线实体红色，上下影线分别表示最高与最低价；下方对应成交柱用同一颜色编码，两者共享横轴，缩放时时间范围同步。</desc>
+                <line x1="40" y1="180" x2="690" y2="180" stroke="#cbd5e1"/>
+                <text x="40" y="24" font-size="12" font-weight="700" fill="#334155">价格：开/高/低/收</text>
+                <g stroke-width="2">
+                    <line x1="120" y1="60" x2="120" y2="150" stroke="#16a34a"/>
+                    <rect x="108" y="80" width="24" height="50" fill="#16a34a"/>
+                    <line x1="240" y1="70" x2="240" y2="170" stroke="#ef4444"/>
+                    <rect x="228" y="95" width="24" height="55" fill="#ef4444"/>
+                    <line x1="360" y1="50" x2="360" y2="140" stroke="#16a34a"/>
+                    <rect x="348" y="70" width="24" height="55" fill="#16a34a"/>
+                </g>
+                <text x="120" y="196" text-anchor="middle" font-size="11" fill="#475569">阳线</text>
+                <text x="240" y="196" text-anchor="middle" font-size="11" fill="#475569">阴线</text>
+                <text x="360" y="196" text-anchor="middle" font-size="11" fill="#475569">阳线</text>
+                <line x1="40" y1="270" x2="690" y2="270" stroke="#cbd5e1"/>
+                <g>
+                    <rect x="108" y="220" width="24" height="50" fill="#16a34a" opacity="0.6"/>
+                    <rect x="228" y="232" width="24" height="38" fill="#ef4444" opacity="0.6"/>
+                    <rect x="348" y="210" width="24" height="60" fill="#16a34a" opacity="0.6"/>
+                </g>
+                <text x="40" y="214" font-size="12" font-weight="700" fill="#334155">成交量</text>
+                <text x="375" y="292" text-anchor="middle" font-size="11" fill="#64748b">共享横轴：拖动/缩放到某时间段时，上方 K 线与下方成交量同步到同一区间</text>
+            </svg>
+            <figcaption><span class="fig-num">图 25-2</span> K 线的基本结构：实体上下边为开盘与收盘，上下影线为最高与最低；下方成交量柱与 K 线共享横轴。阳线（收盘 &gt; 开盘）与阴线（收盘 &lt; 开盘）的颜色编码应全图一致，否则“红涨绿跌”的习惯在不同市场会误导读者。</figcaption>
+        </figure>
 
         <pre><code>import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -311,6 +367,29 @@ st.caption("⚠️ 回测结果仅供参考，不构成投资建议。过往表�
 
         <p>将以上代码保存为 <code>app.py</code>，然后运行 <code>streamlit run app.py</code>，浏览器会自动打开一个可交互的Web页面。如果需要分享给同事，可以免费部署到 <code>share.streamlit.io</code> 或使用公司内部的Streamlit Server。</p>
 
+        <p>代码中四个指标卡里的夏普比率与最大回撤可以写成下面两个式子（日频夏普乘以 <math display="inline" aria-label="根号 252"><msqrt><mn>252</mn></msqrt></math> 年化）：</p>
+
+        <div class="math-equation" role="group" aria-label="夏普比率与最大回撤">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="夏普比率与最大回撤公式，可横向滚动">
+                <math display="block" aria-label="夏普比率等于组合平均超额收益除以收益标准差，再乘以根号 252 年化；最大回撤等于净值序列相对历史高点的最小回撤">
+                    <mrow>
+                        <mtext>Sharpe</mtext><mo>=</mo>
+                        <mfrac>
+                            <mrow><mi>E</mi><mo>[</mo><msub><mi>r</mi><mi>p</mi></msub><mo>]</mo><mo>−</mo><msub><mi>r</mi><mi>f</mi></msub></mrow>
+                            <msub><mi>σ</mi><mi>p</mi></msub>
+                        </mfrac>
+                        <msqrt><mn>252</mn></msqrt>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <mtext>MDD</mtext><mo>=</mo>
+                        <munder><mi>min</mi><mi>t</mi></munder>
+                        <mrow><mo>(</mo><mfrac><msub><mi>P</mi><mi>t</mi></msub><mrow><munder><mi>max</mi><mrow><mi>s</mi><mo>≤</mo><mi>t</mi></mrow></munder><msub><mi>P</mi><mi>s</mi></msub></mrow></mfrac><mo>−</mo><mn>1</mn><mo>)</mo></mrow>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <p class="note">上式中 <math display="inline" aria-label="r 下标 f"><msub><mi>r</mi><mi>f</mi></msub></math> 为无风险利率，示例代码为简化而取 0；将日收益标准差乘以 <math display="inline" aria-label="根号 252"><msqrt><mn>252</mn></msqrt></math> 是按 252 个交易日年化的常用近似。</p>
+
         <h3>可视化工具对比</h3>
 
         <table>
@@ -357,6 +436,17 @@ st.caption("⚠️ 回测结果仅供参考，不构成投资建议。过往表�
                 <td>实时数据监控、交易系统运维</td>
             </tr>
         </table>
+
+        <div class="widget">
+            <div class="controls" id="viz-controls" role="group" aria-label="选择你的使用场景">
+                <button type="button" data-case="research" aria-pressed="true">自己做研究</button>
+                <button type="button" data-case="report" aria-pressed="false">向客户/管理层汇报</button>
+                <button type="button" data-case="team" aria-pressed="false">团队持续使用</button>
+                <button type="button" data-case="share" aria-pressed="false">把脚本分享给同事</button>
+                <button type="button" data-case="monitor" aria-pressed="false">实时数据监控</button>
+            </div>
+            <output id="viz-out" aria-live="polite">自己做研究：在 Jupyter Notebook 里用 mplfinance 或 Plotly 直接出图就行——无需部署，迭代最快。</output>
+        </div>
 
         <h3>mplfinance：快速绘制专业K线图</h3>
 
@@ -405,13 +495,44 @@ mpf.plot(
 
         <p>至此，我们完成了金融分析"工具篇"的三章学习。你掌握了Python金融工具链的搭建、Excel高级建模的技巧、以及从静态图表到仪表盘的可视化技能。从下一章开始，我们将进入全课程最前沿也最激动人心的部分——AI与量化投资的融合。你将看到大语言模型如何被用于因子挖掘、策略生成和交易执行，以及强化学习如何在复杂市场环境中训练出超越人类的交易智能。</p>
 
-        <div class="footer-nav">
-            <a href="24.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h5">
+            <h2 id="refs-h5">参考资料与数据说明</h2>
+            <p class="note">本页图表类型与工具对比为业界通行做法的归纳，不引用具体公司业绩数据；代码中的股票代码与日期区间仅作示例，回测结果、夏普比率与最大回撤均为教学演示，不构成投资建议。</p>
+            <ol>
+                <li>Plotly Python 开源库文档：Plotly Express、Graph Objects 与 <code>write_html</code> 自包含导出。</li>
+                <li>Microsoft Power BI 文档：Power Query 数据转换、DAX 时间智能函数（<code>TOTALYTD</code>、<code>SAMEPERIODLASTYEAR</code>）与数据集刷新。</li>
+                <li>Streamlit 官方文档：<code>st.sidebar</code>、<code>st.slider</code>、<code>st.metric</code> 与部署方式。</li>
+                <li>mplfinance 与 Matplotlib 文档：K 线绘制与出版级静态图表导出。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="24.html">← 第 24 章 Excel高级建模</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="26.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="26.html">第 26 章 AI与量化投资 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        research: '自己做研究：在 Jupyter Notebook 里用 mplfinance 或 Plotly 直接出图就行——无需部署，迭代最快。',
+        report:   '向客户/管理层汇报：用 Plotly 导出独立 HTML，或 mplfinance 出出版级静态图，双击即可打开、对方无需装 Python。',
+        team:     '团队持续使用：用 Power BI 建立可定时刷新、可多人访问的仪表盘，指标用 DAX 统一口径。',
+        share:    '把脚本分享给同事：用 Streamlit 把分析代码包装成 Web 应用，参数用侧边栏控件暴露即可。',
+        monitor:  '实时数据监控：用 Grafana 接时序数据库做告警与盯盘，擅长高频刷新而非一次性分析。'
+    };
+    var out = document.getElementById('viz-out');
+    var btns = document.querySelectorAll('#viz-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
