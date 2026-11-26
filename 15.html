@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第15章 风险管理基础</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第15章 风险管理基础</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第15章 风险管理基础</h1>
+        <p class="article-dek">金融风险的四大分类、VaR 与 CVaR 的定义与三种计算法、压力测试与情景分析，以及最大回撤、凯利公式与 ATR 止损如何把风险度量转化为仓位行动。</p>
 
         <p>大家好，我是你们的讲师。如果你问一位有十年以上交易经验的基金经理："你认为投资中最重要的一件事是什么？"十有八九，他们的答案不是"如何多赚钱"，而是"如何活下去"。这听起来有点凡尔赛，但金融市场的现实就是如此——一次毁灭性的亏损，足以抹掉十次成功的盈利。</p>
 
@@ -89,6 +91,30 @@
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="risk-title risk-desc">
+                <title id="risk-title">金融风险的四大分类与主要度量工具</title>
+                <desc id="risk-desc">市场风险对应 VaR 与久期；信用风险对应违约概率与信用利差；操作风险对应损失分布与 KRI；流动性风险对应买卖价差与换手率。四类风险在极端行情中会相互放大。</desc>
+                <rect x="20" y="20" width="330" height="120" rx="14" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="40" y="52" font-size="15" font-weight="700" fill="#4c1d95">市场风险</text>
+                <text x="40" y="78" font-size="12" fill="#334155">利率 / 汇率 / 股价 / 商品波动</text>
+                <text x="40" y="104" font-size="12" fill="#6d28d9">度量：VaR、希腊字母、久期</text>
+                <rect x="370" y="20" width="330" height="120" rx="14" fill="#fee2e2" stroke="#ef4444"/>
+                <text x="390" y="52" font-size="15" font-weight="700" fill="#991b1b">信用风险</text>
+                <text x="390" y="78" font-size="12" fill="#334155">违约 / 坏账 / 对手方破产</text>
+                <text x="390" y="104" font-size="12" fill="#b91c1c">度量：违约概率 PD、信用利差</text>
+                <rect x="20" y="160" width="330" height="120" rx="14" fill="#fef9c3" stroke="#facc15"/>
+                <text x="40" y="192" font-size="15" font-weight="700" fill="#713f12">操作风险</text>
+                <text x="40" y="218" font-size="12" fill="#334155">失误 / 系统故障 / 欺诈 / 合规</text>
+                <text x="40" y="244" font-size="12" fill="#a16207">度量：损失分布法、KRI 指标</text>
+                <rect x="370" y="160" width="330" height="120" rx="14" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="390" y="192" font-size="15" font-weight="700" fill="#14532d">流动性风险</text>
+                <text x="390" y="218" font-size="12" fill="#334155">变现困难 / 熔断 / 赎回潮</text>
+                <text x="390" y="244" font-size="12" fill="#15803d">度量：买卖价差、Amihud、换手率</text>
+            </svg>
+            <figcaption><span class="fig-num">图 15-1</span> 四类风险不是并列的选项，而是会“共振”的耦合系统：2008 年里信用风险先引爆市场风险，再演变为流动性枯竭。度量工具（右下标）对应的是每类风险最典型的量化手段。</figcaption>
+        </figure>
+
         <p>在实际工作中，这四类风险往往是相互关联、相互放大的。2008年金融危机就是一个典型的案例：次贷违约（信用风险）导致MBS价格暴跌（市场风险），雷曼兄弟的破产清算触发交易对手风险（信用风险的另一个维度），而恐慌性抛售导致整个市场流动性枯竭——连国债都在某个时刻失去了流动性。</p>
 
         <div class="highlight">
@@ -100,6 +126,33 @@
         <h2>15.2 VaR与CVaR</h2>
 
         <p>Value at Risk（VaR，风险价值）是金融风险管理中使用最广泛的量化工具。它的定义非常直观：<strong>在给定的置信水平和持有期内，最大可能损失是多少</strong>。例如，"日VaR(95%) = -100万元"的意思是：在95%的情况下，一天的亏损不会超过100万元——换言之，只有5%的情况下亏损会超过100万元。</p>
+
+        <figure>
+            <svg role="img" width="720" height="240" style="max-width:100%;height:auto" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-labelledby="var-title var-desc">
+                <title id="var-title">收益分布左尾中的 VaR 与 CVaR</title>
+                <desc id="var-desc">钟形的收益分布，左侧尾部被阴影标出；VaR 是 5% 分位点对应的损失门槛，CVaR 是越过该门槛后所有损失的平均值，因此位置更靠左、数值更大。</desc>
+                <path d="M40,200 C170,200 200,45 360,45 C520,45 550,200 680,200" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <line x1="40" y1="200" x2="680" y2="200" stroke="#94a3b8"/>
+                <path d="M40,200 C90,199 120,160 155,130 L155,200 Z" fill="#fca5a5" opacity="0.65"/>
+                <line x1="155" y1="70" x2="155" y2="200" stroke="#ef4444" stroke-dasharray="5 4" stroke-width="2"/>
+                <text x="110" y="94" font-size="13" fill="#b91c1c">VaR(95%)</text>
+                <line x1="85" y1="70" x2="85" y2="200" stroke="#0ea5e9" stroke-dasharray="5 4" stroke-width="2"/>
+                <text x="46" y="44" font-size="13" fill="#0369a1">CVaR</text>
+                <text x="360" y="228" font-size="12" fill="#64748b" text-anchor="middle">收益率 →（越向左亏损越大）</text>
+            </svg>
+            <figcaption><span class="fig-num">图 15-2</span> VaR 只画一条“门槛线”（5% 分位），而 CVaR 是这道门槛之外左尾的平均损失。正因为尾部是“厚”的，CVaR 通常明显大于 VaR，两者一起才能刻画尾部风险。</figcaption>
+        </figure>
+
+        <div class="math-equation" role="group" aria-label="参数法 VaR 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="参数法 VaR 公式，可横向滚动">
+                <math display="block" aria-label="参数法 VaR 等于负的括号 μ 减 1.645 倍标准差，也等于 1.645 倍标准差减 μ">
+                    <mrow>
+                        <msub><mtext>VaR</mtext><mn>95</mn></msub><mo>=</mo>
+                        <mo>−</mo><mrow><mo>(</mo><mi>μ</mi><mo>−</mo><mn>1.645</mn><mi>σ</mi><mo>)</mo></mrow><mo>=</mo><mn>1.645</mn><mi>σ</mi><mo>−</mo><mi>μ</mi>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>VaR的计算方法主要有三种：</p>
 
@@ -148,6 +201,17 @@ print(f"历史模拟法 CVaR(95%): {cvar:.4f}")</code></pre>
 
         <p><strong>CVaR</strong>（Conditional VaR，或称Expected Shortfall）是对VaR的重要补充。VaR只告诉我们"最差情况下（95%中的5%）损失的门槛是多少"，但没有告诉我们一旦跨过这个门槛，损失到底有多大。CVaR则回答了这个问题：它是所有超过VaR的损失的平均值。从这个意义上说，CVaR比VaR更全面地刻画了尾部风险。</p>
 
+        <div class="math-equation" role="group" aria-label="CVaR 定义">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="CVaR 定义公式，可横向滚动">
+                <math display="block" aria-label="CVaR 等于在损失 L 大于 VaR 的条件下，损失 L 的数学期望">
+                    <mrow>
+                        <msub><mtext>CVaR</mtext><mi>α</mi></msub><mo>=</mo>
+                        <mi>E</mi><mo>[</mo><mi>L</mi><mo>∣</mo><mi>L</mi><mo>&gt;</mo><msub><mtext>VaR</mtext><mi>α</mi></msub><mo>]</mo>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <div class="highlight">
             <strong>核心洞见：</strong>2015年全球银行监管机构巴塞尔委员会（Basel Committee）正式决定将金融机构内部风险模型从VaR迁移到CVaR（Expected Shortfall），正是因为在2008年金融危机中，VaR严重低估了尾部风险。如果你的风险管理工具只有VaR，建议立刻补上CVaR。
         </div>
@@ -181,15 +245,60 @@ print(f"历史模拟法 CVaR(95%): {cvar:.4f}")</code></pre>
 
         <p><strong>最大回撤</strong>（Maximum Drawdown, MDD）是衡量投资组合从峰值跌到谷底的最大跌幅。它是很多投资者的"真实痛苦指标"——你可以承受账面亏损10%，但当亏损扩大到30%时，大部分人会选择割肉离场，从而将浮亏变成实亏。一个策略无论长期年化收益多高，如果最大回撤超过50%，绝大多数投资者都无法坚持下来。</p>
 
+        <figure>
+            <svg role="img" width="720" height="240" style="max-width:100%;height:auto" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-labelledby="mdd-title mdd-desc">
+                <title id="mdd-title">最大回撤：从峰值到谷底的最大跌幅</title>
+                <desc id="mdd-desc">一条净值曲线先上升至峰值，随后下跌至谷底，峰值与谷底之间的垂直落差即最大回撤；之后净值回升，但回撤已经发生。</desc>
+                <polyline points="40,185 120,150 200,92 260,72 320,60 380,120 440,158 500,172 560,122 640,82 690,72" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <line x1="320" y1="60" x2="540" y2="60" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                <circle cx="320" cy="60" r="5" fill="#16a34a"/>
+                <text x="270" y="48" font-size="12" fill="#15803d">峰值</text>
+                <circle cx="500" cy="172" r="5" fill="#ef4444"/>
+                <text x="505" y="188" font-size="12" fill="#b91c1c">谷底</text>
+                <line x1="450" y1="60" x2="450" y2="172" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+                <text x="360" y="135" font-size="12" fill="#b91c1c">最大回撤 MDD</text>
+            </svg>
+            <figcaption><span class="fig-num">图 15-3</span> 最大回撤量的是投资者真实的“痛感”：从峰值到谷底的垂直落差。年化收益再高，只要曾出现 50% 以上的回撤，大多数人也会在谷底前离场，把浮亏变成实亏。</figcaption>
+        </figure>
+
+        <div class="math-equation" role="group" aria-label="最大回撤公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="最大回撤公式，可横向滚动">
+                <math display="block" aria-label="最大回撤等于所有时点上（峰值减谷底）除以峰值的最大值">
+                    <mrow>
+                        <mtext>MDD</mtext><mo>=</mo><munder><mi>max</mi><mi>t</mi></munder>
+                        <mfrac><mrow><msub><mtext>Peak</mtext><mi>t</mi></msub><mo>−</mo><msub><mtext>Trough</mtext><mi>t</mi></msub></mrow><msub><mtext>Peak</mtext><mi>t</mi></msub></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <p><strong>凯利公式</strong>（Kelly Criterion）是一个经典的下注比例优化方法。公式的核心思想非常朴素：<strong>在胜率和赔率已知的情况下，存在一个最优的下注比例，既能最大化长期增长速度，又不会导致破产</strong>。</p>
 
         <p>凯利公式的标准形式为：</p>
-        <ul>
-            <li>f* = (bp - q) / b</li>
-            <li>其中 f* 为最优投资比例，b 为赔率（盈亏比），p 为胜率，q = 1 - p 为败率</li>
-        </ul>
+
+        <div class="math-equation" role="group" aria-label="凯利公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="凯利公式，可横向滚动">
+                <math display="block" aria-label="最优投资比例 f 星等于括号 b p 减 q 除以 b，其中 b 为赔率、p 为胜率、q 等于 1 减 p 为败率">
+                    <mrow>
+                        <msup><mi>f</mi><mo>*</mo></msup><mo>=</mo>
+                        <mfrac><mrow><mi>b</mi><mi>p</mi><mo>−</mo><mi>q</mi></mrow><mi>b</mi></mfrac>
+                        <mo>,</mo><mspace width="1em"/><mi>q</mi><mo>=</mo><mn>1</mn><mo>−</mo><mi>p</mi>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>举个例子：假设你的策略胜率是55%，盈亏比是1.5:1（即盈利时平均赚1.5%，亏损时平均亏1%），那么凯利公式建议的下注比例是 (1.5 × 0.55 - 0.45) / 1.5 = 25%。也就是说，每次交易应该用25%的资金去下注。</p>
+
+        <div class="widget">
+            <div class="controls" id="kelly-controls" role="group" aria-label="选择凯利情景">
+                <button type="button" data-case="base" aria-pressed="true">胜率 55% / 赔率 1.5</button>
+                <button type="button" data-case="even" aria-pressed="false">胜率 50% / 赔率 1.5</button>
+                <button type="button" data-case="edge" aria-pressed="false">胜率 60% / 赔率 2.0</button>
+                <button type="button" data-case="weak" aria-pressed="false">胜率 50% / 赔率 1.0</button>
+            </div>
+            <output id="kelly-out" aria-live="polite">胜率 55%，赔率 1.5 → f* = (1.5×0.55 − 0.45) / 1.5 = 25.0%。全凯利建议下注 25%，实战常用半凯利 / 四分之一凯利。</output>
+        </div>
 
         <div class="tip">
             <strong>实战建议：</strong>在实际交易中，凯利公式给出的比例往往偏高（全凯利仓位），很多职业交易者使用"半凯利"甚至"四分之一凯利"——即只使用凯利公式建议值的25%-50%。这样做虽然降低了增长速度，但大幅降低了波动和破产风险。记住一个经验法则：宁可用半凯利，也绝不要超过全凯利。
@@ -250,13 +359,44 @@ print(f"止损幅度: {2 * latest_atr / latest_price * 100:.2f}%")</code></pre>
 
         <p>在下一章中，我们将从"单个资产的风险"延伸到"资产组合的风险"，学习现代投资组合理论（MPT）——如何在风险和收益之间找到最优的平衡点。</p>
 
-        <div class="footer-nav">
-            <a href="14.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页 VaR/CVaR 定义、凯利公式与 ATR 止损阈值均为教科书通行表述；历史情景（1987 黑色星期一、2008 雷曼、2015 A 股股灾、2020 疫情闪崩、2024 日元 carry trade）以及 LTCM 的杠杆与亏损数据为公开史料概数；代码输出为教学示意。</p>
+            <ol>
+                <li>Jorion，Philippe《Value at Risk: The New Benchmark for Managing Financial Risk》，VaR 三种计算法的经典教材。</li>
+                <li>J. L. Kelly Jr.，《A New Interpretation of Information Rate》（1956），凯利公式原始出处。</li>
+                <li>巴塞尔银行监管委员会（BCBS）关于从 VaR 迁移到 Expected Shortfall 的说明。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="14.html">← 第 14 章 宏观经济分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="16.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="16.html">第 16 章 投资组合理论 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = { base: { p: 55, b: 1.5 }, even: { p: 50, b: 1.5 }, edge: { p: 60, b: 2.0 }, weak: { p: 50, b: 1.0 } };
+    var out = document.getElementById('kelly-out');
+    var btns = document.querySelectorAll('#kelly-controls button');
+    function show(k) {
+        var c = cases[k], p = c.p / 100, q = 1 - p, f = (c.b * p - q) / c.b;
+        var txt = '胜率 ' + c.p + '%，赔率 ' + c.b + ' → f* = (' + c.b + '×' + p.toFixed(2) + ' − ' + q.toFixed(2) + ') / ' + c.b + ' = ' + (f * 100).toFixed(1) + '%。';
+        txt += f <= 0 ? '该情景没有正期望优势，凯利建议不下注。'
+                      : '全凯利建议下注 ' + (f * 100).toFixed(1) + '%，实战常用半凯利 / 四分之一凯利。';
+        out.textContent = txt;
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
