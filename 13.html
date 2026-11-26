@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第13章 技术指标详解</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第13章 技术指标详解</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第13章 技术指标详解</h1>
+        <p class="article-dek">三大类指标（趋势 / 动量 / 波动）的测量对象与适用边界：MA 与 MACD、RSI 与 KDJ、布林带与 ATR 的公式与信号含义，以及大周期定方向、小周期找买点的多时间框架共振。</p>
 
         <p>大家好，我是你们的讲师。上一章我们学习了技术分析的基础——K线形态、趋势线、成交量。这些都是"定性"的工具——你需要用眼睛去看、用经验去判断。但人类的判断难免有主观偏差：同样的图表，两个人可能画出完全不同的趋势线。这就是为什么在实战中，绝大多数技术分析者都会搭配<strong>量化的技术指标</strong>——用数学公式来消除主观性，让买卖信号变得清晰可执行。</p>
 
@@ -61,6 +63,17 @@
             <li><strong>SMA（简单移动平均）</strong>——过去N个收盘价的算术平均。例如20日SMA = 过去20天收盘价之和/20。</li>
             <li><strong>EMA（指数移动平均）</strong>——加权平均，近期的价格权重更高，对价格变化反应更灵敏。</li>
         </ul>
+
+        <div class="math-equation" role="group" aria-label="简单移动平均公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="简单移动平均公式，可横向滚动">
+                <math display="block" aria-label="N日简单移动平均等于最近N个收盘价之和除以N">
+                    <mrow>
+                        <msub><mtext>SMA</mtext><mi>N</mi></msub><mo>=</mo>
+                        <mfrac><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>C</mi><mi>N</mi></msub></mrow><mi>N</mi></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>实践中常用的均线组合：</p>
         <table>
@@ -98,6 +111,24 @@
             <li><strong>价格回踩均线不破</strong>——上升趋势中，价格回调到某条重要均线（比如20日/60日）后企稳回升，是加仓点。</li>
         </ul>
 
+        <figure>
+            <svg role="img" width="720" height="280" style="max-width:100%;height:auto" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ma-title ma-desc">
+                <title id="ma-title">移动平均线的金叉与死叉</title>
+                <desc id="ma-desc">短期均线先下穿长期均线形成死叉（看跌），随后上穿长期均线形成金叉（看涨）；深色价格折线与两条均线配合显示趋势转换。</desc>
+                <line x1="30" y1="250" x2="690" y2="250" stroke="#cbd5e1"/>
+                <polyline points="30,120 90,88 150,140 210,185 280,215 350,168 420,120 500,92 580,72 660,60" fill="none" stroke="#334155" stroke-width="2"/>
+                <polyline points="30,152 140,138 260,152 380,152 500,140 620,120 690,108" fill="none" stroke="#94a3b8" stroke-width="2.5"/>
+                <polyline points="30,110 90,95 150,122 210,172 300,196 380,160 460,108 560,80 660,62" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <circle cx="212" cy="174" r="5" fill="#ef4444"/>
+                <text x="130" y="215" font-size="13" fill="#b91c1c">死叉（看跌）</text>
+                <circle cx="470" cy="104" r="5" fill="#16a34a"/>
+                <text x="410" y="72" font-size="13" fill="#15803d">金叉（看涨）</text>
+                <text x="500" y="168" font-size="12" fill="#64748b">长期均线</text>
+                <text x="40" y="100" font-size="12" fill="#7c3aed">短期均线</text>
+            </svg>
+            <figcaption><span class="fig-num">图 13-1</span> 均线信号的本质是两条不同周期均线的“相对位置”：短期均线上穿/下穿长期均线分别给出金叉/死叉。它们的代价是滞后——信号总是滞后于价格拐点。</figcaption>
+        </figure>
+
         <div class="warning">
             <strong>踩坑警示：</strong>移动平均线有严重的<strong>滞后性</strong>（Lagging）。趋势走得越久，均线信号越可靠——但当你看到金叉时，可能已经涨了一大段了。反过来，在震荡行情中均线会反复产生"假信号"——今天金叉明天死叉，专打追涨杀跌的交易者。所以均线最好在<strong>有明确趋势的市场</strong>中使用，在横盘震荡中尽量少参考。</div>
 
@@ -110,6 +141,18 @@
             <li><strong>MACD柱（柱状线）</strong>——DIF减去DEA的差值 * 2，直观显示快慢线的距离和方向变化。</li>
         </ul>
 
+        <div class="math-equation" role="group" aria-label="MACD 组成部分公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="MACD 公式，可横向滚动">
+                <math display="block" aria-label="DIF 等于 12 日指数移动平均减 26 日指数移动平均；MACD 柱等于 2 乘以 DIF 减 DEA">
+                    <mrow>
+                        <mtext>DIF</mtext><mo>=</mo><msub><mtext>EMA</mtext><mn>12</mn></msub><mo>−</mo><msub><mtext>EMA</mtext><mn>26</mn></msub>
+                        <mo>,</mo><mspace width="1em"/>
+                        <mtext>MACD柱</mtext><mo>=</mo><mn>2</mn><mo>×</mo><mrow><mo>(</mo><mtext>DIF</mtext><mo>−</mo><mtext>DEA</mtext><mo>)</mo></mrow>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <p>MACD的核心信号：</p>
         <ul>
             <li><strong>DIF上穿DEA</strong>——买入信号（相当于均线的"金叉"）</li>
@@ -117,6 +160,29 @@
             <li><strong>顶背离</strong>——价格创新高但MACD未创新高 → 趋势可能见顶</li>
             <li><strong>底背离</strong>——价格创新低但MACD未创新低 → 趋势可能见底</li>
         </ul>
+
+        <figure>
+            <svg role="img" width="720" height="280" style="max-width:100%;height:auto" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-labelledby="macd-title macd-desc">
+                <title id="macd-title">MACD 的 DIF / DEA 交叉与柱状线</title>
+                <desc id="macd-desc">零轴上下为柱状线，DIF 快线与 DEA 慢线在零轴下方交叉后向上，柱状线由绿变红逐渐放大，表示多头动能增强。</desc>
+                <line x1="30" y1="150" x2="690" y2="150" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                <text x="35" y="146" font-size="12" fill="#64748b">零轴</text>
+                <g fill="#16a34a">
+                    <rect x="60" y="150" width="16" height="30"/><rect x="100" y="150" width="16" height="42"/><rect x="140" y="150" width="16" height="34"/>
+                </g>
+                <g fill="#ef4444">
+                    <rect x="180" y="132" width="16" height="18"/><rect x="220" y="120" width="16" height="30"/><rect x="260" y="108" width="16" height="42"/><rect x="300" y="112" width="16" height="38"/>
+                    <rect x="340" y="124" width="16" height="26"/><rect x="380" y="140" width="16" height="10"/>
+                </g>
+                <polyline points="60,168 130,150 200,138 260,120 330,112 420,124 500,140 600,152" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <polyline points="60,176 130,164 200,158 270,150 340,140 430,138 520,144 600,150" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+                <circle cx="215" cy="141" r="5" fill="#16a34a"/>
+                <text x="150" y="200" font-size="13" fill="#15803d">DIF 上穿 DEA → 买入信号</text>
+                <text x="620" y="120" font-size="12" fill="#7c3aed">DIF</text>
+                <text x="620" y="164" font-size="12" fill="#b45309">DEA</text>
+            </svg>
+            <figcaption><span class="fig-num">图 13-2</span> MACD 的三个构件：DIF 是快慢均线之差，DEA 是 DIF 的平滑，柱状线是两者之差。柱由绿（负）转红（正）且不断放大，说明多头动能由弱转强；图中曲线与柱形为示意。</figcaption>
+        </figure>
 
         <div class="tip">
             <strong>实操建议：</strong>MACD背离信号在日线和周线级别的可靠性远高于小时线。建议大家先从日线MACD开始训练背离识别——当价格和MACD柱线（或DIF线）出现方向不一致时，在图表上用箭头标注出来，然后回溯验证。大约练习30-50张图表后，你就能建立对背离的"直觉"。
@@ -130,7 +196,16 @@
 
         <p>RSI由韦尔斯·怀尔德（Welles Wilder）在1978年提出，衡量的是<strong>一段时期内价格上涨幅度占总波动幅度的比例</strong>。默认参数是14天：</p>
 
-        <p style="text-align:center;font-size:1rem;font-weight:bold;margin:16px 0;">RSI = 100 - 100 / (1 + 平均上涨幅度 / 平均下跌幅度)</p>
+        <div class="math-equation" role="group" aria-label="RSI 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="RSI 公式，可横向滚动">
+                <math display="block" aria-label="RSI 等于 100 减 100 除以括号 1 加平均上涨幅度除以平均下跌幅度">
+                    <mrow>
+                        <mtext>RSI</mtext><mo>=</mo><mn>100</mn><mo>−</mo>
+                        <mfrac><mn>100</mn><mrow><mn>1</mn><mo>+</mo><mfrac><mtext>平均上涨幅度</mtext><mtext>平均下跌幅度</mtext></mfrac></mrow></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>RSI的取值范围是0-100。传统的解读规则：</p>
         <ul>
@@ -165,6 +240,20 @@
             <li><strong>下轨</strong>——中轨 - 2倍标准差</li>
         </ul>
 
+        <div class="math-equation" role="group" aria-label="布林带三条轨公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="布林带公式，可横向滚动">
+                <math display="block" aria-label="中轨等于 N 日简单移动平均；上轨等于中轨加 k 倍标准差；下轨等于中轨减 k 倍标准差">
+                    <mrow>
+                        <mtext>中轨</mtext><mo>=</mo><msub><mtext>SMA</mtext><mi>N</mi></msub>
+                        <mo>,</mo><mspace width="1em"/>
+                        <mtext>上轨</mtext><mo>=</mo><mtext>中轨</mtext><mo>+</mo><mi>k</mi><mi>σ</mi>
+                        <mo>,</mo><mspace width="1em"/>
+                        <mtext>下轨</mtext><mo>=</mo><mtext>中轨</mtext><mo>−</mo><mi>k</mi><mi>σ</mi>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <p>布林带的工作原理基于一个统计事实：如果价格服从正态分布，约95%的价格数据会落在均值±2个标准差之内。因此当价格触及上轨或下轨时，统计学上属于"极端"情况。</p>
 
         <p>布林带的核心用法：</p>
@@ -174,6 +263,24 @@
             <li><strong>价格沿下轨运行</strong>——强势下跌趋势。</li>
             <li><strong>价格触及上轨后回调</strong>——可能的卖出点（结合其他指标确认）。</li>
         </ul>
+
+        <figure>
+            <svg role="img" width="720" height="260" style="max-width:100%;height:auto" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" aria-labelledby="bb-title bb-desc">
+                <title id="bb-title">布林带：中轨与上下轨（均值 ± k 倍标准差）</title>
+                <desc id="bb-desc">价格折线围绕中轨波动，上下轨由中轨加减两倍标准差得到；图中带宽先收窄，随后价格向上突破上轨，波动被放大。</desc>
+                <line x1="30" y1="242" x2="690" y2="242" stroke="#cbd5e1"/>
+                <polygon points="30,90 120,78 220,92 320,110 420,118 520,86 620,64 690,58 690,168 620,158 520,168 420,180 320,180 220,172 120,166 30,176" fill="#ede9fe"/>
+                <polyline points="30,90 120,78 220,92 320,110 420,118 520,86 620,64 690,58" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+                <polyline points="30,176 120,166 220,172 320,180 420,180 520,168 620,158 690,168" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+                <polyline points="30,133 120,122 220,132 320,145 420,149 520,127 620,111 690,113" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+                <polyline points="30,150 100,120 180,140 260,175 340,168 420,120 480,80 560,60 640,50 690,55" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                <text x="36" y="84" font-size="12" fill="#6d28d9">上轨 = 中轨 + 2σ</text>
+                <text x="36" y="196" font-size="12" fill="#6d28d9">下轨 = 中轨 - 2σ</text>
+                <text x="498" y="144" font-size="12" fill="#64748b">中轨（20 日均线）</text>
+                <text x="400" y="44" font-size="12" fill="#334155">价格突破上轨 → 波动放大</text>
+            </svg>
+            <figcaption><span class="fig-num">图 13-3</span> 布林带不是“买卖通道”，而是波动的度量：带宽收窄（Squeeze）预告行情将启动，却无法提示方向；价格贴上轨未必高估，强势趋势中可以沿轨上行很久。</figcaption>
+        </figure>
 
         <h3>ATR（平均真实波幅）</h3>
 
@@ -197,6 +304,25 @@
         </ul>
 
         <p>如果<strong>三个时间框架的信号方向一致</strong>（比如周线上升、日线回调结束、60分钟出现反转信号），这就是"共振"——胜率最高的交易机会。如果信号矛盾（周线上升但日线出现顶背离），你应该保持观望或者至少降低仓位。</p>
+
+        <figure>
+            <svg role="img" width="720" height="160" style="max-width:100%;height:auto" viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" aria-labelledby="tf-title tf-desc">
+                <title id="tf-title">多重时间框架的层级分工</title>
+                <desc id="tf-desc">从周线判断大方向，到日线确定交易计划，再到 60 分钟寻找精确入场点；三个周期信号方向一致时形成共振。</desc>
+                <rect x="20" y="40" width="190" height="80" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="115" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">周线（大周期）</text>
+                <text x="115" y="96" text-anchor="middle" font-size="12" fill="#334155">定方向：只做多 / 中性</text>
+                <text x="235" y="86" font-size="20" fill="#7c3aed">→</text>
+                <rect x="265" y="40" width="190" height="80" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="360" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">日线（中周期）</text>
+                <text x="360" y="96" text-anchor="middle" font-size="12" fill="#334155">定计划：等回调 / 突破</text>
+                <text x="480" y="86" font-size="20" fill="#3b82f6">→</text>
+                <rect x="510" y="40" width="190" height="80" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="605" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">60 分钟（小周期）</text>
+                <text x="605" y="96" text-anchor="middle" font-size="12" fill="#334155">找买点：反转确认</text>
+            </svg>
+            <figcaption><span class="fig-num">图 13-4</span> 多周期分析是“自上而下”的漏斗：大周期给约束（能不能做多），中周期给计划，小周期给扳机。三者方向一致（共振）才是高胜率的入场时机。</figcaption>
+        </figure>
 
         <p>下表总结了三类技术指标的对比：</p>
 
@@ -230,6 +356,16 @@
                 <td>不提供方向信息</td>
             </tr>
         </table>
+
+        <div class="widget">
+            <div class="controls" id="ind-controls" role="group" aria-label="选择市场状态">
+                <button type="button" data-case="up" aria-pressed="true">单边上涨</button>
+                <button type="button" data-case="down" aria-pressed="false">单边下跌</button>
+                <button type="button" data-case="range" aria-pressed="false">横盘震荡</button>
+                <button type="button" data-case="squeeze" aria-pressed="false">带宽收窄 / 波动放大</button>
+            </div>
+            <output id="ind-out" aria-live="polite">单边上涨：以趋势类（MA / MACD）为主，均线多头排列即为方向确认；动量类（RSI）易长期钝化，超买不再是卖出理由。</output>
+        </div>
 
         <p>下面是用Python+TA-Lib计算常用技术指标的示例：</p>
 
@@ -291,13 +427,42 @@ print(df[df['Signal'] == '买入关注'][['日期', '收盘', 'RSI']])</code></p
 
         <p>至此，我们完成了技术分析的初步学习——从K线形态到趋势线，从MACD到RSI到布林带。这套工具体系在短线交易中非常实用。但从下一章开始，我们将会把视野拉高——从个股的走势图，拉升到整个经济的基本面。是的，我们将进入<strong>宏观经济分析</strong>的世界——你会发现，很多时候个股的涨跌，根源不在公司本身，而在于宏观经济的潮汐。</p>
 
-        <div class="footer-nav">
-            <a href="12.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页公式（SMA/EMA、MACD、RSI、布林带）为经典指标的通行定义；超买/超卖阀值与“可靠性”描述为技术分析领域的教学归纳，不是回测结论；示例数据为教学示意。</p>
+            <ol>
+                <li>Gerald Appel，MACD（Moving Average Convergence Divergence）指标原始定义。</li>
+                <li>J. Welles Wilder，《New Concepts in Technical Trading Systems》（1978），RSI 与 ATR 的原始出处。</li>
+                <li>John Bollinger 关于布林带（Bollinger Bands）的说明，中轨为 N 日均线、上下轨为中轨±k 倍标准差。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="12.html">← 第 12 章 技术分析基础</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="14.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="14.html">第 14 章 宏观经济分析 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        up:      '单边上涨：以趋势类（MA / MACD）为主，均线多头排列即为方向确认；动量类（RSI）易长期钝化，超买不再是卖出理由。',
+        down:    '单边下跌：同样以趋势类为主，以均线/ MACD 的下跌信号决定减仓；动量类超卖不代表抄底时机。',
+        range:   '横盘震荡：趋势类指标会反复发出假信号，宜少用；可参考动量类（RSI / KDJ）在区间两端的高抛低吸。',
+        squeeze: '带宽收窄 / 波动放大：以波动类（布林带 / ATR）为主，带宽收窄预告行情即将启动，但无法提示方向，需等待突破确认。'
+    };
+    var out = document.getElementById('ind-out');
+    var btns = document.querySelectorAll('#ind-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
