@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第22章 另类数据分析</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第22章 另类数据分析</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第22章 另类数据分析</h1>
+        <p class="article-dek">六大类另类数据源的用途、ESG 三雉度与评级体系、FinBERT 与文本情感分析流程，以及生存者偏差、前视偏差、低信噪比与多重检验四大陷阱。</p>
 
         <p>大家好，我是你们的讲师。在前面几章的学习中，我们接触了大量基于传统数据的分析方法——财报数据、股价数据、经济指标。但想象一下这个场景：你是一家量化对冲基金的研究员，你发现某家新能源车企的财报数据"一切正常"——营收增长50%，毛利率稳定，现金流充裕。然而，你的另类数据团队发来一组令你警觉的信号：该车企工厂周边的卫星图像显示，停车场上的新车库存正在快速堆积；招聘网站的岗位投放量在三个月内骤降80%；供应链数据显示其电池供应商的出货量正在下降。此时，你还相信财报中的"一切正常"吗？</p>
 
@@ -55,6 +57,32 @@
         <h2>22.1 另类数据全景图</h2>
 
         <p>另类数据可以理解为"不是来自传统财报或市场行情的数据"。它的来源极其广泛，只要想象一下"什么数据可以间接反映一个公司的经营状况"，你就掌握了另类数据的本质。</p>
+
+        <figure>
+            <svg role="img" width="720" height="210" style="max-width:100%;height:auto" viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ad-title ad-desc">
+                <title id="ad-title">六大类另类数据源及其投资应用</title>
+                <desc id="ad-desc">卫星与遥感、支付与交易、供应链、舆情与新闻、人才与招聘、APP 与网络六类数据源，分别用于销量预测、消费追踪、供应链预警、情绪量化、扩张信号和用户增长判断。</desc>
+                <rect x="16" y="20" width="220" height="80" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="126" y="50" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">卫星与遥感</text>
+                <text x="126" y="72" text-anchor="middle" font-size="11" fill="#64748b">停车 / 油罐 / 作物 → 销量</text>
+                <rect x="251" y="20" width="220" height="80" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="361" y="50" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">支付与交易</text>
+                <text x="361" y="72" text-anchor="middle" font-size="11" fill="#64748b">卡消费 / 电商流水 → 同店</text>
+                <rect x="486" y="20" width="220" height="80" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="596" y="50" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">供应链</text>
+                <text x="596" y="72" text-anchor="middle" font-size="11" fill="#64748b">航运 / 海关 / GPS → 瓶颈预警</text>
+                <rect x="16" y="115" width="220" height="80" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="126" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">舆情与新闻</text>
+                <text x="126" y="167" text-anchor="middle" font-size="11" fill="#a16207">社交 / 新闻 → 情绪量化</text>
+                <rect x="251" y="115" width="220" height="80" rx="12" fill="#fee2e2" stroke="#ef4444"/>
+                <text x="361" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">人才与招聘</text>
+                <text x="361" y="167" text-anchor="middle" font-size="11" fill="#b91c1c">岗位 / 人才流动 → 扩张信号</text>
+                <rect x="486" y="115" width="220" height="80" rx="12" fill="#f3e8ff" stroke="#a855f7"/>
+                <text x="596" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#6b21a8">APP 与网络</text>
+                <text x="596" y="167" text-anchor="middle" font-size="11" fill="#7e22ce">下载 / DAU / 流量 → 增长</text>
+            </svg>
+            <figcaption><span class="fig-num">图 22-1</span> 另类数据的六种主要来源与它们回答的投资问题：它们都试图用财务以外的侧面信息“提前看到”公司经营的真实状态，但每一类都有自己的盲区与偏差。</figcaption>
+        </figure>
 
         <table>
             <tr>
@@ -117,9 +145,44 @@
             <li><strong>G（治理）</strong>——董事会结构、股东权利、高管薪酬、反腐败政策、审计独立性。治理维度在所有行业中都具有普遍适用性。</li>
         </ul>
 
+        <figure>
+            <svg role="img" width="720" height="230" style="max-width:100%;height:auto" viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg" aria-labelledby="esg-title esg-desc">
+                <title id="esg-title">ESG 三雉度与评级刻度</title>
+                <desc id="esg-desc">E 环境关注碳排放与能源效率，S 社会关注员工与产品安全，G 治理关注董事会与股东权利；综合得分映射到 AAA 至 CCC 的评级刻度。</desc>
+                <rect x="16" y="20" width="210" height="150" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="121" y="50" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">E 环境</text>
+                <text x="121" y="82" text-anchor="middle" font-size="11" fill="#334155">碳排放强度</text>
+                <text x="121" y="106" text-anchor="middle" font-size="11" fill="#334155">能源 / 水资源</text>
+                <text x="121" y="130" text-anchor="middle" font-size="11" fill="#334155">废物与生物多样性</text>
+                <rect x="246" y="20" width="210" height="150" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="351" y="50" text-anchor="middle" font-size="15" font-weight="700" fill="#1e40af">S 社会</text>
+                <text x="351" y="82" text-anchor="middle" font-size="11" fill="#334155">员工福利 / 多元化</text>
+                <text x="351" y="106" text-anchor="middle" font-size="11" fill="#334155">社区关系</text>
+                <text x="351" y="130" text-anchor="middle" font-size="11" fill="#334155">产品安全 / 数据隐私</text>
+                <rect x="476" y="20" width="210" height="150" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="581" y="50" text-anchor="middle" font-size="15" font-weight="700" fill="#4c1d95">G 治理</text>
+                <text x="581" y="82" text-anchor="middle" font-size="11" fill="#334155">董事会结构</text>
+                <text x="581" y="106" text-anchor="middle" font-size="11" fill="#334155">股东权利 / 薪酬</text>
+                <text x="581" y="130" text-anchor="middle" font-size="11" fill="#334155">反腐败 / 审计独立</text>
+                <text x="360" y="198" text-anchor="middle" font-size="12" fill="#6d28d9">综合得分 → 评级刻度：AAA › AA › A › BBB › BB › B › CCC</text>
+            </svg>
+            <figcaption><span class="fig-num">图 22-2</span> ESG 的三个维度各有侧重：E 与 S 高度依赖行业，G 则跨行业普遍适用。综合得分被映射为 AAA–CCC 的评级刻度，但不同机构在同一公司上的一致性很低，参考时需格外谨慎。</figcaption>
+        </figure>
+
         <h3>ESG评级体系</h3>
 
         <p>目前全球最主要的ESG评级机构包括MSCI、Sustainalytics（晨星旗下）、标普全球（S&P Global），以及中国本土的中证ESG、商道融绿等。以MSCI的ESG评级为例，它将公司分为AAA（领先）到CCC（落后）七个等级。评级综合了数百个指标，覆盖环境与社会风险暴露、风险管理能力等维度。</p>
+
+        <div class="math-equation" role="group" aria-label="ESG 加权得分">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="ESG 加权得分公式，可横向滚动">
+                <math display="block" aria-label="ESG 综合得分等于环境权重乘以环境得分加社会权重乘以社会得分加治理权重乘以治理得分，权重之和为 1">
+                    <mrow>
+                        <mtext>ESG</mtext><mo>=</mo><msub><mi>w</mi><mi>E</mi></msub><mi>E</mi><mo>+</mo><msub><mi>w</mi><mi>S</mi></msub><mi>S</mi><mo>+</mo><msub><mi>w</mi><mi>G</mi></msub><mi>G</mi>
+                        <mo>,</mo><mspace width="1em"/><msub><mi>w</mi><mi>E</mi></msub><mo>+</mo><msub><mi>w</mi><mi>S</mi></msub><mo>+</mo><msub><mi>w</mi><mi>G</mi></msub><mo>=</mo><mn>1</mn>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <div class="highlight">
             <strong>争议焦点：</strong>ESG投资是否真的能产生超额收益，在学术界和业界存在激烈争论。支持者认为，ESG得分高的公司风险更低、融资成本更低、长期表现更好；反对者则指出，ESG基金的收益率差异主要由行业因子和规模因子解释，而非ESG本身——而且ESG评级机构之间的评级一致性极低（不同机构对同一家公司的评级相关性只有0.5左右），这让人对评级的可靠性产生严重怀疑。我的建议是：将ESG分析视为一项"风险管理工具"而非"超额收益来源"——它帮助你避开那些因环境或治理丑闻而可能出现"价值毁灭"的公司。
@@ -129,9 +192,48 @@
 
         <p>自然语言处理（NLP）技术的成熟，使得从海量文本数据中提取"情绪信号"成为可能。这种情绪分析在金融领域有着广泛的应用前景。</p>
 
+        <figure>
+            <svg role="img" width="720" height="170" style="max-width:100%;height:auto" viewBox="0 0 720 170" xmlns="http://www.w3.org/2000/svg" aria-labelledby="nlp-title nlp-desc">
+                <title id="nlp-title">文本情感分析的管道</title>
+                <desc id="nlp-desc">从原始文本（公告、电话会议、社交帖）开始，经过清洗分词、FinBERT 模型推断，得到正面/中性/负面的概率，再聚合为可用于选股的情绪得分。</desc>
+                <rect x="16" y="45" width="124" height="70" rx="10" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="78" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#4c1d95">原始文本</text>
+                <text x="78" y="94" text-anchor="middle" font-size="10" fill="#64748b">公告/电话会</text>
+                <text x="144" y="85" font-size="16" fill="#7c3aed">→</text>
+                <rect x="154" y="45" width="124" height="70" rx="10" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="216" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">清洗 / 分词</text>
+                <text x="216" y="94" text-anchor="middle" font-size="10" fill="#64748b">去噪声/截断</text>
+                <text x="282" y="85" font-size="16" fill="#3b82f6">→</text>
+                <rect x="292" y="45" width="124" height="70" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="354" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">FinBERT 推断</text>
+                <text x="354" y="94" text-anchor="middle" font-size="10" fill="#64748b">金融语料微调</text>
+                <text x="420" y="85" font-size="16" fill="#16a34a">→</text>
+                <rect x="430" y="45" width="124" height="70" rx="10" fill="#fef9c3" stroke="#facc15"/>
+                <text x="492" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#713f12">情感概率</text>
+                <text x="492" y="94" text-anchor="middle" font-size="10" fill="#a16207">正/中/负</text>
+                <text x="558" y="85" font-size="16" fill="#f59e0b">→</text>
+                <rect x="568" y="45" width="124" height="70" rx="10" fill="#f3e8ff" stroke="#a855f7"/>
+                <text x="630" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#6b21a8">聚合得分</text>
+                <text x="630" y="94" text-anchor="middle" font-size="10" fill="#7e22ce">用于选股/预警</text>
+                <text x="360" y="145" text-anchor="middle" font-size="11" fill="#64748b">每一步都会引入误差——切词歧义、领域词汇、模型偏差都会沿管道向下游放大</text>
+            </svg>
+            <figcaption><span class="fig-num">图 22-3</span> NLP 情感分析的管道：从原始文本到可交易的得分要经过多个环节，误差会沿管道逐级放大。上游一个词的歧义，可能被下游直接放大成一个错误的买卖信号。</figcaption>
+        </figure>
+
         <h3>情感得分</h3>
 
         <p>最基础的NLP金融应用是将文本（新闻标题、公司公告、社交媒体帖子）分类为"正面"、"中性"或"负面"，然后聚合为情感得分。简单的做法：使用金融词典（如Loughran-McDonald词典，包含金融领域特有的积极和消极词汇）计算文本中的词汇比例；复杂的做法：使用预训练的语言模型（如BERT）进行情感分类。</p>
+
+        <div class="math-equation" role="group" aria-label="文本情感得分">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="文本情感得分公式，可横向滚动">
+                <math display="block" aria-label="情感得分等于正面词汇数减负面词汇数，除以总词汇数，取值范围为负 1 到 1">
+                    <mrow>
+                        <mtext>Sentiment</mtext><mo>=</mo>
+                        <mfrac><mrow><msub><mi>N</mi><mtext>正面</mtext></msub><mo>−</mo><msub><mi>N</mi><mtext>负面</mtext></msub></mrow><msub><mi>N</mi><mtext>总词数</mtext></msub></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <h3>FinBERT</h3>
 
@@ -219,19 +321,74 @@ print(f"\n全年度正面情绪均值: {avg_positive:.4f}")</code></pre>
 
         <p>当你尝试了足够多的数据源和足够多的信号构造方式，你几乎一定能找到某个"在回测中看起来有效"的信号——但这是多重假设检验（multiple testing）造成的统计假象。这就好比让一只猴子在华尔街日报中随机选择股票，只要试的次数够多，总有一次它的选择比专业分析师更准——但这不是因为猴子有选股能力，而是因为"试的次数够多"。在另类数据分析中，纠正多重假设检验偏差的标准做法是对所有回测过的因子进行Bonferroni校正或FDR控制，确保你发现的信号"真正有效"。</p>
 
+        <div class="math-equation" role="group" aria-label="Bonferroni 校正">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="Bonferroni 校正公式，可横向滚动">
+                <math display="block" aria-label="Bonferroni 校正后的显著性阀值等于原始显著性水平 α 除以检验次数 m；若 m 个检验彼此独立，期望假阳性数约为 α 乘以 m">
+                    <mrow>
+                        <msup><mi>α</mi><mo>′</mo></msup><mo>=</mo>
+                        <mfrac><mi>α</mi><mi>m</mi></mfrac>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <mtext>期望假阳性</mtext><mo>≈</mo><mi>α</mi><mi>m</mi>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="bonf-controls" role="group" aria-label="选择检验次数">
+                <button type="button" data-case="m20" aria-pressed="true">尝试 20 个信号</button>
+                <button type="button" data-case="m100" aria-pressed="false">尝试 100 个信号</button>
+                <button type="button" data-case="m300" aria-pressed="false">尝试 300 个信号</button>
+            </div>
+            <output id="bonf-out" aria-live="polite">尝试 20 个信号：在 α=0.05 下，Bonferroni 阀值 α′ = 0.05/20 = 0.0025；即使全是噪声，也期望出现约 1.0 个“显著”假信号。</output>
+        </div>
+
         <div class="highlight">
             <strong>核心洞见：</strong>另类数据最有价值的用途不是"预测未来"，而是<strong>"验证假设"</strong>。当你基于传统分析框架形成了一个投资假设（比如"这家公司正在遭遇竞争对手的侵蚀"），另类数据可以帮你从侧面验证这个假设是否合理——用供应链数据确认客户的流失，用招聘数据确认核心人才的出走。将另类数据作为"交叉验证"工具，比用它作为独立的"预测信号"要可靠得多。
         </div>
 
         <p>另类数据分析为金融分析打开了一个全新的维度——从传统的"看财报"到"看卫星、看社会、看语言"。但正如我们在本章中指出的，另类数据的威力不在数据本身，而在于你能否正确地提出分析问题和识别数据中的陷阱。下一章我们将进入本课程的工具体验篇——Python金融工具链。你将学习如何用Python高效地获取数据、构建模型和进行回测，将我们至今讨论的所有分析方法落地为可执行的代码和策略。</p>
 
-        <div class="footer-nav">
-            <a href="21.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页另类数据市场规模（Opimas 估计 2025 年超 700 亿美元）、ESG 评级机构间相关性（约 0.5）与 FinBERT 模型名称均为公开资料概数；ESG 评分区间与情感得分示例为教学示意。</p>
+            <ol>
+                <li>FinBERT：Araci, D. (2019). <em>FinBERT: Financial Sentiment Analysis with Pre-trained Language Models</em>。</li>
+                <li>Loughran, T. &amp; McDonald, B. (2011). <em>When Is a Liability Not a Liability?</em>，金融情感词典。</li>
+                <li>MSCI、Sustainalytics、标普全球（S&amp;P Global）ESG 评级方法文档。</li>
+                <li>Harvey, C., Liu, Y. &amp; Zhu, H. (2016). <em>… and the Cross-Section of Expected Returns</em>，多重检验与因子发现。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="21.html">← 第 21 章 固定收益分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="23.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="23.html">第 23 章 Python金融工具链 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var alpha = 0.05;
+    var cases = { m20: 20, m100: 100, m300: 300 };
+    var out = document.getElementById('bonf-out');
+    var btns = document.querySelectorAll('#bonf-controls button');
+    function show(k) {
+        var m = cases[k];
+        var threshold = alpha / m;
+        var fp = alpha * m;
+        out.textContent = '尝试 ' + m + ' 个信号：在 α=0.05 下，Bonferroni 阀值 α′ = 0.05/' + m + ' = ' +
+            threshold.toFixed(4) + '；即使全是噪声，也期望出现约 ' + fp.toFixed(1) + ' 个“显著”假信号。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
