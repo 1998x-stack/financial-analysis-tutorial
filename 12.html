@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第12章 技术分析基础</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第12章 技术分析基础</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第12章 技术分析基础</h1>
+        <p class="article-dek">技术分析的三大假设、K 线（OHLC）的解读、趋势线与支撑阻力的角色互换，以及成交量对价格趋势的确认与背离。</p>
 
         <p>大家好，我是你们的讲师。欢迎来到一个全新的世界——<strong>技术分析</strong>（Technical Analysis）。如果你觉得前面几章的财务报表分析和估值模型像是"学院派"的教科书，那么技术分析就像是"实战派"的战场手册。</p>
 
@@ -110,6 +112,46 @@ plt.show()</code></pre>
 
         <div class="tip">
             <strong>观察技巧：</strong>长实体意味着多空一方占据绝对优势；长上影线说明盘中曾大幅冲高但遭遇抛压（空头抵抗成功）；长下影线说明盘中曾深跌但被买盘拉回（多头承接有力）。没有影线的小实体K线（纺锤线）则说明市场在犹豫——方向不明确。
+        </div>
+
+        <figure>
+            <svg role="img" width="720" height="280" style="max-width:100%;height:auto" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-labelledby="k-title k-desc">
+                <title id="k-title">单根K线的构成：实体与影线，以及阳线与阴线的区别</title>
+                <desc id="k-desc">左侧为阳线：收盘价高于开盘价，实体填充红色；右侧为阴线：收盘价低于开盘价，实体为空心绿边。实体上下沿分别是开盘价与收盘价，上影线顶端是最高价，下影线底端是最低价。</desc>
+                <line x1="60" y1="30" x2="60" y2="250" stroke="#c4b5fd" stroke-dasharray="4 6" stroke-width="1"/>
+                <rect x="40" y="90" width="40" height="90" fill="#ef4444" stroke="#b91c1c"/>
+                <line x1="60" y1="40" x2="60" y2="90" stroke="#b91c1c" stroke-width="2"/>
+                <line x1="60" y1="180" x2="60" y2="240" stroke="#b91c1c" stroke-width="2"/>
+                <text x="95" y="45" font-size="13" fill="#0f172a">最高价 High</text>
+                <text x="95" y="98" font-size="13" fill="#0f172a">收盘价 Close（阳线在实体上沿）</text>
+                <text x="95" y="184" font-size="13" fill="#0f172a">开盘价 Open（阳线在实体下沿）</text>
+                <text x="95" y="238" font-size="13" fill="#0f172a">最低价 Low</text>
+                <line x1="380" y1="30" x2="380" y2="250" stroke="#c4b5fd" stroke-dasharray="4 6" stroke-width="1"/>
+                <rect x="360" y="90" width="40" height="90" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+                <line x1="380" y1="40" x2="380" y2="90" stroke="#16a34a" stroke-width="2"/>
+                <line x1="380" y1="180" x2="380" y2="240" stroke="#16a34a" stroke-width="2"/>
+                <text x="415" y="45" font-size="13" fill="#0f172a">最高价 High</text>
+                <text x="415" y="98" font-size="13" fill="#0f172a">开盘价 Open（阴线在实体上沿）</text>
+                <text x="415" y="184" font-size="13" fill="#0f172a">收盘价 Close（阴线在实体下沿）</text>
+                <text x="415" y="238" font-size="13" fill="#0f172a">最低价 Low</text>
+                <text x="60" y="272" font-size="13" font-weight="700" fill="#b91c1c" text-anchor="middle">阳线：收 &gt; 开</text>
+                <text x="380" y="272" font-size="13" font-weight="700" fill="#15803d" text-anchor="middle">阴线：收 &lt; 开</text>
+            </svg>
+            <figcaption><span class="fig-num">图 12-1</span> 每根 K 线只压缩了四个价格：实体上沿/下沿是开盘价与收盘价（阳线收盘在上、阴线开盘在上），影线顶底才是最高价与最低价。实体长度反映多空力量对比，影线长度反映盘中被反击的幅度。</figcaption>
+        </figure>
+
+        <p>单个交易日的价格变动程度用涨跌幅衡量，它是所有技术分析的起点，也是判断“趋势”最基本的度量：</p>
+
+        <div class="math-equation" role="group" aria-label="单日涨跌幅公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="单日涨跌幅公式，可横向滚动">
+                <math display="block" aria-label="单日涨跌幅等于今日收盘价减去昨日收盘价，再除以昨日收盘价，乘以百分之一百">
+                    <mrow>
+                        <mtext>涨跌幅</mtext><mo>=</mo>
+                        <mfrac><mrow><msub><mtext>收</mtext><mtext>今</mtext></msub><mo>−</mo><msub><mtext>收</mtext><mtext>昨</mtext></msub></mrow><msub><mtext>收</mtext><mtext>昨</mtext></msub></mfrac>
+                        <mo>×</mo><mn>100</mn><mo>%</mo>
+                    </mrow>
+                </math>
+            </div>
         </div>
 
         <p>以下是常见的K线形态及其含义：</p>
@@ -191,6 +233,23 @@ plt.show()</code></pre>
 
         <p>支撑和阻力有一个非常重要的性质：<strong>它们可以互相转换</strong>。一旦一个阻力位被有效突破（收盘价站稳阻力位之上），这个阻力位就会变成新的支撑位。同样，一个被跌破的支撑位会成为新的阻力位。这种"角色互换"是趋势交易中极其重要的参考信号。</p>
 
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="sr-title sr-desc">
+                <title id="sr-title">阻力被突破后回踩转支撑的角色互换</title>
+                <desc id="sr-desc">价格多次在一条水平阻力线下方受阻，随后突破该线；突破后价格回踩这条线并止跌反弹，原来的阻力位变成新的支撑位。</desc>
+                <line x1="40" y1="110" x2="680" y2="110" stroke="#ef4444" stroke-dasharray="6 5" stroke-width="2"/>
+                <text x="42" y="100" font-size="13" fill="#b91c1c">阻力位（原）</text>
+                <polyline points="40,165 110,150 170,108 230,150 300,115 360,178 430,78 500,105 560,192 630,122 680,72" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <circle cx="430" cy="78" r="5" fill="#16a34a"/>
+                <text x="300" y="60" font-size="13" fill="#15803d">放量突破</text>
+                <circle cx="630" cy="122" r="5" fill="#0ea5e9"/>
+                <text x="440" y="235" font-size="13" fill="#0369a1">回踩不破 → 阻力转支撑</text>
+                <line x1="40" y1="270" x2="680" y2="270" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="40" y="292" font-size="13" fill="#64748b">时间 →</text>
+            </svg>
+            <figcaption><span class="fig-num">图 12-2</span> 突破的意义在于“角色互换”：同一水平线在被突破前是卖压（阻力），被突破后变成买盘（支撑）。确认突破需要收盘价站稳，而非盘中瞬时穿越。</figcaption>
+        </figure>
+
         <h3>通道</h3>
         <p>当趋势线加上一条平行的另一条线，就形成了一个<strong>通道</strong>（Channel）。上升通道由上升的趋势线（下轨）和平行的上轨组成；下降通道则相反。通道交易法（在通道内高抛低吸）是技术分析中最基础的交易策略之一。但需要注意——<strong>通道迟早会被突破</strong>，突破方向往往决定了下一段趋势的方向。</p>
 
@@ -198,7 +257,40 @@ plt.show()</code></pre>
 
         <p>如果说价格是技术分析的"主角"，那么成交量就是"配角"。但技术分析师深知——<strong>没有成交量的价格走势是很难让人信服的</strong>。</p>
 
-        <p>成交量的核心理念可以归纳为一句话：<strong>成交量确认价格趋势</strong>。</p>
+        <p>成交量的核心理念可以归纳为一句话：<strong>成交量确认价格趋势</strong>。下面左图是一个经典的“顶背离”：价格一浪高过一浪，成交量却一浪低过一浪。</p>
+
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="v-title v-desc">
+                <title id="v-title">顶背离：价格创新高而成交量萎缩</title>
+                <desc id="v-desc">上半部分价格折线逐波走高并创出新高；下半部分成交量柱状图逐波降低，形成量价背离，提示上涨动能衰减。</desc>
+                <text x="30" y="24" font-size="13" font-weight="700" fill="#4c1d95">价格：一浪高过一浪</text>
+                <polyline points="30,120 110,90 180,110 260,70 340,95 430,50 520,80 600,35" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <line x1="30" y1="135" x2="690" y2="135" stroke="#cbd5e1"/>
+                <text x="30" y="175" font-size="13" font-weight="700" fill="#0e7490">成交量：一浪低过一浪</text>
+                <rect x="40" y="200" width="50" height="70" fill="#0ea5e9"/>
+                <rect x="120" y="215" width="50" height="55" fill="#0ea5e9"/>
+                <rect x="210" y="230" width="50" height="40" fill="#0ea5e9"/>
+                <rect x="300" y="245" width="50" height="25" fill="#0ea5e9"/>
+                <rect x="390" y="252" width="50" height="18" fill="#0ea5e9"/>
+                <rect x="480" y="258" width="50" height="12" fill="#0ea5e9"/>
+                <rect x="570" y="262" width="50" height="8" fill="#0ea5e9"/>
+                <line x1="30" y1="270" x2="690" y2="270" stroke="#cbd5e1"/>
+            </svg>
+            <figcaption><span class="fig-num">图 12-3</span> 背离的精髓是“量与价不再同步”。价格新高、量能萎缩（顶背离）说明上涨缺乏新增买盘承接，趋势可能衰竭；反之底背离则是抛压在尾声的信号。图中曲线与柱形为示意，非真实行情。</figcaption>
+        </figure>
+
+        <p>日常判断“今天的量算大还是小”靠的是量比——它把当日成交量放到近期平均量能的尺度上度量：</p>
+
+        <div class="math-equation" role="group" aria-label="量比公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="量比公式，可横向滚动">
+                <math display="block" aria-label="量比等于当日成交量除以过去N日平均成交量">
+                    <mrow>
+                        <mtext>量比</mtext><mo>=</mo>
+                        <mfrac><msub><mtext>成交量</mtext><mtext>当日</mtext></msub><msub><mtext>成交量</mtext><mtext>近 N 日均值</mtext></msub></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <h3>量价配合（健康趋势）</h3>
         <ul>
@@ -212,19 +304,58 @@ plt.show()</code></pre>
             <li><strong>底背离</strong>：价格创出新低，但成交量没有创新低，反而开始放大。说明虽然价格还在跌，但已经有聪明钱开始承接——"跌不动了"。</li>
         </ul>
 
+        <div class="widget">
+            <div class="controls" id="vp-controls" role="group" aria-label="选择量价情景">
+                <button type="button" data-case="upvol" aria-pressed="true">放量上涨</button>
+                <button type="button" data-case="upshrink" aria-pressed="false">缩量上涨</button>
+                <button type="button" data-case="downvol" aria-pressed="false">放量下跌</button>
+                <button type="button" data-case="downshrink" aria-pressed="false">缩量下跌</button>
+            </div>
+            <output id="vp-out" aria-live="polite">放量上涨：价涨 + 量增，量价配合健康，上涨有新增买盘承接，趋势大概率延续。</output>
+        </div>
+
         <div class="highlight">
             <strong>核心洞见：</strong>成交量是"多空双方的真实投票记录"。当价格和成交量一致时，趋势大概率延续；当它们出现分歧时，趋势可能面临反转。我在几年的交易经历中观察到：<strong>缩量创新高和放量创新低</strong>是两个最值得警惕的信号——前者说明上涨是"虚的"（没有足够买家参与），后者则说明下跌是"实的"（有人在恐慌出逃）。
         </div>
 
         <p>技术分析为我们提供了一套观察市场的"语言系统"——K线告诉我们谁在主导、趋势线告诉我们方向、成交量验证信号的可靠性。但这只是开始。在下一章中，我们将深入技术指标的世界——MA、MACD、RSI、布林带等——这些指标将量化的严谨注入图形分析的直觉，让技术分析从"艺术"变成"科学与艺术的结合"。</p>
 
-        <div class="footer-nav">
-            <a href="11.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页 K 线形态及其“可靠性”评级、量价配合/背离的定性判断均为技术分析领域的通行教学归纳，不是量化回测结论；章节中的情景数值为教学示意。</p>
+            <ol>
+                <li>史蒂夫·尼森（Steve Nison）《日本蜡烛图技术》（Japanese Candlestick Charting Techniques），K 线形态的经典整理。</li>
+                <li>John J. Murphy《Technical Analysis of the Financial Markets》，趋势、支撑阻力与量价关系的传统论述。</li>
+                <li>Charles D. Kirkpatrick &amp; Julie R. Dahlquist《Technical Analysis: The Complete Resource for Financial Market Technicians》，含对形态有效性的实证讨论。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="11.html">← 第 11 章 相对估值法</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="13.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="13.html">第 13 章 技术指标详解 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        upvol:     '放量上涨：价涨 + 量增，量价配合健康，上涨有新增买盘承接，趋势大概率延续。',
+        upshrink: '缩量上涨：价涨但量减，量价背离（顶背离预警），上涨动能可能衰竭，需警惕滞涨。',
+        downvol:   '放量下跌：价跌 + 量增，量价配合的下跌，主动性卖盘在推动，趋势可能延续，不宜抄底。',
+        downshrink:'缩量下跌：价跌但量减，拋压趋于尾声（底背离可能），但需等待企稳信号确认。'
+    };
+    var out = document.getElementById('vp-out');
+    var btns = document.querySelectorAll('#vp-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
