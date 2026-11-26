@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第19章 多因子模型</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第19章 多因子模型</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第19章 多因子模型</h1>
+        <p class="article-dek">从 CAPM 到 Fama-French 三因子与五因子、因子定义/清洗/标准化/中性化/IC 评估的六步构造流程、主流因子库与 IC/IR 参考，以及因子拥挤与失效的成因和对策。</p>
 
         <p>大家好，我是你们的讲师。上一章我们聊了行为金融学——那些藏在人类大脑里的认知偏差如何让市场变得不那么"有效"。但你可能会想：如果市场参与者确实会犯错，那是不是意味着有些规律是可以被系统性地捕捉的？答案是肯定的，这也正是本章要讲的核心话题——<strong>多因子模型</strong>（Multi-Factor Models）。</p>
 
@@ -56,7 +58,41 @@
 
         <p>一切的起点是资本资产定价模型（CAPM），它在20世纪60年代由威廉·夏普（William Sharpe）等人提出。CAPM给出了一个极其简洁的公式：</p>
 
-        <p><strong>E(Rᵢ) = R_f + βᵢ × (E(R_m) - R_f)</strong></p>
+        <div class="math-equation" role="group" aria-label="CAPM 资本资产定价模型">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="CAPM 公式，可横向滚动">
+                <math display="block" aria-label="资产 i 的预期收益等于无风险利率加上贝塔 i 乘以市场预期收益减无风险利率">
+                    <mrow>
+                        <mi>E</mi><mo>(</mo><msub><mi>R</mi><mi>i</mi></msub><mo>)</mo><mo>=</mo>
+                        <msub><mi>R</mi><mi>f</mi></msub><mo>+</mo>
+                        <msub><mi>β</mi><mi>i</mi></msub><mo>×</mo>
+                        <mrow><mo>(</mo><mi>E</mi><mo>(</mo><msub><mi>R</mi><mi>m</mi></msub><mo>)</mo><mo>−</mo><msub><mi>R</mi><mi>f</mi></msub><mo>)</mo></mrow>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <figure>
+            <svg role="img" width="720" height="150" style="max-width:100%;height:auto" viewBox="0 0 720 150" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fm-title fm-desc">
+                <title id="fm-title">因子模型的演化：从 CAPM 到多因子</title>
+                <desc id="fm-desc">CAPM 只有市场一个因子；Fama-French 三因子加入 SMB 与 HML；五因子再加入 RMW 与 CMA；此后又发展出动量、质量、低波等更多因子。</desc>
+                <rect x="16" y="45" width="150" height="60" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="91" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">CAPM</text>
+                <text x="91" y="92" text-anchor="middle" font-size="11" fill="#64748b">市场</text>
+                <text x="176" y="80" font-size="18" fill="#7c3aed">→</text>
+                <rect x="196" y="45" width="150" height="60" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="271" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">三因子 1993</text>
+                <text x="271" y="92" text-anchor="middle" font-size="11" fill="#64748b">市场 + SMB + HML</text>
+                <text x="356" y="80" font-size="18" fill="#3b82f6">→</text>
+                <rect x="376" y="45" width="150" height="60" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="451" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">五因子 2015</text>
+                <text x="451" y="92" text-anchor="middle" font-size="11" fill="#15803d">+ RMW + CMA</text>
+                <text x="536" y="80" font-size="18" fill="#16a34a">→</text>
+                <rect x="556" y="45" width="150" height="60" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="631" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">更多因子</text>
+                <text x="631" y="92" text-anchor="middle" font-size="11" fill="#a16207">动量/质量/低波…</text>
+            </svg>
+            <figcaption><span class="fig-num">图 19-1</span> 因子模型的演化轨迹：每增加一个因子就多解释一部分横截面收益。但因子越多并不越好——新因子可能与旧因子高度相关，真正稀缺的始终是有经济学逻辑的那一个。</figcaption>
+        </figure>
 
         <p>也就是说，任何资产的预期收益由两部分组成：无风险利率和风险溢价——而风险溢价完全由资产对市场的敏感度（β）决定。这个模型有一个极为重要的隐含意味：<strong>市场组合是所有风险的唯一来源</strong>。你想获得更高的收益？那就加杠杆，买更多市场组合。至于个股的特质风险（idiosyncratic risk），CAPM说它"不配得到补偿"——因为通过分散化就可以消除。</p>
 
@@ -97,6 +133,35 @@
         <h2>19.2 因子构造方法论</h2>
 
         <p>知道了因子的概念，下一步是如何在实践中构造一个"好因子"。因子构造有六个关键步骤，每一步都有陷阱，每一步都考验研究员的功底。</p>
+
+        <figure>
+            <svg role="img" width="720" height="210" style="max-width:100%;height:auto" viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fs-title fs-desc">
+                <title id="fs-title">因子构造的六个步骤</title>
+                <desc id="fs-desc">从因子定义、数据清洗、标准化、中性化，到 IC/IR 评估与分层回测；前四步准备干净的因子暴露，后两步验证其预测能力。</desc>
+                <rect x="16" y="20" width="200" height="64" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="116" y="58" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">① 因子定义</text>
+                <text x="230" y="58" font-size="18" fill="#7c3aed">→</text>
+                <rect x="260" y="20" width="200" height="64" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="360" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">② 数据清洗</text>
+                <text x="360" y="68" text-anchor="middle" font-size="11" fill="#64748b">去极值 / 补缺失</text>
+                <text x="474" y="58" font-size="18" fill="#7c3aed">→</text>
+                <rect x="504" y="20" width="200" height="64" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="604" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">③ 标准化</text>
+                <text x="604" y="68" text-anchor="middle" font-size="11" fill="#64748b">Z-score / 排序百分位</text>
+                <rect x="16" y="120" width="200" height="64" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="116" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">④ 中性化</text>
+                <text x="116" y="168" text-anchor="middle" font-size="11" fill="#64748b">回归正交取残差</text>
+                <text x="230" y="158" font-size="18" fill="#3b82f6">→</text>
+                <rect x="260" y="120" width="200" height="64" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="360" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">⑤ IC / IR 评估</text>
+                <text x="360" y="168" text-anchor="middle" font-size="11" fill="#64748b">预测力与稳定性</text>
+                <text x="474" y="158" font-size="18" fill="#16a34a">→</text>
+                <rect x="504" y="120" width="200" height="64" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="604" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">⑥ 分层回测</text>
+                <text x="604" y="168" text-anchor="middle" font-size="11" fill="#a16207">多空单调性</text>
+            </svg>
+            <figcaption><span class="fig-num">图 19-2</span> 因子构造的六个步骤：前四步（定义→清洗→标准化→中性化）把原始数据变成“干净”的因子暴露，后两步（IC/IR→分层回测）用数据回答同一个问题——这个因子到底有没有预测力。</figcaption>
+        </figure>
 
         <h3>第一步：因子定义</h3>
 
@@ -147,9 +212,44 @@
 
         <p>业界一般认为，月频IC绝对值大于0.05且IR大于0.5的因子，才值得纳入实盘策略。当然，这个门槛因市场和周期而异。</p>
 
+        <div class="math-equation" role="group" aria-label="IC 与 IR 公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="IC 与 IR 公式，可横向滚动">
+                <math display="block" aria-label="IC 等于因子值与下一期收益的秩相关；IR 等于 IC 的均值除以 IC 的标准差">
+                    <mrow>
+                        <mtext>IC</mtext><mo>=</mo><mtext>corr</mtext><mo>(</mo><msub><mtext>Factor</mtext><mi>t</mi></msub><mo>,</mo><msub><mi>R</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <mtext>IR</mtext><mo>=</mo>
+                        <mfrac><msub><mtext>IC</mtext><mtext>均值</mtext></msub><msub><mi>σ</mi><mtext>IC</mtext></msub></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <h3>第六步：分层回测</h3>
 
         <p>将股票按因子值从低到高分为10组（Decile）或5组（Quintile），计算每组下一期的平均收益，然后看多头组（因子值最高的一组）与空头组（最低的一组）是否能产生显著且稳定的超额收益。一个好的因子，应该呈现出单调性（monotonicity）——即因子值从低到高，收益也单调递增或递减。</p>
+
+        <figure>
+            <svg role="img" width="720" height="240" style="max-width:100%;height:auto" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ls-title ls-desc">
+                <title id="ls-title">分层回测：因子值从低到高的组合收益单调性</title>
+                <desc id="ls-desc">将股票按因子值分为 10 组，柱状图显示平均收益随因子值从低到高逐渐递增，说明因子具有单调的预测力。</desc>
+                <line x1="50" y1="200" x2="690" y2="200" stroke="#94a3b8"/>
+                <rect x="60" y="175" width="50" height="25" fill="#ddd6fe"/>
+                <rect x="116" y="160" width="50" height="40" fill="#c4b5fd"/>
+                <rect x="172" y="148" width="50" height="52" fill="#a78bfa"/>
+                <rect x="228" y="134" width="50" height="66" fill="#a78bfa"/>
+                <rect x="284" y="120" width="50" height="80" fill="#8b5cf6"/>
+                <rect x="340" y="104" width="50" height="96" fill="#8b5cf6"/>
+                <rect x="396" y="88" width="50" height="112" fill="#7c3aed"/>
+                <rect x="452" y="70" width="50" height="130" fill="#7c3aed"/>
+                <rect x="508" y="50" width="50" height="150" fill="#6d28d9"/>
+                <rect x="564" y="30" width="50" height="170" fill="#6d28d9"/>
+                <text x="60" y="220" font-size="11" fill="#334155">低（D1）</text>
+                <text x="556" y="220" font-size="11" fill="#334155">高（D10）</text>
+                <text x="300" y="26" font-size="12" fill="#15803d">组合平均收益随因子值上升而递增</text>
+            </svg>
+            <figcaption><span class="fig-num">图 19-3</span> 分层回测检验的是“单调性”：按因子值把股票分成 D1–D10 十组，如果平均收益从低到高单调递增（或递减），因子才具备可交易的方向性；柱形为教学示意，非真实回测值。</figcaption>
+        </figure>
 
         <div class="warning">
             <strong>常见踩坑：</strong>新手最容易犯的错误是"生存者偏差"（survivorship bias）——只回测今天还活着的股票，忽略了已经退市或ST的股票。这会导致严重的回测高估。另一个常见问题是"前视偏差"（look-ahead bias）——用到了回测时点还不存在的数据，比如用年报数据时没有考虑财报的发布延迟。记住：在回测时，你只能用截止到"当天"实际可用的数据。
@@ -219,6 +319,15 @@
         </table>
 
         <p>需要注意的是，上面的IC和IR数据只是粗略参考——实际数值会随市场环境、样本区间和因子定义细节而大幅变化。比如在2020年的核心资产牛市中，规模和低波因子几乎完全失效；而在2021年的小盘行情中，规模因子又王者归来。</p>
+
+        <div class="widget">
+            <div class="controls" id="ic-controls" role="group" aria-label="选择因子评估情景">
+                <button type="button" data-case="value" aria-pressed="true">价值因子 IC 0.06 / IR 0.65</button>
+                <button type="button" data-case="growth" aria-pressed="false">成长因子 IC 0.02 / IR 0.20</button>
+                <button type="button" data-case="size" aria-pressed="false">规模因子 IC 0.08 / IR 0.40</button>
+            </div>
+            <output id="ic-out" aria-live="polite">价值因子：IC 0.06、IR 0.65 → IC 与 IR 均达到业界参考门槛（|IC|>0.05 且 IR>0.5），值得纳入实盘候选。</output>
+        </div>
 
         <p>下面是一个利用Python计算价值因子（EP）并进行分层回测的简化示例：</p>
 
@@ -306,13 +415,53 @@ def calc_ep_factor(price_df,财报_df, rebalance_dates):
 
         <p>总的来说，多因子模型是现代量化投资的基石。理解了因子的逻辑、构造方法和局限性，你就掌握了量化投资最核心的语言。下一章我们将进入一个完全不同但同样迷人的领域——衍生品定价。期权、期货的定价逻辑与股票分析有本质的区别：股票的收益是线性的，而衍生品的收益是非线性的。掌握了衍生品定价，你的金融分析工具箱才算完整。</p>
 
-        <div class="footer-nav">
-            <a href="18.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页 CAPM、Fama-French 三因子/五因子与 IC/IR 定义均为学界定论；表中“月均 IC / IR”与因子数量（如“已发现因子超过 300 个”）为文献中的粗略参考区间，实际会随市场与样本区间变化；各量化私募回撤比例均为公开报道概数。</p>
+            <ol>
+                <li>Fama, E. &amp; French, K. (1993). <em>Common Risk Factors in the Returns on Stocks and Bonds</em>，三因子模型。</li>
+                <li>Fama, E. &amp; French, K. (2015). <em>A Five-Factor Asset Pricing Model</em>，五因子模型。</li>
+                <li>Kakushadze, Z. (2016). <em>101 Formulaic Alphas</em>，WorldQuant Alpha 101 出处。</li>
+                <li>Microsoft Qlib 项目 Alpha 158 因子集文档。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="18.html">← 第 18 章 行为金融学</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="20.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="20.html">第 20 章 衍生品定价 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        value:  { label: '价值因子', ic: 0.06, ir: 0.65 },
+        growth: { label: '成长因子', ic: 0.02, ir: 0.20 },
+        size:   { label: '规模因子', ic: 0.08, ir: 0.40 }
+    };
+    var out = document.getElementById('ic-out');
+    var btns = document.querySelectorAll('#ic-controls button');
+    function judge(ic, ir) {
+        var icOk = Math.abs(ic) > 0.05, irOk = ir > 0.5;
+        if (icOk && irOk) return 'IC 与 IR 均达到业界参考门槛（|IC|>0.05 且 IR>0.5），值得纳入实盘候选。';
+        if (icOk && !irOk) return 'IC 达标但 IR 不足：预测方向对了，但稳定性差、信噪比低，需谨慎或与其他因子复合。';
+        if (!icOk && irOk) return 'IR 尚可但 IC 偏弱：预测力本身有限，需确认样本区间与因子定义。';
+        return 'IC 与 IR 均低于门槛：预测力与稳定性都不足，不建议直接纳入实盘。';
+    }
+    function show(k) {
+        var c = cases[k];
+        out.textContent = c.label + '：IC ' + c.ic.toFixed(2) + '、IR ' + c.ir.toFixed(2) + ' → ' + judge(c.ic, c.ir);
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
