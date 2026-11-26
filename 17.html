@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第17章 策略回测体系</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,16 +42,41 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第17章 策略回测体系</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第17章 策略回测体系</h1>
+        <p class="article-dek">回测框架的选型、年化收益 / 夏普 / 卡玛等核心绩效指标的公式，以及前视偏差、幸存者偏差、过拟合等六大致命陷阱与从回测到实盘的渐进式上线路径。</p>
 
         <p>大家好，我是你们的讲师。我有一个朋友，2022年的时候兴冲冲地给我看了一个他"发明"的量化策略：在A股市场，每月初买入上月跌幅最大的10只股票，持有一个月后卖出。他在Excel上手工"回测"了三个月的数据，发现这个策略每个月都能跑赢沪深300超过5%。"你觉得怎么样？"他眼睛发亮地问我。</p>
 
         <p>我没有直接回答，而是让他把回测时间拉长到三年。一个周末之后，他沮丧地告诉我：回测结果是个年化亏损8%的垃圾策略。为什么？因为他"回测"的那三个月恰好是2022年4月到6月——A股刚从大跌中反弹，超跌反弹策略在那个特定窗口确实有效，但把时间拉长一看，均值回归的幅度根本不足以覆盖选到"烂股票"的风险。</p>
 
         <p><strong>回测</strong>（Backtesting）是用历史数据验证交易策略表现的过程，它几乎是每个量化策略上线前的必经之路。但正如这个例子所揭示的——<strong>回测做不对，等于在垃圾堆里找黄金</strong>。本章将系统性地介绍回测的方法论、核心指标和常见陷阱，帮你建立一套严谨的回测体系。</p>
+
+        <figure>
+            <svg role="img" width="720" height="170" style="max-width:100%;height:auto" viewBox="0 0 720 170" xmlns="http://www.w3.org/2000/svg" aria-labelledby="bt-title bt-desc">
+                <title id="bt-title">策略回测的四步流程</title>
+                <desc id="bt-desc">从数据获取到信号生成、回测执行、绩效分析四步串联；每一步都可能引入偏差。</desc>
+                <rect x="16" y="45" width="150" height="70" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="91" y="74" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">数据获取</text>
+                <text x="91" y="96" text-anchor="middle" font-size="11" fill="#64748b">复权 / 退市 / 时点</text>
+                <text x="176" y="88" font-size="18" fill="#7c3aed">→</text>
+                <rect x="196" y="45" width="150" height="70" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="271" y="74" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">信号生成</text>
+                <text x="271" y="96" text-anchor="middle" font-size="11" fill="#64748b">前视 / 未来信息</text>
+                <text x="356" y="88" font-size="18" fill="#3b82f6">→</text>
+                <rect x="376" y="45" width="150" height="70" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="451" y="74" text-anchor="middle" font-size="14" font-weight="700" fill="#713f12">回测执行</text>
+                <text x="451" y="96" text-anchor="middle" font-size="11" fill="#a16207">成本 / 滑点</text>
+                <text x="536" y="88" font-size="18" fill="#f59e0b">→</text>
+                <rect x="556" y="45" width="150" height="70" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="631" y="74" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">绩效分析</text>
+                <text x="631" y="96" text-anchor="middle" font-size="11" fill="#15803d">样本内 / 样本外</text>
+                <text x="360" y="150" text-anchor="middle" font-size="12" fill="#64748b">每一步都可能引入系统性偏差——回测的可靠性取决于最弱的那一环</text>
+            </svg>
+            <figcaption><span class="fig-num">图 17-1</span> 回测不是“跑一遍代码”，而是一条数据流水线：数据、信号、成交、评估四个环节各有各的偏差来源（下方小字），结果的可信度由最薄弱的一环决定。</figcaption>
+        </figure>
 
         <h2>17.1 回测框架选型</h2>
 
@@ -184,10 +210,44 @@ portfolio.plot().show()</code></pre>
             </tr>
         </table>
 
+        <div class="math-equation" role="group" aria-label="年化收益率公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="年化收益率公式，可横向滚动">
+                <math display="block" aria-label="年化收益率等于括号 1 加累计收益率 R 的 252 比 N 次方，再减 1">
+                    <mrow>
+                        <mtext>年化收益</mtext><mo>=</mo>
+                        <msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>R</mi><mo>)</mo></mrow><mrow><mn>252</mn><mo>/</mo><mi>N</mi></mrow></msup><mo>−</mo><mn>1</mn>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <div class="math-equation" role="group" aria-label="夏普与卡玛比率公式">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="夏普与卡玛比率公式，可横向滚动">
+                <math display="block" aria-label="夏普比率等于组合收益减无风险收益，除以组合标准差；卡玛比率等于同样的分子除以最大回撤">
+                    <mrow>
+                        <mtext>夏普</mtext><mo>=</mo>
+                        <mfrac><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>−</mo><msub><mi>R</mi><mi>f</mi></msub></mrow><msub><mi>σ</mi><mi>p</mi></msub></mfrac>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <mtext>卡玛</mtext><mo>=</mo>
+                        <mfrac><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>−</mo><msub><mi>R</mi><mi>f</mi></msub></mrow><mtext>MDD</mtext></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <p>一个经常被忽略的关键点是：<strong>以上所有指标都只是"样本内"（in-sample）的表现，并不代表"样本外"（out-of-sample）的表现</strong>。换句话说，你用过去5年数据回测得到的夏普比率2.0，到了未来可能变成0.5甚至负数。</p>
 
         <div class="highlight">
             <strong>核心洞见：</strong>我判断一个策略是否"值得认真对待"，通常会看三件事：① 策略逻辑是否有经济直觉支撑（而不是纯数据挖掘）；② 样本外表现是否显著优于随机；③ 最差情况下的回撤是否在可接受范围内。回测数据只是门槛，过了门槛之后，逻辑和鲁棒性比完美的数字重要得多。
+        </div>
+
+        <div class="widget">
+            <div class="controls" id="perf-controls" role="group" aria-label="选择策略情景">
+                <button type="button" data-case="steady" aria-pressed="true">稳健（年化 12% / σ10% / MDD15%）</button>
+                <button type="button" data-case="aggr" aria-pressed="false">激进（年化 25% / σ30% / MDD45%）</button>
+                <button type="button" data-case="sharp" aria-pressed="false">高夏普（年化 18% / σ8% / MDD12%）</button>
+            </div>
+            <output id="perf-out" aria-live="polite">稳健策略：年化 12%、无风险 3%、波动 10%、最大回撤 15% → 夏普 = (12−3)/10 = 0.90，卡玛 = (12−3)/15 = 0.60。</output>
         </div>
 
         <h2>17.3 回测的致命陷阱</h2>
@@ -195,6 +255,23 @@ portfolio.plot().show()</code></pre>
         <p>如果说回测是一座金矿，那陷阱比金子多得多。下面这几条是我自己在实战中踩过或亲眼见过的"回测杀手"：</p>
 
         <p><strong>1. 前视偏差</strong>（Look-Ahead Bias）——这是回测中最常见也最危险的错误。指的是在回测中使用了"在当时还无法获得"的信息。例如，在计算均线时使用了当天的收盘价来生成当天的买卖信号——但实际交易中，你只能在收盘后才能用这个收盘价来计算信号和下单。</p>
+
+        <figure>
+            <svg role="img" width="720" height="180" style="max-width:100%;height:auto" viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg" aria-labelledby="lab-title lab-desc">
+                <title id="lab-title">前视偏差：信号可得时点与应成交时点</title>
+                <desc id="lab-desc">在 t 日收盘后才能计算基于收盘价的信号；若回测在 t 日即用该信号成交，则使用了当时不可得的信息，构成前视偏差。正确做法是在 t+1 日开盘或收盘成交。</desc>
+                <line x1="40" y1="105" x2="680" y2="105" stroke="#94a3b8" stroke-width="2"/>
+                <circle cx="220" cy="105" r="6" fill="#7c3aed"/>
+                <text x="196" y="135" font-size="12" fill="#334155">t 日收盘</text>
+                <text x="150" y="80" font-size="12" fill="#6d28d9">此时才能算出收盘价信号</text>
+                <circle cx="470" cy="105" r="6" fill="#16a34a"/>
+                <text x="446" y="135" font-size="12" fill="#334155">t+1 日开盘</text>
+                <text x="388" y="80" font-size="12" fill="#15803d">最早可成交的时点</text>
+                <line x1="220" y1="58" x2="220" y2="97" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+                <text x="196" y="48" font-size="12" fill="#b91c1c">回测若在此刻成交 = 前视偏差</text>
+            </svg>
+            <figcaption><span class="fig-num">图 17-2</span> 判断前视偏差只需问一句：“这条信息在成交那一刻真的拿得到吗？”收盘价信号最早只能在下一根 K 线成交；把时点对齐，是回测可信任的前提。</figcaption>
+        </figure>
 
         <p><strong>2. 幸存者偏差</strong>（Survivorship Bias）——回测时只使用了当前还在交易的股票，忽略了那些已经退市或被ST的股票。这会导致回测结果系统性偏高，因为存活下来的股票本身就有"好股票"的偏误。有人估计，忽略幸存者偏差可能使回测的年化收益高估3%-5%。</p>
 
@@ -224,6 +301,21 @@ portfolio.plot().show()</code></pre>
 
         <p>真正的教训是：<strong>回测不是用来"证明一个策略好"的，而是用来"发现一个策略哪里有问题的"</strong>。如果你的回测结果完美到没有瑕疵，那它大概率是有问题的。</p>
 
+        <figure>
+            <svg role="img" width="720" height="240" style="max-width:100%;height:auto" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-labelledby="of-title of-desc">
+                <title id="of-title">过拟合：样本内完美，样本外崩溃</title>
+                <desc id="of-desc">前半段为样本内区间，净值曲线以近乎 45 度角平稳上升；后半段为样本外区间，曲线迅速掉头下跌，说明策略只是拟合了历史噪音。</desc>
+                <line x1="40" y1="210" x2="680" y2="210" stroke="#cbd5e1"/>
+                <line x1="360" y1="30" x2="360" y2="210" stroke="#94a3b8" stroke-dasharray="5 4"/>
+                <text x="195" y="228" font-size="12" fill="#334155" text-anchor="middle">样本内（反复调参的区间）</text>
+                <text x="530" y="228" font-size="12" fill="#334155" text-anchor="middle">样本外（真实表现）</text>
+                <polyline points="40,200 120,176 200,150 280,120 360,96" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <polyline points="360,96 420,122 480,152 540,186 600,206 660,216" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="6 4"/>
+                <text x="400" y="88" font-size="12" fill="#b91c1c">样本外掉头向下</text>
+            </svg>
+            <figcaption><span class="fig-num">图 17-3</span> 过拟合最典型的形状：样本内一条近乎完美的上扬曲线，一到样本外就崩溃。曲线越“漂亮”，越要怀疑它是在拟合历史噪音，而不是捕捉真实规律。</figcaption>
+        </figure>
+
         <h2>17.4 从回测到实盘</h2>
 
         <p>当你有了一个通过了基础检验的回测结果，下一步就是把它推向实盘。但实盘和回测之间的鸿沟，远比大多数初学者想象的大。下面是一个推荐的渐进式上线路径：</p>
@@ -242,13 +334,49 @@ portfolio.plot().show()</code></pre>
 
         <p>在下一章中，我们将从"纯理性"的量化回测，切换到"人性"的视角——行为金融学。为什么聪明的投资者也会做蠢事？为什么市场会出现看似"非理性"的现象？理解这些问题，有时候比懂再多数学公式都重要。</p>
 
-        <div class="footer-nav">
-            <a href="16.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页绩效指标公式为量化回测领域的通行定义；前视偏差、幸存者偏差导致收益高估 3%–5% 的估计、以及文中各私募/团队的历史回测与实盘数字均为公开叙述的概数，作为教学示意。</p>
+            <ol>
+                <li>Marcos López de Prado《Advances in Financial Machine Learning》，回测过拟合与多重检验的经典讨论。</li>
+                <li>Ernie Chan《Quantitative Trading》，回测陷阱与从回测到实盘的实务经验。</li>
+                <li>vectorbt / backtrader / vnpy / zipline 官方文档，回测框架能力对比。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="16.html">← 第 16 章 投资组合理论</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="18.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="18.html">第 18 章 行为金融学 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        steady: { label: '稳健策略', rp: 12, rf: 3, sd: 10, mdd: 15 },
+        aggr:   { label: '激进策略', rp: 25, rf: 3, sd: 30, mdd: 45 },
+        sharp:  { label: '高夏普策略', rp: 18, rf: 3, sd: 8, mdd: 12 }
+    };
+    var out = document.getElementById('perf-out');
+    var btns = document.querySelectorAll('#perf-controls button');
+    function show(k) {
+        var c = cases[k];
+        var sharpe = (c.rp - c.rf) / c.sd;
+        var calmar = (c.rp - c.rf) / c.mdd;
+        out.textContent = c.label + '：年化 ' + c.rp + '%、无风险 ' + c.rf + '%、波动 ' + c.sd +
+            '、最大回撤 ' + c.mdd + '% → 夏普 = (' + c.rp + '−' + c.rf + ')/' + c.sd + ' = ' + sharpe.toFixed(2) +
+            '，卡玛 = (' + c.rp + '−' + c.rf + ')/' + c.mdd + ' = ' + calmar.toFixed(2) + '。';
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            show(b.getAttribute('data-case'));
+        });
+    });
+})();
+</script>
 </body>
 </html>
