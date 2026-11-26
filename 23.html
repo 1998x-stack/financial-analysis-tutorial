@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第23章 Python金融工具链</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第23章 Python金融工具链</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第23章 Python金融工具链</h1>
+        <p class="article-dek">2026 年推荐技术栈的分层定位、akshare / yfinance / OpenBB 三种数据获取途径与清洗 Pipeline、TA-Lib 与 PyPortfolioOpt 等核心计算库，以及 pandas 与 Polars 的性能差异和端到端 SMA 交叉策略实现。</p>
 
         <p>大家好，我是你们的讲师。还记得在第1章我们展示的那段Python代码吗——用akshare拉取茅台股票数据、用pandas计算均线——当时我说"看不懂没关系，后面会讲"。现在时候到了。本章将系统性地带你搭建Python金融分析工具链，从数据获取到策略计算再到可视化，打通一条完整的自动化分析流水线。</p>
 
@@ -53,6 +55,24 @@
         <h2>23.1 Python金融生态全景（2026年推荐技术栈）</h2>
 
         <p>Python的金融生态不是一个大一统的框架，而是一组各司其职的库，像乐高积木一样拼在一起。理解每块积木的用途，比记住具体API更重要。下面是2026年最新的推荐技术栈：</p>
+
+        <figure>
+            <svg role="img" width="720" height="260" style="max-width:100%;height:auto" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" aria-labelledby="stack-title stack-desc">
+                <title id="stack-title">Python 金融分析技术栈的分层结构</title>
+                <desc id="stack-desc">自下而上依次为数据获取层、数据处理层、金融计算层、建模层与可视化层，下层为上层提供输入，各层职责单一、可替换。</desc>
+                <rect x="90" y="210" width="540" height="40" rx="8" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="360" y="236" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">数据获取 · akshare / yfinance / OpenBB</text>
+                <rect x="120" y="165" width="480" height="40" rx="8" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="360" y="191" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">数据处理 · pandas / Polars / NumPy</text>
+                <rect x="150" y="120" width="420" height="40" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="360" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">金融计算 · TA-Lib / PyPortfolioOpt / scipy</text>
+                <rect x="180" y="75" width="360" height="40" rx="8" fill="#fef9c3" stroke="#facc15"/>
+                <text x="360" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">建模 · scikit-learn / XGBoost</text>
+                <rect x="210" y="30" width="300" height="40" rx="8" fill="#f3e8ff" stroke="#a855f7"/>
+                <text x="360" y="56" text-anchor="middle" font-size="13" font-weight="700" fill="#6b21a8">可视化 · mplfinance / Plotly</text>
+            </svg>
+            <figcaption><span class="fig-num">图 23-1</span> 技术栈的分层：自下而上依次为数据获取、处理、金融计算、建模与可视化。每一层只依赖下一层的输出，替换其中一层（比如 pandas 换成 Polars）不会影响其他层的职责。</figcaption>
+        </figure>
 
         <table>
             <tr>
@@ -186,6 +206,16 @@ gdp = obb.economy.gdp(
     provider="fred"
 )</code></pre>
 
+        <div class="widget">
+            <div class="controls" id="tool-controls" role="group" aria-label="选择数据需求场景">
+                <button type="button" data-case="cn" aria-pressed="true">A 股行情 + 财报 + 宏观</button>
+                <button type="button" data-case="us" aria-pressed="false">美股 / 全球行情与财报</button>
+                <button type="button" data-case="multi" aria-pressed="false">需要统一的多源接口</button>
+                <button type="button" data-case="big" aria-pressed="false">千万行逐笔数据与因子计算</button>
+            </div>
+            <output id="tool-out" aria-live="polite">A 股行情 + 财报 + 宏观：首选 akshare——免费、覆盖面广、对国内财经站点封装完善，记住获取后立即把中文字段重命名为英文。</output>
+        </div>
+
         <div class="warning">
             <strong>踩坑警示：</strong>我曾在一次策略回测项目中使用akshare获取某只小盘股的数据，跑了三个月都没发现问题。直到一次复盘时偶然对比其他数据源，才发现akshare返回的复权因子在除权日附近有误差，导致回测收益被高估了约15%。这个故事告诉我们：<strong>永远不要只依赖单一数据源</strong>。至少交叉验证两个独立来源。
         </div>
@@ -230,6 +260,20 @@ def clean_financial_data(df: pd.DataFrame) -> pd.DataFrame:
     df["log_returns"] = np.log(df["close"] / df["close"].shift(1))
 
     return df</code></pre>
+
+        <div class="math-equation" role="group" aria-label="简单收益与对数收益">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="简单收益与对数收益公式，可横向滚动">
+                <math display="block" aria-label="简单收益率等于今日收盘价减昨日收盘价，除以昨日收盘价；对数收益率等于今日收盘价除以昨日收盘价的自然对数">
+                    <mrow>
+                        <msub><mi>r</mi><mi>t</mi></msub><mo>=</mo>
+                        <mfrac><mrow><msub><mi>P</mi><mi>t</mi></msub><mo>−</mo><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mfrac>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <msubsup><mi>r</mi><mi>t</mi><mtext>log</mtext></msubsup><mo>=</mo>
+                        <mi>ln</mi><mfrac><msub><mi>P</mi><mi>t</mi></msub><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <h2>23.3 金融计算核心库</h2>
 
@@ -363,6 +407,35 @@ print(f"95% VaR: {var_95:.2%}")</code></pre>
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="720" height="280" style="max-width:100%;height:auto" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-labelledby="pp-title pp-desc">
+                <title id="pp-title">pandas 2.x 与 Polars 在典型金融操作上的耗时对比</title>
+                <desc id="pp-desc">同一组任务下，灰色柱为 pandas 2.x 的耗时，紫色柱为 Polars 的耗时；读取 CSV、分组均值、滚动窗口等操作 Polars 均明显更快，其中分组均值差距最大。</desc>
+                <line x1="50" y1="230" x2="690" y2="230" stroke="#94a3b8"/>
+                <rect x="70" y="118" width="24" height="112" fill="#94a3b8"/>
+                <rect x="98" y="210" width="24" height="20" fill="#7c3aed"/>
+                <text x="78" y="250" font-size="11" fill="#334155">读 CSV</text>
+                <rect x="190" y="60" width="24" height="170" fill="#94a3b8"/>
+                <rect x="218" y="218" width="24" height="12" fill="#7c3aed"/>
+                <text x="188" y="250" font-size="11" fill="#334155">分组均值</text>
+                <rect x="310" y="188" width="24" height="42" fill="#94a3b8"/>
+                <rect x="338" y="206" width="24" height="24" fill="#7c3aed"/>
+                <text x="306" y="250" font-size="11" fill="#334155">滚动窗口</text>
+                <rect x="430" y="219" width="24" height="11" fill="#94a3b8"/>
+                <rect x="458" y="226" width="24" height="4" fill="#7c3aed"/>
+                <text x="430" y="250" font-size="11" fill="#334155">条件筛选</text>
+                <rect x="550" y="214" width="24" height="16" fill="#94a3b8"/>
+                <rect x="578" y="220" width="24" height="10" fill="#7c3aed"/>
+                <text x="548" y="250" font-size="11" fill="#334155">日转周</text>
+                <rect x="70" y="20" width="16" height="16" fill="#94a3b8"/>
+                <text x="92" y="33" font-size="12" fill="#334155">pandas 2.x</text>
+                <rect x="200" y="20" width="16" height="16" fill="#7c3aed"/>
+                <text x="222" y="33" font-size="12" fill="#334155">Polars</text>
+                <text x="360" y="272" text-anchor="middle" font-size="11" fill="#64748b">数值取自本页表格（秒，越低越快），为社区基准概数，随硬件与数据而异</text>
+            </svg>
+            <figcaption><span class="fig-num">图 23-2</span> pandas 与 Polars 的耗时对比：大数据量的分组均值和 CSV 读取差距最大（分别约 14x 与 5.5x），而小规模条件筛选差距较小。柱高按本页表格数值绘制，为社区基准概数。</figcaption>
+        </figure>
+
         <p>Polars的LazyFrame允许你构建一个查询计划（query plan），在真正执行时由优化器自动决定计算顺序和并行策略，这在大数据集上效果显著：</p>
 
         <pre><code>import polars as pl
@@ -469,19 +542,79 @@ print(f"买入持有收益: {buy_hold_return:.2%}")</code></pre>
 
         <p>这个Pipeline虽然简单，但它体现了金融自动化分析的完整闭环：获取→清洗→计算→信号→评估→可视化。在真实项目中，你还会加入止损逻辑、交易成本、滑点模型等细节——但骨架就是这样的。</p>
 
+        <figure>
+            <svg role="img" width="720" height="240" style="max-width:100%;height:auto" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-labelledby="sma-title sma-desc">
+                <title id="sma-title">SMA 交叉策略：金叉买入、死叉卖出</title>
+                <desc id="sma-desc">黑色价格线随两条均线波动，紫色短期均线上穿灰色长期均线处标记买入三角，下穿处标记卖出三角。</desc>
+                <line x1="40" y1="205" x2="690" y2="205" stroke="#cbd5e1"/>
+                <polyline points="40,150 90,120 140,92 190,130 240,168 290,150 340,112 400,82 460,104 520,150 580,140 640,112 690,92" fill="none" stroke="#1e293b" stroke-width="2"/>
+                <polyline points="40,162 120,132 200,122 280,150 360,132 440,102 520,122 600,132 690,112" fill="none" stroke="#7c3aed" stroke-width="2"/>
+                <polyline points="40,172 120,152 200,142 280,156 360,146 440,126 520,136 600,130 690,120" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                <polygon points="285,174 296,194 274,194" fill="#16a34a"/>
+                <text x="240" y="220" font-size="12" fill="#15803d">金叉 → 买入</text>
+                <polygon points="505,120 516,100 494,100" fill="#ef4444"/>
+                <text x="500" y="92" font-size="12" fill="#b91c1c">死叉 → 卖出</text>
+                <text x="360" y="234" text-anchor="middle" font-size="11" fill="#64748b">黑：收盘价　紫：SMA5（快）　灰：SMA20（慢）——为教学示意，非真实行情</text>
+            </svg>
+            <figcaption><span class="fig-num">图 23-3</span> SMA 交叉策略的骨架：短期均线上穿长期均线（金叉）买入，下穿（死叉）卖出。信号本身很简单，难点在于时序——只有在收盘后用当天信号、次日成交，才能避开前视偏差。</figcaption>
+        </figure>
+
+        <div class="math-equation" role="group" aria-label="累计收益与策略收益">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="累计收益与策略收益公式，可横向滚动">
+                <math display="block" aria-label="累计收益等于从 1 到 N 连乘括号 1 加日收益再减 1；策略在 t 日的收益等于前一日的仓位信号乘以当日收益">
+                    <mrow>
+                        <mtext>CR</mtext><mo>=</mo>
+                        <munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover>
+                        <mrow><mo>(</mo><mn>1</mn><mo>+</mo><msub><mi>r</mi><mi>i</mi></msub><mo>)</mo></mrow><mo>−</mo><mn>1</mn>
+                        <mo>,</mo><mspace width="1.2em"/>
+                        <msub><mtext>R</mtext><mrow><mtext>策略</mtext><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo>
+                        <msub><mtext>signal</mtext><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>×</mo><msub><mi>r</mi><mi>t</mi></msub>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
         <div class="warning">
             <strong>一个踩坑经验：</strong>策略回测中最容易犯的错误叫做"前视偏差"（look-ahead bias）。在上面代码中，我用 <code>df["signal"].shift(1)</code> 来确保当天收盘后根据信号在第二天开盘时交易。但我在第一次写这个策略时忘记了 shift——结果就是"用今天的信号在今天开盘就交易"，回测收益率看起来非常漂亮，实盘一跑直接亏损。这种错误在回测中非常隐蔽，请一定检查你的信号时序是否正确。
         </div>
 
         <p>本章我们搭建了完整的Python金融分析工具链，从数据获取（akshare/yfinance/OpenBB）、数据处理（pandas/Polars）、金融计算（TA-Lib/PyPortfolioOpt/scipy）到策略回测与可视化。但Python不是唯一的金融分析工具——在很多场景下（尤其是投行、资管等机构），Excel仍然是不可替代的主力工具。下一章我们就来学习Excel高级建模的技巧。</p>
 
-        <div class="footer-nav">
-            <a href="22.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页各库名称与版本（akshare / yfinance / OpenBB SDK v4 / pandas 2.x / Polars / TA-Lib / PyPortfolioOpt 等）为公开项目名称；pandas 与 Polars 的耗时对比（如 5.5x / 14x）为社区基准测试的概数，因硬件与数据而异，不作为定论。</p>
+            <ol>
+                <li>akshare、yfinance、OpenBB、Polars、TA-Lib、PyPortfolioOpt 官方文档。</li>
+                <li>pandas 与 Polars 官方性能基准（benchmark）与社区测试报告。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="22.html">← 第 22 章 另类数据分析</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="24.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="24.html">第 24 章 Excel高级建模 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        cn:    'A 股行情 + 财报 + 宏观：首选 akshare——免费、覆盖面广、对国内财经站点封装完善，记住获取后立即把中文字段重命名为英文。',
+        us:    '美股 / 全球行情与财报：首选 yfinance——接入最简单，但需注意国内访问可能需要代理。',
+        multi: '需要统一的多源接口：用 OpenBB SDK v4——同一套调用方式切换 Yahoo / FRED / Polygon 等来源。',
+        big:   '千万行逐笔数据与因子计算：用 Polars 的 LazyFrame——查询计划 + 并行 + 列式内存，分组均值可比 pandas 快一个数量级。'
+    };
+    var out = document.getElementById('tool-out');
+    var btns = document.querySelectorAll('#tool-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
