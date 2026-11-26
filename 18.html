@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第18章 行为金融学</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第18章 行为金融学</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第18章 行为金融学</h1>
+        <p class="article-dek">从认知偏差图谱到前景理论的 S 形价值函数与损失厌恶，再到动量 / 反转 / 一月效应 / 处置效应等市场异象的行为解释，以及用交易日志与预承诺机制降低偏差影响的方法。</p>
 
         <p>大家好，我是你们的讲师。在开始本章之前，我先请你做一个思想实验。我有两个选项：A. 我直接给你5000元；B. 你抛一枚硬币，正面朝上我给你10000元，反面朝上你一分钱也拿不到。你会选哪个？</p>
 
@@ -103,6 +105,16 @@
             </tr>
         </table>
 
+        <div class="widget">
+            <div class="controls" id="bias-controls" role="group" aria-label="选择投资者行为场景">
+                <button type="button" data-case="chase" aria-pressed="true">涨幅一大就追进去，觉得自己不会接到最后一棒</button>
+                <button type="button" data-case="anchor" aria-pressed="false">买入价成了心理红线，跌破就死活不肯卖</button>
+                <button type="button" data-case="confirm" aria-pressed="false">只看多方的研报，自动忽略利空</button>
+                <button type="button" data-case="recent" aria-pressed="false">最近大涨，就把目标价跟着上调，忘了长期均值</button>
+            </div>
+            <output id="bias-out" aria-live="polite">涨幅一大就追进去、觉得自己不会接到最后一棒：典型为过度自信（兼有羊群效应）。应对：写下买入理由与失效条件，设好仓位上限。</output>
+        </div>
+
         <div class="tip">
             <strong>自我诊断：</strong>坦白说，这些偏差我一个不少全都犯过。有一次我买了某只消费股，跌了15%之后——不是因为公司基本面变了，纯粹是因为"不愿意亏着卖"——硬扛了半年。结果股价又跌了30%。如果我当初理性地计算一下机会成本，这笔错误决策带来的隐形损失比表面上的浮亏要大得多。后来我给自己定了一条铁律：<strong>如果今天给你一笔现金，你还会买这只股票吗？如果答案是否，立刻卖出。</strong>
         </div>
@@ -112,6 +124,38 @@
         <p>2002年，心理学家丹尼尔·卡尼曼（Daniel Kahneman）获得了诺贝尔经济学奖——尽管他一天经济学都没学过。他和长期合作者阿莫斯·特沃斯基（Amos Tversky，可惜在1996年去世，未能共同获奖）提出的<strong>前景理论</strong>（Prospect Theory），是行为金融学最重要的理论基石。</p>
 
         <p>前景理论的核心可以用一个简单的图景来概括：想象一条S形的价值函数曲线。在"盈利"区域（曲线的右半部分），曲线是凹的——也就是说，从0到100元的快乐增加，比从1000元到1100元的快乐增加要大得多（边际效用递减）。在"亏损"区域（曲线的左半部分），曲线是凸的——而且比右半部分陡峭得多。</p>
+
+        <figure>
+            <svg role="img" width="720" height="300" style="max-width:100%;height:auto" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-labelledby="pt-title pt-desc">
+                <title id="pt-title">前景理论的价值函数：盈利凹、亏损凸且更陡</title>
+                <desc id="pt-desc">横轴为盈亏金额，纵轴为主观价值。右半区（盈利）为凹函数，边际递减；左半区（亏损）为凸函数且斜率更大，同一金额的亏损带来的负价值明显大于等额盈利带来的正价值。</desc>
+                <line x1="40" y1="150" x2="680" y2="150" stroke="#94a3b8"/>
+                <line x1="360" y1="30" x2="360" y2="270" stroke="#94a3b8"/>
+                <path d="M360,150 C430,120 520,80 660,55" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+                <path d="M360,150 C290,186 200,226 60,258" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+                <text x="545" y="45" font-size="12" fill="#15803d">盈利（凹，边际递减）</text>
+                <text x="50" y="280" font-size="12" fill="#b91c1c">亏损（凸，更陡）</text>
+                <text x="600" y="168" font-size="12" fill="#64748b">盈亏 0</text>
+                <text x="40" y="140" font-size="12" fill="#64748b">价值</text>
+            </svg>
+            <figcaption><span class="fig-num">图 18-1</span> 前景理论的价值函数：横轴是盈亏金额，纵轴是主观价值。盈利侧凹（边际递减），亏损侧凸且更陡——正是这种不对称，制造了“同样的钱，亏比赚更痛”的心理现实。</figcaption>
+        </figure>
+
+        <div class="math-equation" role="group" aria-label="前景理论价值函数">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="前景理论价值函数公式，可横向滚动">
+                <math display="block" aria-label="前景理论价值函数：当 x 大于等于 0 时 v 等于 x 的 α 次方；当 x 小于 0 时 v 等于负 λ 乘以负 x 的 α 次方">
+                    <mrow>
+                        <mi>v</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo>
+                        <mrow><mo>{</mo>
+                            <mtable>
+                                <mtr><mtd><msup><mi>x</mi><mi>α</mi></msup></mtd><mtd><mi>x</mi><mo>≥</mo><mn>0</mn></mtd></mtr>
+                                <mtr><mtd><mo>−</mo><mi>λ</mi><msup><mrow><mo>(</mo><mo>−</mo><mi>x</mi><mo>)</mo></mrow><mi>α</mi></msup></mtd><mtd><mi>x</mi><mo>&lt;</mo><mn>0</mn></mtd></mtr>
+                            </mtable>
+                        </mrow>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <p>这个不对称的陡峭程度告诉我们一个惊人的事实：<strong>一笔1000元的亏损带来的痛苦，大约相当于1000元盈利带来的快乐的2到2.5倍</strong>。换句话说，要想弥补一笔亏损带来的心理伤害，你需要的不是等额的盈利，而是两倍以上的盈利。</p>
 
@@ -154,9 +198,43 @@ print(f"亏损痛感倍率: {lam:.2f} 倍")
 
         <p><strong>反转效应</strong>（Reversal Effect）——与动量效应相反，从3-5年的长期维度看，过去表现差的股票反而会后来居上。这对应了投资者的过度反应（overreaction）：当市场对一个利好或利空消息反应过度后，价格会在更长时间维度上"回归均值"。</p>
 
+        <figure>
+            <svg role="img" width="720" height="260" style="max-width:100%;height:auto" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" aria-labelledby="an-title an-desc">
+                <title id="an-title">反应不足（动量）与过度反应（反转）</title>
+                <desc id="an-desc">左侧：利好消息出现后价格缓慢向上漂移，形成动量；右侧：价格对消息反应过度冲高后回落，形成反转。</desc>
+                <line x1="30" y1="200" x2="340" y2="200" stroke="#cbd5e1"/>
+                <line x1="90" y1="40" x2="90" y2="200" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                <polyline points="30,176 90,171 150,150 210,120 280,90 330,80" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <text x="95" y="62" font-size="12" fill="#64748b">利好新闻</text>
+                <text x="190" y="80" font-size="12" fill="#6d28d9">缓慢漂移</text>
+                <text x="150" y="230" font-size="12" fill="#15803d" text-anchor="middle">反应不足 → 动量</text>
+                <line x1="390" y1="200" x2="700" y2="200" stroke="#cbd5e1"/>
+                <line x1="450" y1="40" x2="450" y2="200" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                <polyline points="390,176 450,171 500,120 540,70 590,110 650,150 690,172" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+                <text x="455" y="62" font-size="12" fill="#64748b">利好新闻</text>
+                <text x="548" y="62" font-size="12" fill="#b91c1c">过度冲高后回归</text>
+                <text x="540" y="230" font-size="12" fill="#b91c1c" text-anchor="middle">过度反应 → 反转</text>
+            </svg>
+            <figcaption><span class="fig-num">图 18-2</span> 同一则信息可以引出两种相反的异象：投资者反应不足，价格慢慢漂移就是动量；反应过度，冲高后均值回归就是反转。时间窗口不同，故事也就不同。</figcaption>
+        </figure>
+
         <p><strong>一月效应</strong>（January Effect）——历史上，每年1月份小盘股的收益率系统性高于其他月份。可能的解释是：投资者在12月为了"税收损失收割"（tax-loss harvesting）卖出亏损股票，导致价格被压低，然后在1月买回，推动价格上涨。随着市场效率的提高，这一效应在近年已经明显减弱。</p>
 
         <p><strong>处置效应</strong>（Disposition Effect）——投资者倾向于过早卖出盈利股票、过久持有亏损股票。这是前景理论+心理账户（mental accounting）的直接体现。研究发现，个人投资者的处置效应比机构投资者更显著——这在一定程度上解释了为什么"散户跑不赢大盘"。</p>
+
+        <div class="math-equation" role="group" aria-label="处置效应指标">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="处置效应指标公式，可横向滚动">
+                <math display="block" aria-label="处置效应指标 DE 等于已实现盈利比例 PGR 除以已实现亏损比例 PLR；PGR 等于已实现盈利除以已实现盈利加账面盈利">
+                    <mrow>
+                        <mtext>DE</mtext><mo>=</mo>
+                        <mfrac><mtext>PGR</mtext><mtext>PLR</mtext></mfrac>
+                        <mo>,</mo><mspace width="1em"/>
+                        <mtext>PGR</mtext><mo>=</mo>
+                        <mfrac><mtext>已实现盈利</mtext><mrow><mtext>已实现盈利</mtext><mo>+</mo><mtext>账面盈利</mtext></mrow></mfrac>
+                    </mrow>
+                </math>
+            </div>
+        </div>
 
         <table>
             <tr>
@@ -221,6 +299,31 @@ print(f"亏损痛感倍率: {lam:.2f} 倍")
 
         <p>事情的经过是这样的：散户们在论坛上组织起来，大规模买入GameStop的看涨期权和正股。买入推动股价上涨，上涨迫使做空机构追加保证金、被迫买入股票平仓，平仓进一步推高股价——形成了一个自我强化的正反馈循环。股价从2021年初的18美元，在短短两周内飙升至483美元（盘中最高），涨幅超过2500%。</p>
 
+        <figure>
+            <svg role="img" width="720" height="220" style="max-width:100%;height:auto" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" aria-labelledby="gs-title gs-desc">
+                <title id="gs-title">GameStop 轧空的正反馈循环</title>
+                <desc id="gs-desc">散户大量买入推高股价，股价上涨迫使空头追加保证金并买入平仓，平仓本身又进一步推高股价，形成自我强化的循环，直到买盘枯竭。</desc>
+                <rect x="16" y="50" width="150" height="64" rx="12" fill="#ede9fe" stroke="#8b5cf6"/>
+                <text x="91" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">散户买入</text>
+                <text x="91" y="98" text-anchor="middle" font-size="11" fill="#64748b">正股 + 看涨期权</text>
+                <text x="176" y="88" font-size="18" fill="#7c3aed">→</text>
+                <rect x="196" y="50" width="150" height="64" rx="12" fill="#dbeafe" stroke="#3b82f6"/>
+                <text x="271" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">股价上涨</text>
+                <text x="271" y="98" text-anchor="middle" font-size="11" fill="#64748b">浮盈吸引更多人</text>
+                <text x="356" y="88" font-size="18" fill="#3b82f6">→</text>
+                <rect x="376" y="50" width="150" height="64" rx="12" fill="#fee2e2" stroke="#ef4444"/>
+                <text x="451" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">空头追保</text>
+                <text x="451" y="98" text-anchor="middle" font-size="11" fill="#64748b">被迫买入平仓</text>
+                <text x="536" y="88" font-size="18" fill="#ef4444">→</text>
+                <rect x="556" y="50" width="150" height="64" rx="12" fill="#fef9c3" stroke="#facc15"/>
+                <text x="631" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">买盘再推高</text>
+                <text x="631" y="98" text-anchor="middle" font-size="11" fill="#a16207">正反馈强化</text>
+                <path d="M631,114 L631,160 L91,160 L91,114" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+                <text x="360" y="182" text-anchor="middle" font-size="12" fill="#b45309">自我强化循环：买盘一旦枯竭，循环反向并急剧下跌</text>
+            </svg>
+            <figcaption><span class="fig-num">图 18-3</span> GameStop 的轧空是一个正反馈循环：买入推高价格，上涨逼空头平仓，平仓又反过来推高价格。环环相扣的结果是价格远超基本面，一旦新增买盘枯竭，循环会反向加速。</figcaption>
+        </figure>
+
         <p>从行为金融学的角度来看，GameStop事件完美展示了多个偏差的同时作用：</p>
         <ul>
             <li><strong>羊群效应</strong>——散户们看到论坛上的"战绩"后蜂拥而入，很多人根本不了解GameStop的基本面</li>
@@ -237,13 +340,43 @@ print(f"亏损痛感倍率: {lam:.2f} 倍")
 
         <p>在下一章中，我们将把前几章的所学——风险管理、投资组合理论和行为金融学的洞见——融合到一个更体系化的框架中：多因子模型。这是我们迈向量化投资世界的最后一块关键拼图。</p>
 
-        <div class="footer-nav">
-            <a href="17.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h3">
+            <h2 id="refs-h3">参考资料与数据说明</h2>
+            <p class="note">本页前景理论价值函数的敏感度系数 α≈0.88 与损失厌恶系数 λ≈2.25 取自 Kahneman &amp; Tversky 的经典参数估计；动量效应 12% 超额收益出自 Jegadeesh &amp; Titman (1993)；GameStop 价格与做空比例均为公开市场报道概数。</p>
+            <ol>
+                <li>Kahneman, D. &amp; Tversky, A. (1979). <em>Prospect Theory: An Analysis of Decision under Risk</em>.</li>
+                <li>Kahneman, D.《思考，快与慢》（Thinking, Fast and Slow）。</li>
+                <li>Jegadeesh, N. &amp; Titman, S. (1993). <em>Returns to Buying Winners and Selling Losers</em>，动量效应原始研究。</li>
+                <li>Shefrin, H. &amp; Statman, M. (1985). <em>The Disposition to Sell Winners Too Early and Ride Losers Too Long</em>，处置效应原始研究。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="17.html">← 第 17 章 策略回测体系</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="19.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="19.html">第 19 章 多因子模型 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        chase:   '涨幅一大就追进去、觉得自己不会接到最后一棒：典型为过度自信（兼有羊群效应）。应对：写下买入理由与失效条件，设好仓位上限。',
+        anchor:  '买入价成了心理红线、跌破就不肯卖：典型为锚定效应（兼有损失厌恶）。应对：不看持仓成本，只问“今天是否还会以现价买入”。',
+        confirm: '只看多方的研报、自动忽略利空：典型为确认偏差。应对：主动找反面论据，指定一个人做“魔鬼代言人”。',
+        recent:  '最近大涨就把目标价跟着上调：典型为近因效应。应对：拉长决策时间框架，对照长期均值与历史估值分位。'
+    };
+    var out = document.getElementById('bias-out');
+    var btns = document.querySelectorAll('#bias-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
