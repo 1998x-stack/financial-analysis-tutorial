@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>第26章 AI与量化投资</title>
     <link rel="stylesheet" href="theme.css">
+    <style>pre{overflow-x:auto}img,svg,table{max-width:100%}.math-scroll{overflow-x:auto;max-width:100%}</style>
 </head>
 <body>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程目录">
         <h3>💹 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 金融分析概述</a></li>
@@ -41,10 +42,11 @@
             <li><a href="27.html">第27章 综合实战项目</a></li>
             <li><a href="28.html">第28章 职业路径与资源</a></li>
         </ul>
-    </div>
-    <div class="main-content">
-
-        <h2>第26章 AI与量化投资</h2>
+    </nav>
+    <main class="main-content">
+    <article>
+        <h1>第26章 AI与量化投资</h1>
+        <p class="article-dek">AI 在量化投资中的四大方向（ML 选股、RL 交易、NLP 舆情、生成式策略）、LLM 辅助策略生成的 Prompt 工程与代码安全审查、MCP 协议与金融 Agent 工作流，以及过拟合、黑箱、模型漂移与监管合规四大风险边界。</p>
 
         <p>大家好，我是你们的讲师。想象这样一个场景：你写了一段Prompt："基于沪深300成分股，构建一个低波红利多因子策略，用Python生成完整代码"，几秒钟后，DeepSeek或者Claude就返回了一段可以直接运行的策略代码。你再让它分析最近一个月的市场舆情，它自动调用了金融API获取数据，生成了包含回测绩效和风险指标的分析报告。这不是科幻——这是2026年每一个量化研究员都能做到的日常。</p>
 
@@ -89,11 +91,65 @@
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="720" height="260" style="max-width:100%;height:auto" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ai-title ai-desc">
+                <title id="ai-title">AI 在量化投资中的四大方向与成熟度</title>
+                <desc id="ai-desc">四个方向并列：机器学习选股成熟度最高（五星），NLP 舆情与生成式 AI 策略次之（四星），强化学习交易最低（三星）；下方为每个方向的典型应用。</desc>
+                <g>
+                    <rect x="20" y="20" width="160" height="70" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+                    <text x="100" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">ML 选股</text>
+                    <text x="100" y="68" text-anchor="middle" font-size="11" fill="#166534">XGBoost / GNN</text>
+                    <text x="100" y="84" text-anchor="middle" font-size="12" fill="#16a34a">★★★★★</text>
+                    <rect x="195" y="20" width="160" height="70" rx="10" fill="#fef9c3" stroke="#facc15"/>
+                    <text x="275" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">RL 交易</text>
+                    <text x="275" y="68" text-anchor="middle" font-size="11" fill="#854d0e">PPO / SAC</text>
+                    <text x="275" y="84" text-anchor="middle" font-size="12" fill="#ca8a04">★★★☆☆</text>
+                    <rect x="370" y="20" width="160" height="70" rx="10" fill="#dbeafe" stroke="#3b82f6"/>
+                    <text x="450" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">NLP 舆情</text>
+                    <text x="450" y="68" text-anchor="middle" font-size="11" fill="#1d4ed8">LLM / 知识图谱</text>
+                    <text x="450" y="84" text-anchor="middle" font-size="12" fill="#2563eb">★★★★☆</text>
+                    <rect x="545" y="20" width="160" height="70" rx="10" fill="#f3e8ff" stroke="#a855f7"/>
+                    <text x="625" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#6b21a8">生成式策略</text>
+                    <text x="625" y="68" text-anchor="middle" font-size="11" fill="#7e22ce">LLM API / MCP</text>
+                    <text x="625" y="84" text-anchor="middle" font-size="12" fill="#9333ea">★★★★☆</text>
+                </g>
+                <line x1="40" y1="150" x2="690" y2="150" stroke="#e2e8f0"/>
+                <g font-size="11" fill="#475569">
+                    <text x="100" y="176" text-anchor="middle">多因子、异常收益</text>
+                    <text x="275" y="176" text-anchor="middle">动态仓位、做市</text>
+                    <text x="450" y="176" text-anchor="middle">公告解读、事件驱动</text>
+                    <text x="625" y="176" text-anchor="middle">代码生成、Agent 自动化</text>
+                </g>
+                <rect x="60" y="205" width="600" height="40" rx="8" fill="#faf8ff" stroke="#ddd6fe"/>
+                <text x="360" y="230" text-anchor="middle" font-size="12" fill="#6d28d9">共同前提：数据质量与防过拟合能力，而不是模型复杂度</text>
+                <text x="360" y="256" text-anchor="middle" font-size="11" fill="#94a3b8">成熟度星级为本页归纳的教学评级，非行业统一指标</text>
+            </svg>
+            <figcaption><span class="fig-num">图 26-1</span> AI 量化四大方向的成熟度差异：ML 选股已高度工程化，是大多数团队的基线；RL 交易因市场非平稳性实盘应用仍受限；NLP 舆情与生成式策略则因大模型能力提升而快速上升。星级为本页归纳的教学评级，不代表统一行业指标。</figcaption>
+        </figure>
+
         <h3>ML选股：从XGBoost到图神经网络</h3>
         <p>传统多因子模型（如第19章所讲）本质上是线性模型——假设每个因子的贡献是独立且可加的。但真实市场中的因子交互效应非常普遍：比如"低波动"因子在"高动量"市场环境下表现显著优于在"低动量"环境下。机器学习模型的天然优势就是能够捕捉这些非线性交互。2026年的主流实践中，XGBoost和LightGBM依然是选股领域的"主力战舰"，它们训练速度快、可解释性相对较好，在大多数竞赛和实际部署中都是基线模型。图神经网络（GNN）则是前沿方向——将股票之间的关系（供应链关联、行业关联、股东关联）建模为图结构，让模型学习公司间的信息传导。</p>
 
         <h3>RL交易：让智能体自主学习交易策略</h3>
         <p>强化学习（Reinforcement Learning）将交易建模为马尔可夫决策过程：智能体（Agent）在每一个时间步观察市场状态（价格、技术指标、持仓等），选择一个动作（买入/卖出/持有），获得环境反馈（PnL变化），并据此更新策略。深度强化学习（如PPO算法）已经在一些做市和统计套利场景中取得了不错的实盘表现。但需要坦诚地说，RL交易在A股市场的实盘应用仍然处于早期阶段——主要挑战在于市场环境的非平稳性（训练时学到的策略可能在实盘时失效）和交易成本的敏感性。</p>
+
+        <div class="math-equation" role="group" aria-label="强化学习的目标函数">
+            <div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="强化学习目标函数公式，可横向滚动">
+                <math display="block" aria-label="强化学习的目标是所有轨迹上折现回报的期望，训练即寻找使期望回报最大的策略参数 theta">
+                    <mrow>
+                        <mi>J</mi><mo>(</mo><mi>θ</mi><mo>)</mo><mo>=</mo>
+                        <msub><mi>E</mi><mrow><mi>τ</mi><mo>∼</mo><msub><mi>π</mi><mi>θ</mi></msub></mrow></msub>
+                        <mrow><mo>[</mo><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><mi>T</mi></munderover>
+                        <msup><mi>γ</mi><mi>t</mi></msup><msub><mi>r</mi><mi>t</mi></msub><mo>]</mo></mrow>
+                        <mo>,</mo><mspace width="1em"/>
+                        <msup><mi>θ</mi><mo>*</mo></msup><mo>=</mo>
+                        <munder><mi>argmax</mi><mi>θ</mi></munder><mspace width="0.4em"/><mi>J</mi><mo>(</mo><mi>θ</mi><mo>)</mo>
+                    </mrow>
+                </math>
+            </div>
+        </div>
+
+        <p class="note">上式中 <math display="inline" aria-label="gamma"><mi>γ</mi></math> 为折现因子（一般在 0.95～0.99），<math display="inline" aria-label="r 下标 t"><msub><mi>r</mi><mi>t</mi></msub></math> 为第 <math display="inline" aria-label="t"><mi>t</mi></math> 步的即时奖励。真正的难点不在于公式，而在于用一个静态的历史环境去训练一个要在不断变化的市场里执行的策略。</p>
 
         <h3>NLP舆情：从财报中挖掘Alpha</h3>
         <p>2024-2025年，大语言模型在金融NLP领域带来了质的飞跃。过去做财报情感分析，需要标注大量训练数据做微调，效果还经常不尽人意。现在，只需把财报文本丢给大模型，用精心设计的Prompt就能得到高质量的情感评分和关键信息提取。更前沿的做法是结合知识图谱（Knowledge Graph）——将实体关系（公司、产品、行业、供应链）与舆情信号联动，捕捉"海天味业被曝添加剂问题→调味品行业整体承压→竞品公司可能受益"这样的推理链条。</p>
@@ -242,6 +298,28 @@ print(f"胜率: {(result_df['return'] > 0).mean():.2%}")</code></pre>
 
         <p>整个过程，分析师只需要做两件事：下达初始指令，然后审查Agent的最终输出。中间的数据获取、计算、图表生成等重复性劳动全部由Agent自动完成。这极大地解放了研究员的精力——不再是"花80%时间做数据工程，20%时间做分析思考"，而是反过来。</p>
 
+        <figure>
+            <svg role="img" width="720" height="220" style="max-width:100%;height:auto" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" aria-labelledby="agent-title agent-desc">
+                <title id="agent-title">金融 Agent 的自动化分析工作流</title>
+                <desc id="agent-desc">从左到右五个阶段：用户自然语言指令、Agent 任务规划、调用 MCP 工具获取数据、分析计算、生成结构化报告；虚线回路表示最终需由人审阅并签字确认。</desc>
+                <defs><marker id="ag-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8b5cf6"/></marker></defs>
+                <g text-anchor="middle">
+                    <rect x="14" y="70" width="120" height="60" rx="10" fill="#ede9fe" stroke="#8b5cf6"/><text x="74" y="98" font-size="12" font-weight="700" fill="#4c1d95">自然语言指令</text><text x="74" y="116" font-size="11" fill="#6d28d9">人下达目标</text>
+                    <rect x="154" y="70" width="120" height="60" rx="10" fill="#dbeafe" stroke="#3b82f6"/><text x="214" y="98" font-size="12" font-weight="700" fill="#1e40af">Agent 规划</text><text x="214" y="116" font-size="11" fill="#1d4ed8">拆解子任务</text>
+                    <rect x="294" y="70" width="120" height="60" rx="10" fill="#dcfce7" stroke="#16a34a"/><text x="354" y="98" font-size="12" font-weight="700" fill="#14532d">调用 MCP 工具</text><text x="354" y="116" font-size="11" fill="#166534">取行情/财报</text>
+                    <rect x="434" y="70" width="120" height="60" rx="10" fill="#fef9c3" stroke="#facc15"/><text x="494" y="98" font-size="12" font-weight="700" fill="#713f12">分析计算</text><text x="494" y="116" font-size="11" fill="#854d0e">因子/比率/图表</text>
+                    <rect x="574" y="70" width="132" height="60" rx="10" fill="#f3e8ff" stroke="#a855f7"/><text x="640" y="98" font-size="12" font-weight="700" fill="#6b21a8">生成报告</text><text x="640" y="116" font-size="11" fill="#7e22ce">人审阅签字</text>
+                </g>
+                <line x1="134" y1="100" x2="154" y2="100" stroke="#8b5cf6" marker-end="url(#ag-arrow)"/>
+                <line x1="274" y1="100" x2="294" y2="100" stroke="#8b5cf6" marker-end="url(#ag-arrow)"/>
+                <line x1="414" y1="100" x2="434" y2="100" stroke="#8b5cf6" marker-end="url(#ag-arrow)"/>
+                <line x1="554" y1="100" x2="574" y2="100" stroke="#8b5cf6" marker-end="url(#ag-arrow)"/>
+                <path d="M640 130 L640 165 L74 165 L74 130" fill="none" stroke="#ef4444" stroke-dasharray="5 4" marker-end="url(#ag-arrow)"/>
+                <text x="357" y="185" text-anchor="middle" font-size="11" fill="#b91c1c">人工审查与反馈：任何结论入稿或下单前，责任始终在人</text>
+            </svg>
+            <figcaption><span class="fig-num">图 26-2</span> 金融 Agent 工作流：人只负责下指令与审结论，中间的数据获取、工具调用、计算与出图交给 Agent。虚线回路强调一个前提——无论链路多自动，最终合规与下单责任仍然落在人与机构身上。</figcaption>
+        </figure>
+
         <div class="highlight">
             <strong>核心洞见：</strong>MCP和Agent不会取代金融分析师，但会重新定义分析师的核心技能——从"会写代码、会做数据"变为"会问问题、会审结论"。最优秀的分析师将是那些最擅长与AI协作的人，而非那些能手工算出最复杂指标的人。
         </div>
@@ -258,6 +336,31 @@ print(f"胜率: {(result_df['return'] > 0).mean():.2%}")</code></pre>
         <h3>AI量化的四大风险</h3>
 
         <p><strong>过拟合风险</strong>——这是AI量化最大的敌人。大模型有极强的模式匹配能力，如果研究员不够谨慎，模型会"记住"训练数据中的噪声而不是真正的信号。特征数量与样本数量的比例、交叉验证的严谨程度、样本外测试的独立性，都是需要严格把控的要点。</p>
+
+        <figure>
+            <svg role="img" width="720" height="280" style="max-width:100%;height:auto" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ovf-title ovf-desc">
+                <title id="ovf-title">过拟合下的样本内外表现断层与因子衰减</title>
+                <desc id="ovf-desc">左图对比两根柱：样本内年化很高，样本外骤降；右图为一条随月份下降的指数曲线，表示因子信息系数的大致半衰期。</desc>
+                <text x="180" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">样本内 vs 样本外</text>
+                <line x1="60" y1="220" x2="300" y2="220" stroke="#94a3b8"/>
+                <rect x="100" y="50" width="60" height="170" fill="#94a3b8"/>
+                <text x="130" y="44" text-anchor="middle" font-size="12" fill="#334155">35%</text>
+                <rect x="200" y="190" width="60" height="30" fill="#ef4444"/>
+                <text x="230" y="184" text-anchor="middle" font-size="12" fill="#b91c1c">6%</text>
+                <text x="130" y="240" text-anchor="middle" font-size="11" fill="#475569">样本内年化</text>
+                <text x="230" y="240" text-anchor="middle" font-size="11" fill="#475569">样本外年化</text>
+                <text x="180" y="266" text-anchor="middle" font-size="11" fill="#94a3b8">为教学示意，非真实基金业绩</text>
+                <line x1="380" y1="220" x2="700" y2="220" stroke="#94a3b8"/>
+                <line x1="380" y1="40" x2="380" y2="220" stroke="#94a3b8"/>
+                <path d="M380 60 C 460 60, 500 110, 540 140 S 640 200, 700 212" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+                <line x1="540" y1="140" x2="540" y2="220" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+                <text x="540" y="234" text-anchor="middle" font-size="11" fill="#6d28d9">≈ 6 个月（半衰期）</text>
+                <text x="540" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">因子信息系数随时间的衰减</text>
+                <text x="700" y="30" text-anchor="end" font-size="11" fill="#64748b">IC</text>
+                <text x="700" y="234" text-anchor="end" font-size="11" fill="#475569">时间</text>
+            </svg>
+            <figcaption><span class="fig-num">图 26-3</span> 过拟合的典型信号：样本内年化收益（左柱）远高于样本外（右柱），中间的断层越大，说明模型学到越多噪声。右侧的衰减曲线提醒：即使一个因子真的有效，其预测能力也会随市场风格漂移而下降，因此需要持续监控与重新校准。</figcaption>
+        </figure>
 
         <p><strong>黑盒问题</strong>——很多深度学习模型的决策逻辑难以解释。这在金融领域尤其危险——如果模型在某一天给出了一个极端的仓位调整指令，而研究员完全无法理解其原因，这个指令你敢执行吗？可解释性AI（XAI）在量化领域的重要性正在被越来越多的人认识到。</p>
 
@@ -279,15 +382,55 @@ print(f"胜率: {(result_df['return'] > 0).mean():.2%}")</code></pre>
             <li><strong>理解模型的能力边界</strong>——大模型擅长的是模式识别和文本理解，而不是因果推断。在需要理解"为什么"的场景下（如宏观拐点判断、政策影响评估），人类的判断力仍然是不可替代的。</li>
         </ul>
 
+        <div class="widget">
+            <div class="controls" id="aiq-controls" role="group" aria-label="选择你的 AI 量化任务">
+                <button type="button" data-case="factor" aria-pressed="true">因子挖掘</button>
+                <button type="button" data-case="code" aria-pressed="false">生成策略代码</button>
+                <button type="button" data-case="news" aria-pressed="false">舆情分析</button>
+                <button type="button" data-case="risk" aria-pressed="false">上线风险监控</button>
+            </div>
+            <output id="aiq-out" aria-live="polite">因子挖掘：用 XGBoost / LightGBM 做基线，重点放在严格样本外测试与因子正交化，而不是堆叠更复杂的模型。</output>
+        </div>
+
         <p>AI与量化投资的融合还处于早期阶段，未来十年将会有更多激动人心的突破。但在追逐技术前沿的同时，永远不要忘记金融分析最核心的价值——不是更快的计算，而是更深的洞察。在下一章中，我们将把本书学到的所有知识串联起来，完成一个从数据获取到策略部署的综合实战项目。</p>
 
-        <div class="footer-nav">
-            <a href="25.html">← 上一章</a>
+        <section class="references" aria-labelledby="refs-h6">
+            <h2 id="refs-h6">参考资料与数据说明</h2>
+            <p class="note">本页提到的行业调查比例（如“超过 65% 的量化对冲基金使用大语言模型”）、AI 基金业绩分化（如跑赢基准 30%、某基金回撤 15%）、模型“半衰期 6～12 个月”与监管处罚等数据，均引自公开行业报道与调研的概数，精确数字请以原始报告为准；图 26-1 的星级与图 26-3 的数值为教学示意，非真实基金业绩。</p>
+            <ol>
+                <li>Model Context Protocol（MCP）规范与官方文档——LLM 与外部工具/数据源的标准接口。</li>
+                <li>OpenBB、VeighNa（vn.py）等公开量化平台的官方文档与 MCP Server 说明。</li>
+                <li>Schulman 等，<em>Proximal Policy Optimization Algorithms</em>（PPO）——强化学习策略优化的代表性方法。</li>
+                <li>中国证监会《证券期货业人工智能应用管理办法（征求意见稿）》相关公开报道。</li>
+            </ol>
+        </section>
+
+        <nav class="footer-nav" aria-label="章节导航">
+            <a href="25.html">← 第 25 章 可视化与仪表盘</a>
             <a href="index.html">📖 返回目录</a>
-            <a href="27.html">下一章 →</a>
-        </div>
-    </div>
+            <a href="27.html">第 27 章 综合实战项目 →</a>
+        </nav>
+    </article>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        factor: '因子挖掘：用 XGBoost / LightGBM 做基线，重点放在严格样本外测试与因子正交化，而不是堆叠更复杂的模型。',
+        code:   '生成策略代码：用 DeepSeek/Claude 生成骨架，但必须逐行审查未来函数与交易成本假设，并用独立回测框架复现结果。',
+        news:   '舆情分析：把公告/新闻丢给 LLM 做情感与实体抽取，结合知识图谱捕捉供应链传导，注意留存原始文本以便回溯。',
+        risk:   '上线风险监控：持续盯因子 IC/IR 是否衰减、预测分布是否漂移、实盘与回测的偏差是否扩大，设阈值告警。'
+    };
+    var out = document.getElementById('aiq-out');
+    var btns = document.querySelectorAll('#aiq-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-case')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
