@@ -122,6 +122,39 @@
             </tr>
         </table>
 
+        <figure>
+            <svg role="img" width="760" height="210" style="max-width:100%;height:auto" aria-labelledby="schools-title schools-desc" viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg">
+                <title id="schools-title">三大流派的时间尺度分工</title>
+                <desc id="schools-desc">横轴为决策与持仓的时间尺度，从毫秒到年。量化分析覆盖毫秒到数月，技术分析覆盖分钟到数月，基本面分析覆盖数月到数年，三者在“数月”区间重叠。</desc>
+                <g font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+                    <line x1="40" y1="180" x2="720" y2="180" stroke="#c4b5fd" stroke-width="2"/>
+                    <text x="60" y="200" fill="#6d28d9">毫秒</text>
+                    <text x="180" y="200" fill="#6d28d9">分钟</text>
+                    <text x="330" y="200" fill="#6d28d9">日</text>
+                    <text x="480" y="200" fill="#6d28d9">月</text>
+                    <text x="690" y="200" fill="#6d28d9">年</text>
+                    <rect x="45" y="44" width="470" height="30" rx="15" fill="#7c3aed"/>
+                    <text x="280" y="63" fill="#fff">量化分析：毫秒 → 数月</text>
+                    <rect x="200" y="94" width="340" height="30" rx="15" fill="#8b5cf6"/>
+                    <text x="370" y="113" fill="#fff">技术分析：分钟 → 数月</text>
+                    <rect x="440" y="144" width="270" height="30" rx="15" fill="#c4b5fd"/>
+                    <text x="575" y="163" fill="#312e81">基本面分析：数月 → 数年</text>
+                </g>
+            </svg>
+            <figcaption><span class="fig-num">图 1</span>三大流派的时间尺度分工。三者的差别首先不在“谁更对”，而在决策所面对的时间尺度：尺度越短越依赖统计与执行，越长越依赖对企业与经济基本面的判断。区间为教学归纳而非精确边界，且在“数月”附近明显重叠，实战中常组合使用。</figcaption>
+        </figure>
+
+        <div class="widget">
+            <div class="controls" id="goal-controls" role="group" aria-label="按分析目标选择方法">
+                <button type="button" data-goal="equity" aria-pressed="true">股权投资评估</button>
+                <button type="button" data-goal="credit" aria-pressed="false">信贷 / 偿债风险</button>
+                <button type="button" data-goal="ma" aria-pressed="false">并购尽职调查</button>
+                <button type="button" data-goal="short" aria-pressed="false">短线交易</button>
+                <button type="button" data-goal="quant" aria-pressed="false">高频统计套利</button>
+            </div>
+            <output id="goal-out" aria-live="polite">股权投资评估 → 以基本面分析为主：读三大报表、算财务比率、做 DCF 估值，判断价格与内在价值的偏离；典型持有周期数月到数年。</output>
+        </div>
+
         <h3>基本面分析</h3>
         <p>基本面分析的核心理念是：<strong>市场价格短期内可能偏离内在价值，但长期来看一定会回归</strong>。分析师通过研究公司的财务报表（资产负债表、利润表、现金流量表）、行业竞争格局、管理层能力、宏观经济环境等因素，估算证券的"内在价值"（intrinsic value），并与市场价格比较，做出买卖决策。本教材的前半部分（第3章到第11章）将系统讲解基本面分析的方法论。</p>
 
@@ -169,7 +202,7 @@
                 <path d="M685 96 V176 H75 V102" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 5"/>
                 <polygon points="75,96 69,108 81,108" fill="#8b5cf6"/>
             </svg>
-            <figcaption><span class="fig-num">图 1</span>CFA 六步分析框架。前五步是一次完整的分析流程，第六步“动态更新”会在季报、管理层变更或政策变化后把流程送回前序步骤，所以它不是单向流水线而是一个回路。框架表述见参考资料。</figcaption>
+            <figcaption><span class="fig-num">图 2</span>CFA 六步分析框架。前五步是一次完整的分析流程，第六步“动态更新”会在季报、管理层变更或政策变化后把流程送回前序步骤，所以它不是单向流水线而是一个回路。框架表述见参考资料。</figcaption>
         </figure>
 
         <p>这个框架看起来简单，但执行起来非常考验功力。很多分析报告的常见问题是"只有描述没有解释"——花了大量篇幅描述利润表各项目的变动幅度，却没有深挖变动背后的业务原因。更常见的问题是在"收集数据"环节就直接跳过"明确目标"——连要分析什么都没想清楚，就把财报下载下来开始算比率，算出什么算什么。</p>
@@ -280,5 +313,24 @@ print(df.tail(5))</code></pre>
     </main>
 </div>
 </div>
+<script>
+(function () {
+    var cases = {
+        equity: '股权投资评估 → 以基本面分析为主：读三大报表、算财务比率、做 DCF 估值，判断价格与内在价值的偏离；典型持有周期数月到数年。',
+        credit: '信贷 / 偿债风险 → 基本面分析聚焦现金流与偿债能力：重点看现金流量表、利息保障倍数与负债结构，回答“还得起吗”；周期数月到数年。',
+        ma: '并购尽职调查 → 基本面分析与估值并重：DCF 与相对估值交叉验证价格区间，同时核查报表质量与表外负债；周期数周到数月。',
+        short: '短线交易 → 以技术分析为主：K 线、量价、指标与形态判断进出场，持有周期数分钟到数周。',
+        quant: '高频统计套利 → 以量化分析为主：因子模型、统计套利与机器学习信号，持仓周期毫秒到数日，重在小样本外验证。'
+    };
+    var out = document.getElementById('goal-out');
+    var btns = document.querySelectorAll('#goal-controls button');
+    Array.prototype.forEach.call(btns, function (b) {
+        b.addEventListener('click', function () {
+            Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            out.textContent = cases[b.getAttribute('data-goal')];
+        });
+    });
+})();
+</script>
 </body>
 </html>
